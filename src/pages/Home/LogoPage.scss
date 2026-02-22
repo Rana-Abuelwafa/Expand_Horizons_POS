@@ -1,0 +1,13 @@
+.logo-page {
+  height: 100vh; // full screen height
+  display: flex;
+  justify-content: center; // horizontal center
+  align-items: center; // vertical center
+  background-color: #f5f5f5; // optional background
+}
+
+.logo {
+  width: 300px; // adjust size
+  height: auto;
+  cursor: pointer;
+}

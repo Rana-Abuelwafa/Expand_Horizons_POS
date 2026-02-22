@@ -3,13 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.13.5",
+    "bootstrap": "^5.3.8",
+    "i18next": "^25.8.13",
     "react": "^19.2.4",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.4",
+    "react-i18next": "^16.5.4",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.13.0",
     "react-scripts": "5.0.1",
+    "sass": "^1.97.3",
+    "sweetalert2": "^11.26.20",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
