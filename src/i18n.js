@@ -14,8 +14,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: (Locallang == "ar" ? "de" : Locallang) || "de",
-    lng: (Locallang == "ar" ? "de" : Locallang) || "de",
+    fallbackLng: (Locallang == "ar" ? "en" : Locallang) || "en",
+    lng: (Locallang == "ar" ? "en" : Locallang) || "en",
     interpolation: {
       escapeValue: false,
     },
