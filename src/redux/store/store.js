@@ -15,7 +15,7 @@ import confirmBookingReducer from "../Slices/confirmSlice";
 import priceCalculationReducer from "../Slices/priceCalculationSlice";
 import bookingListReducer from "../Slices/bookingListSlice";
 import bookingCancelReducer from "../Slices/bookingCancelSlice";
-// import { authMiddleware } from "../../middleware/authMiddleware";
+import { authMiddleware } from "../../middleware/authMiddleware";
 import profileReducer from "../Slices/profileSlice";
 import contactReducer from "../Slices/contactSlice";
 import NewsletterReducer from "../Slices/newsletterSlice";
@@ -41,10 +41,6 @@ export const store = configureStore({
     contact: contactReducer,
     newsletter: NewsletterReducer,
   },
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware().concat(authMiddleware),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+    getDefaultMiddleware().concat(authMiddleware),
 });

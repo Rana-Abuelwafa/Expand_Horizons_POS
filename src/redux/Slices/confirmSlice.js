@@ -1,4 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
@@ -35,7 +42,7 @@ export const confirmBooking = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/ConfirmBooking`,
-        confirmData,
+        confirmData
         //getAuthHeaders()
       );
 
@@ -46,7 +53,7 @@ export const confirmBooking = createAsyncThunk(
       // }
       return rejectWithValue(error.response?.data || error.message);
     }
-  },
+  }
 );
 
 const confirmSlice = createSlice({

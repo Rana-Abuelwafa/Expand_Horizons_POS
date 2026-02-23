@@ -64,7 +64,7 @@ export const fetchToursSectionTrips = createAsyncThunk(
         `${BASE_URL}/GetTripsAll`,
         {
           ...params,
-          show_in_slider: false,
+          show_in_slider: true,
           destination_id: 0, // Always 0 for tours section
           // client_id is passed from params for personalized results
         },

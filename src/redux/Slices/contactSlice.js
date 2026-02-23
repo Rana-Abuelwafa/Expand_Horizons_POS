@@ -1,4 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const CONTACT_URL = process.env.REACT_APP_CONTACT_API_URL;
 
@@ -45,7 +52,7 @@ export const submitContactForm = createAsyncThunk(
     try {
       const response = await api.post(
         `${CONTACT_URL}/SendContactMail`,
-        contactData,
+        contactData
         //getAuthHeaders() // Using authenticated headers
       );
 
@@ -56,7 +63,7 @@ export const submitContactForm = createAsyncThunk(
       // }
       return rejectWithValue(error.response?.data || error.message);
     }
-  },
+  }
 );
 
 const contactSlice = createSlice({

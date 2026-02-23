@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
 
@@ -47,13 +53,13 @@ export const calculateBookingPrice = createAsyncThunk(
       const response = await axios.post(
         `${BASE_URL}/CalculateBookingPrice`,
         calculationData,
-        getNonAuthHeaders(),
+        getNonAuthHeaders()
       );
 
       // Handle API response with success: false
       if (response.data.success === false) {
         return rejectWithValue(
-          response.data.errors || "Failed to calculate price",
+          response.data.errors || "Failed to calculate price"
         );
       }
 
@@ -70,7 +76,7 @@ export const calculateBookingPrice = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 const priceCalculationSlice = createSlice({

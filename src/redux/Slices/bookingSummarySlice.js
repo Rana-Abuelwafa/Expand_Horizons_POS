@@ -1,5 +1,12 @@
 // src/redux/Slices/bookingSummarySlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
@@ -36,7 +43,7 @@ export const getBookingSummary = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/GetBookingSummary`,
-        bookingData,
+        bookingData
         //getAuthHeaders()
       );
 
@@ -48,7 +55,7 @@ export const getBookingSummary = createAsyncThunk(
 
       return rejectWithValue(error.response?.data || error.message);
     }
-  },
+  }
 );
 
 const bookingSummarySlice = createSlice({

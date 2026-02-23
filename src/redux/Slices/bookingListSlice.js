@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
@@ -51,7 +57,7 @@ export const fetchBookingCount = createAsyncThunk(
       // Assuming the API returns a simple number like in your example
       return response.data;
     } catch (error) {
-      //console.error("Error fetching booking count:", error);
+      console.error("Error fetching booking count:", error);
       // Return 0 on error but don't show error to user for count
       return 0;
     }

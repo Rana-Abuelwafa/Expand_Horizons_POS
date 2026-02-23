@@ -16,16 +16,40 @@ const getNonAuthHeaders = () => {
 
 export const fetchDestinations = createAsyncThunk(
   "destinations/fetchDestinations",
-  async (lang_code, { rejectWithValue }) => {
+  async (params, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         BASE_URL + "/getDestinations",
         {
-          lang_code: lang_code,
+          lang_code: params.lang_code,
           currency_code: "EUR",
           country_code: "",
-          leaf: true,
+          leaf: params.leaf,
           trip_type: 0,
+          parent_id: params.parent_id
+        },
+        getNonAuthHeaders()
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const fetchDestChildren = createAsyncThunk(
+  "destinations/fetchDestChildren",
+  async (params, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        BASE_URL + "/getDestinations",
+        {
+          lang_code: params.lang_code,
+          currency_code: "EUR",
+          country_code: "",
+          leaf: params.leaf,
+          trip_type: 0,
+          parent_id: params.parent_id
         },
         getNonAuthHeaders()
       );
@@ -67,6 +91,7 @@ const destinationsSlice = createSlice({
   name: "destinations",
   initialState: {
     items: [],
+    childrenItems:[],
     treeItems: {
       1: [], // Excursions
       2: [], // Transfers
@@ -97,6 +122,18 @@ const destinationsSlice = createSlice({
         state.items = action.payload;
       })
       .addCase(fetchDestinations.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchDestChildren.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchDestChildren.fulfilled, (state, action) => {
+        state.loading = false;
+        state.childrenItems = action.payload;
+      })
+      .addCase(fetchDestChildren.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

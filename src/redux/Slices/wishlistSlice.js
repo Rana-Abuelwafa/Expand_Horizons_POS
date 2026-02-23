@@ -1,6 +1,12 @@
 // src/redux/Slices/wishlistSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
@@ -47,17 +53,17 @@ export const fetchWishlistCount = createAsyncThunk(
       const response = await axios.post(
         `${BASE_URL}/GetWishListCount?clientId=` + clientId,
         {},
-        getNoTokenAuthHeaders(),
+        getNoTokenAuthHeaders()
       );
 
       // Assuming the API returns a simple number like in your example
       return response.data;
     } catch (error) {
-      //console.error("Error fetching wishlist count:", error);
+      console.error("Error fetching wishlist count:", error);
       // Return 0 on error but don't show error to user for count
       return 0;
     }
-  },
+  }
 );
 
 // Async thunk for fetching wishlist items
@@ -80,13 +86,13 @@ export const fetchWishlist = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/GetClientWishList`,
-        params,
+        params
         //getAuthHeaders()
       );
 
       if (response.data.success === false) {
         return rejectWithValue(
-          response.data.errors || "Failed to fetch wishlist",
+          response.data.errors || "Failed to fetch wishlist"
         );
       }
 
@@ -99,7 +105,7 @@ export const fetchWishlist = createAsyncThunk(
 
       return rejectWithValue(err.response?.data);
     }
-  },
+  }
 );
 
 // Async thunk for adding item to wishlist
@@ -122,11 +128,9 @@ export const addToWishlist = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/AddTripToWishList`,
-        wishlistData,
+        wishlistData
         //getAuthHeaders()
       );
-
-      //console.log("Add to wishlist response:", response.data);
 
       // Refresh wishlist count after adding
       const clientId = getClientId();
@@ -157,7 +161,7 @@ export const addToWishlist = createAsyncThunk(
 
       return rejectWithValue(err.response?.data);
     }
-  },
+  }
 );
 
 const wishlistSlice = createSlice({
@@ -225,7 +229,7 @@ const wishlistSlice = createSlice({
       })
       // Add to wishlist
       .addCase(addToWishlist.pending, (state) => {
-        //console.log("pending ");
+       
         state.operation.loading = true;
         state.operation.error = null;
         state.operation.success = false;
@@ -241,13 +245,13 @@ const wishlistSlice = createSlice({
           state.operation.success = true;
         } else {
           // Handle successful response but operation failed
-          //console.log(action.payload.error);
+       
           state.operation.error = action.payload.error;
           state.operation.success = false;
         }
       })
       .addCase(addToWishlist.rejected, (state, action) => {
-        //console.log("addToWishlist ", action.payload);
+        
         state.operation.loading = false;
         state.operation.error = action.payload;
         state.operation.success = false;

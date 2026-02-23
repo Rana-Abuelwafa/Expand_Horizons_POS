@@ -1,4 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const CONTACT_URL = process.env.REACT_APP_CONTACT_API_URL;
 
@@ -61,7 +68,7 @@ export const subscribeNewsletter = createAsyncThunk(
 
       const response = await api.post(
         `${CONTACT_URL}/SubscribeNewSletter`,
-        payload,
+        payload
         // getAuthHeaders() // Using authenticated headers
       );
 
@@ -72,7 +79,7 @@ export const subscribeNewsletter = createAsyncThunk(
       // }
       return rejectWithValue(error.response?.data || error.message);
     }
-  },
+  }
 );
 
 const newsletterSlice = createSlice({

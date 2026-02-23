@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+// import {
+//   checkAUTH,
+//   isUserNotLoggedIn,
+//   isTokenExpiredOnly,
+// } from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 
@@ -53,7 +59,7 @@ export const changePassword = createAsyncThunk(
   "auth/changePassword",
   async (
     { userId, oldPassword, newPassword, confirmNewPassword },
-    { rejectWithValue },
+    { rejectWithValue }
   ) => {
     try {
       const response = await api.post(
@@ -63,7 +69,7 @@ export const changePassword = createAsyncThunk(
           oldPassword,
           newPassword,
           confirmNewPassword,
-        },
+        }
         //getAuthHeaders()
       );
       return response.data;
@@ -75,7 +81,7 @@ export const changePassword = createAsyncThunk(
       // fallback
       return rejectWithValue(err.message);
     }
-  },
+  }
 );
 // Async thunk for changing password
 // export const changePassword = createAsyncThunk(
@@ -126,7 +132,7 @@ export const ConfirmOTP = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(getErrorMessage(error));
     }
-  },
+  }
 );
 
 ///normal register && gmail Register (different on API path & payload)
@@ -137,13 +143,13 @@ export const RegisterUser = createAsyncThunk(
       const response = await axios.post(
         BASE_URL_AUTH + data.path,
         data.payload,
-        { headers: NonAuthHeaders() },
+        { headers: NonAuthHeaders() }
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(getErrorMessage(error));
     }
-  },
+  }
 );
 
 //normal login & gmail Login (different on API path & payload)
@@ -154,13 +160,13 @@ export const LoginUser = createAsyncThunk(
       const response = await axios.post(
         BASE_URL_AUTH + data.path,
         data.payload,
-        { headers: NonAuthHeaders() },
+        { headers: NonAuthHeaders() }
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(getErrorMessage(error));
     }
-  },
+  }
 );
 
 const authSlice = createSlice({
@@ -279,7 +285,6 @@ const authSlice = createSlice({
       })
       // Password change successful
       .addCase(changePassword.fulfilled, (state, action) => {
-        //console.log("fulfilled ", action.payload);
         state.loading = false;
         state.success = action.payload?.isSuccessed;
         state.message = action.payload?.message;
@@ -292,7 +297,7 @@ const authSlice = createSlice({
       })
       // Password change failed
       .addCase(changePassword.rejected, (state, action) => {
-        //console.log("rejectttt");
+
         state.loading = false;
         state.success = false;
         state.error = action?.payload;

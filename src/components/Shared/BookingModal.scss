@@ -1,0 +1,46 @@
+.booking-modal {
+    .modal-content {
+        max-width: 400px;
+        height: auto;
+        border-radius: 12px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .booking-icon {
+        font-size: 120px;
+        margin-bottom: 15px;
+        color: black; // You can change to match your theme
+    }
+
+    .booking-message {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #000;
+    }
+
+    .booking-subtext {
+        font-size: 14px;
+        color: #333;
+        margin: 0;
+    }
+
+    .modal-footer {
+        border-top: none;
+        padding-top: 0;
+    }
+
+    button.okBtn {
+        background-color: $secondary-color !important;
+        border: 1px solid $secondary-color !important;
+        border-radius: 8px;
+        padding: 6px 20px;
+
+        &:hover,
+        &:active {
+            background-color: $secondary-color !important;
+            border: 1px solid $secondary-color !important;
+        }
+    }
+}

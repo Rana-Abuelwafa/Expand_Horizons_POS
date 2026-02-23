@@ -1,4 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
@@ -34,14 +41,14 @@ export const cancelBooking = createAsyncThunk(
 
     try {
       const response = await api.post(
-        `${BOOKING_URL}/CancelBooking?booking_id=${bookingId}`,
+        `${BOOKING_URL}/CancelBooking?booking_id=${bookingId}`
         // {},
         // getAuthHeaders()
       );
 
       if (response.data.success === false) {
         return rejectWithValue(
-          response.data.errors || "Failed to cancel booking",
+          response.data.errors || "Failed to cancel booking"
         );
       }
 
@@ -52,7 +59,7 @@ export const cancelBooking = createAsyncThunk(
       // }
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 const bookingCancelSlice = createSlice({

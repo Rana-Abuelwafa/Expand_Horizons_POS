@@ -1,6 +1,12 @@
 // src/redux/Slices/extrasSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+// import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
@@ -37,7 +43,7 @@ export const getTripExtras = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/GetTrip_Extra_Mains`,
-        tripData,
+        tripData
         //getAuthHeaders()
       );
 
@@ -48,7 +54,7 @@ export const getTripExtras = createAsyncThunk(
       //   }
       return rejectWithValue(error.response?.data || error.message);
     }
-  },
+  }
 );
 
 // Async thunk to assign extras to booking
@@ -70,7 +76,7 @@ export const assignExtraToBooking = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/AssignExtraToBooking`,
-        extraData,
+        extraData
         //getAuthHeaders()
       );
 
@@ -81,7 +87,7 @@ export const assignExtraToBooking = createAsyncThunk(
       //   }
       return rejectWithValue(error.response?.data || error.message);
     }
-  },
+  }
 );
 
 const extrasSlice = createSlice({

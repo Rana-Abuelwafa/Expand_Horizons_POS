@@ -1,6 +1,12 @@
 // src/redux/Slices/reviewSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
@@ -36,12 +42,12 @@ export const fetchClientsReviews = createAsyncThunk(
       const response = await axios.post(
         `${BASE_URL}/GetClientsReviews`,
         params,
-        getNonAuthHeaders(),
+        getNonAuthHeaders()
       );
 
       if (response.data.success === false) {
         return rejectWithValue(
-          response.data.errors || "Failed to fetch reviews",
+          response.data.errors || "Failed to fetch reviews"
         );
       }
 
@@ -49,7 +55,7 @@ export const fetchClientsReviews = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 // Async thunk for submitting a review
@@ -72,7 +78,7 @@ export const submitReview = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/SaveReviewForTrip`,
-        reviewData,
+        reviewData
         //getAuthHeaders()
       );
 
@@ -110,7 +116,7 @@ export const submitReview = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 const reviewSlice = createSlice({

@@ -1,5 +1,12 @@
 // src/redux/Slices/bookingSlice.js (updated)
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
@@ -47,14 +54,14 @@ export const checkAvailability = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/SaveClientBooking`,
-        bookingData,
+        bookingData
         // getAuthHeaders()
       );
 
       // Handle API response with success: false
       if (response.data.success === false) {
         return rejectWithValue(
-          response.data.errors || "Failed to check availability",
+          response.data.errors || "Failed to check availability"
         );
       }
 
@@ -71,7 +78,7 @@ export const checkAvailability = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 const bookingSlice = createSlice({

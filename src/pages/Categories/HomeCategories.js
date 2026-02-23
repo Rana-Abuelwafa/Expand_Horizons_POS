@@ -17,7 +17,7 @@ const HomeCategories = () => {
             title: t("home.excursions"),
             image: "../images/excursions.jpg",
             icon: <IoBoatOutline />,
-            pg:"/Excursions"
+            pg:"/Destinations"
         },
         {
             title: t("home.transfers"),

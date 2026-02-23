@@ -18,6 +18,7 @@ const navigate = useNavigate();
    const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     localStorage.setItem("i18nextLng", lng); // persist language
+    localStorage.setItem("lang", lng.lang_code);
     navigate("/home"); // go to categories page
   };
 

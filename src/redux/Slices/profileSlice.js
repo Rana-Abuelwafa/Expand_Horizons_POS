@@ -1,4 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
+import {
+  checkAUTH,
+  isUserNotLoggedIn,
+  isTokenExpiredOnly,
+} from "../../helper/helperFN";
+import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
@@ -34,7 +41,7 @@ export const fetchProfile = createAsyncThunk(
     try {
       // Make API call to get client profiles
       const response = await api.post(
-        BOOKING_URL + "/GetClientProfiles",
+        BOOKING_URL + "/GetClientProfiles"
         // {},
         // getAuthHeaders()
       );
@@ -52,7 +59,7 @@ export const fetchProfile = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 // Async thunk to save profile data
@@ -74,7 +81,7 @@ export const saveProfile = createAsyncThunk(
       // Make API call to save profile
       const response = await api.post(
         BOOKING_URL + "/SaveMainProfile",
-        formData,
+        formData
         //getAuthHeaders()
       );
 
@@ -100,7 +107,7 @@ export const saveProfile = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 // Async thunk to fetch profile image
@@ -121,7 +128,7 @@ export const fetchProfileImage = createAsyncThunk(
     try {
       // Make API call to get profile image
       const response = await api.post(
-        BOOKING_URL + "/GetProfileImage",
+        BOOKING_URL + "/GetProfileImage"
         // {},
         // getAuthHeaders()
       );
@@ -139,7 +146,7 @@ export const fetchProfileImage = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 // Async thunk to upload profile image
@@ -166,7 +173,7 @@ export const uploadProfileImage = createAsyncThunk(
       const response = await api.post(
         BOOKING_URL + "/saveProfileImage",
         requestBody,
-        { isFormData: true },
+        { isFormData: true }
         // {
         //   headers: {
         //     Authorization: `Bearer ${accessToken}`,
@@ -193,7 +200,7 @@ export const uploadProfileImage = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 export const GetClient_Notification_Settings = createAsyncThunk(
@@ -215,14 +222,14 @@ export const GetClient_Notification_Settings = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/GetClient_Notification_Settings`,
-        formData,
+        formData
         //getAuthHeaders()
       );
 
       // Handle API response with success: false
       if (response.data.success === false) {
         return rejectWithValue(
-          response.data.errors || "Failed to get notification setting",
+          response.data.errors || "Failed to get notification setting"
         );
       }
 
@@ -239,7 +246,7 @@ export const GetClient_Notification_Settings = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 
 export const SaveClientNotificationSetting = createAsyncThunk(
@@ -261,7 +268,7 @@ export const SaveClientNotificationSetting = createAsyncThunk(
     try {
       const response = await api.post(
         `${BOOKING_URL}/SaveClientNotificationSetting`,
-        formData,
+        formData
         //getAuthHeaders()
       );
 
@@ -283,7 +290,7 @@ export const SaveClientNotificationSetting = createAsyncThunk(
 
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
-  },
+  }
 );
 // Create profile slice with reducers and extra reducers for async actions
 const profileSlice = createSlice({

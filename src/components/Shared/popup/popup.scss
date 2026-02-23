@@ -1,0 +1,117 @@
+// $primary-color: #542d72;
+// $secondary-color: lighten($primary-color, 20%);
+@import "../../../styles/variables";
+.popupBack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  .popup {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    border-top: 4px solid $primary-color;
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .close {
+      background-color: $primary-color;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+.confirm-popup {
+  .modal-header {
+    background-color: $primary-color;
+    color: white;
+
+    .close {
+      color: white;
+    }
+  }
+
+  .modal-footer {
+    justify-content: center;
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-primary{
+       background-color: $secondary-color !important;
+      border-color: $secondary-color !important;
+    }
+
+    .btn-secondary {
+      margin-right: 1rem;
+    }
+  }
+}
+
+.popup-modal {
+  .modal-header {
+    color: white;
+
+    &.bg-success {
+      background-color: #28a745 !important;
+    }
+
+    &.bg-danger {
+      background-color: #dc3545 !important;
+    }
+
+    &.bg-primary {
+      background-color: $secondary-color !important;
+    }
+
+    .close {
+      color: white;
+      text-shadow: none;
+      opacity: 0.8;
+    }
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .modal-footer {
+    border-top: none;
+    padding-top: 0;
+    justify-content: center;
+    
+    .btn-primary{
+       background-color: $secondary-color !important;
+      border-color: $secondary-color !important;
+    }
+  }
+}

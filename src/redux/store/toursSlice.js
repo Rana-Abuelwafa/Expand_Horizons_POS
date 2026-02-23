@@ -109,7 +109,7 @@ const toursSlice = createSlice({
       state.loading = action.payload
     },
     bookTour: (state, action) => {
-      //console.log(`Booking tour with ID: ${action.payload}`)
+      console.log(`Booking tour with ID: ${action.payload}`)
     },
     toggleWishlist: (state, action) => {
       const tour = state.tours.find((tour) => tour.id === action.payload)
