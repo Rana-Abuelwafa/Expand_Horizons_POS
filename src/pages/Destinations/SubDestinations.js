@@ -30,17 +30,17 @@ const SubDestinations = () => {
 
         <Row className="g-4 justify-content-center">
           {childDestination.map((dest, index) => (
-            <Col xs={12} key={index}>
+            <Col
+              xs={12}
+              key={index}
+              onClick={() =>
+                handleLocationClick(dest.route, dest.destination_id)
+              }
+            >
               <Card className="dest-card">
                 <Row className="g-0 h-100">
                   {/* Icon + Text Column */}
-                  <Col
-                    xs={6}
-                    className="content-col"
-                    onClick={() =>
-                      handleLocationClick(dest.route, dest.destination_id)
-                    }
-                  >
+                  <Col xs={6} className="content-col">
                     <div className="content-wrapper">
                       {/* <div className="icon">{cat.icon}</div> */}
                       <div className="title">{dest.dest_name}</div>
