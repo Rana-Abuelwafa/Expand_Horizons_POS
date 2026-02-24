@@ -25,9 +25,8 @@ const SubDestinations = () => {
   };
   return (
     <div className="dest-wrapper">
+      <Header />
       <div className="dest-container">
-        <Header />
-
         <Row className="g-4 justify-content-center">
           {childDestination.map((dest, index) => (
             <Col
