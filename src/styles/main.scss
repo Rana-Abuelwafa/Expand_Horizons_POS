@@ -1,0 +1,198 @@
+// Import all component styles
+@import "./variables";
+@import "./mixins";
+
+@import "../components/ToursSection/ToursSection";
+@import "../components/TourCard/TourCard";
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: $gray-light; /* $primary-color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #000000, #5599cb, #000000);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5599cb, #000000, #5599cb);
+}
+// Global styles
+body {
+  font-family: "Myriad Pro", "Source Sans Pro", sans-serif !important;
+}
+.App {
+  font-family: "Myriad Pro", "Source Sans Pro", sans-serif;
+  overflow-x: hidden;
+}
+
+// Global responsive utilities
+.container-fluid {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @include media-breakpoint-up(sm) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @include media-breakpoint-down(xs) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Remove default margins and paddings
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Adjust hero section for fixed header
+.hero-section {
+  margin-top: 100px !important;
+}
+
+.nav-item,
+.icon-btn {
+  @include media-breakpoint-down(sm) {
+    min-height: 44px; // Apple recommended minimum touch target
+    min-width: 44px;
+  }
+}
+
+//shared style
+.primaryBtn {
+  background-color: $primary-color !important;
+  border-color: $primary-color !important;
+  color: white !important;
+}
+.secondryBtn {
+  background-color: $secondary-color !important;
+  border-color: $secondary-color !important;
+  color: $primary-color !important;
+}
+.transBtn {
+  background-color: transparent !important;
+  border-color: $primary-color !important;
+  color: $primary-color !important;
+}
+.FullWidthBtn {
+  width: 100% !important;
+  height: 40px !important;
+  // border-radius: 5px !important;
+  // margin: 20px 0 !important;
+  border-width: 1px !important;
+  font-size: 14px !important;
+}
+input:-internal-autofill-selected {
+  background-color: white !important;
+}
+.end-btn {
+  display: flex;
+  justify-content: flex-end;
+  justify-items: flex-end;
+}
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  div {
+    margin: 20px 0;
+  }
+}
+
+// Map
+.geoapify-autocomplete-items {
+  position: relative !important;
+  z-index: 9999999999 !important;
+}
+
+.geoapify-close-button {
+  position: relative !important;
+  margin-left: 8px !important;
+}
+.geoapify-close-button.visible {
+  display: inline-block !important;
+}
+
+.geoapify-autocomplete-input {
+  padding: 25px 31px 25px 7px !important;
+  border: 1px solid #eee !important;
+  border-radius: 8px !important;
+}
+
+.profile-page {
+  .container-fluid {
+    @include media-breakpoint-down(sm) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
+
+// Enhanced button styles for profile
+.primaryBtn {
+  @include media-breakpoint-down(sm) {
+    min-height: 44px !important;
+    font-size: 16px !important;
+
+    // Prevent zoom on iOS
+    @media (max-width: 767px) {
+      font-size: 16px !important;
+    }
+  }
+}
+
+// Form control enhancements for mobile
+.form-control,
+.form-select {
+  @include media-breakpoint-down(sm) {
+    font-size: 16px !important; // Prevents zoom on iOS
+
+    // Ensure proper touch targets
+    min-height: 44px;
+    padding: 10px 12px !important;
+  }
+}
+
+// Row gutters for mobile
+.row {
+  @include media-breakpoint-down(sm) {
+    margin-left: -5px;
+    margin-right: -5px;
+
+    > [class*="col-"] {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+}
+
+// Card responsive padding
+.card {
+  @include media-breakpoint-down(xs) {
+    .card-body {
+      padding: 15px 10px !important;
+    }
+  }
+}

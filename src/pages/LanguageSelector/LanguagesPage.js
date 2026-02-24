@@ -3,29 +3,29 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LogoSection from "../../components/logoSection/LogoSection";
 import "./LanguagesPage.scss";
-
+import Header from "../../components/Header/Header";
 
 const LanguagesPage = () => {
-
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const { i18n } = useTranslation();
 
   const languages = [
     { name: "English", flag: "../images/gb.png", code: "en" },
-    { name: "Deutsch", flag: "../images/de.png" , code: "de" }
+    { name: "Deutsch", flag: "../images/de.png", code: "de" },
   ];
 
-   const changeLanguage = (lng) => {
+  const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    console.log("langggg ", lng);
     localStorage.setItem("i18nextLng", lng); // persist language
-    localStorage.setItem("lang", lng.lang_code);
+    localStorage.setItem("lang", lng);
     navigate("/home"); // go to categories page
   };
 
   return (
     <div className="language-wrapper">
       <div className="language-card">
-        <LogoSection />
+        <Header />
 
         <div className="language-list">
           {languages.map((lang, index) => (

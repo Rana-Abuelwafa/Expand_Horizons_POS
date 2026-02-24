@@ -1,0 +1,22 @@
+@import "../../styles/variables";
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  //   background-color: #fff;
+  //   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  margin-bottom: 30px;
+}
+
+/* Back Button */
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  svg {
+    color: $primary-color;
+  }
+}

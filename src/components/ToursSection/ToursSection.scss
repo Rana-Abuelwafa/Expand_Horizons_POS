@@ -1,0 +1,124 @@
+.tours-section {
+  padding: 80px 0;
+  background-color: $light-bg;
+  
+  @include media-breakpoint-down(lg) {
+    padding: 60px 0;
+  }
+  
+  @include media-breakpoint-down(md) {
+    padding: 40px 0;
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+    
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 50px;
+    }
+    
+    @include media-breakpoint-down(md) {
+      margin-bottom: 40px;
+    }
+    
+    .section-title {
+      color: $primary-color;
+      font-weight: 700;
+      margin-bottom: 16px;
+      
+      @include responsive-font-size(2rem, 3rem);
+    }
+    
+    .section-subtitle {
+      color: $primary-color;
+      max-width: 600px;
+      margin: 0 auto;
+      
+      @include responsive-font-size(1rem, 1.2rem);
+    }
+    
+    .section-divider {
+      width: 80px;
+      height: 3px;
+      background-color: $secondary-color;
+      margin: 24px auto;
+      border-radius: 2px;
+    }
+  }
+  
+  .tours-grid {
+    .row {
+      margin: 0 -15px;
+      
+      [class*="col-"] {
+        padding: 0 15px;
+        margin-bottom: 40px;
+        
+        @include media-breakpoint-down(md) {
+          margin-bottom: 30px;
+        }
+      }
+    }
+  }
+  
+  // Loading state
+  .tours-loading {
+    @include flex-center;
+    min-height: 400px;
+    
+    .spinner-border {
+      color: #10b981;
+    }
+    
+    .loading-text {
+      margin-top: 16px;
+      color: #6b7280;
+    }
+  }
+  
+  // Empty state
+  .tours-empty {
+    @include flex-center;
+    @include flex-column;
+    min-height: 400px;
+    text-align: center;
+    
+    .empty-icon {
+      font-size: 4rem;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+    
+    .empty-title {
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+    
+    .empty-text {
+      color: #6b7280;
+    }
+  }
+}
+
+// Card grid responsive behavior
+@include media-breakpoint-up(xl) {
+  .tours-section .tours-grid [class*="col-lg-4"] {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .tours-section .tours-grid [class*="col-lg-4"] {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .tours-section .tours-grid [class*="col-"] {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

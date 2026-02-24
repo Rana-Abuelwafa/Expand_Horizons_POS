@@ -1,0 +1,199 @@
+// Media queries
+@mixin media-breakpoint-up($name) {
+  @if $name == xs {
+    @media (min-width: 0) { @content; }
+  }
+  @else if $name == sm {
+    @media (min-width: 576px) { @content; }
+  }
+  @else if $name == md {
+    @media (min-width: 768px) { @content; }
+  }
+  @else if $name == lg {
+    @media (min-width: 992px) { @content; }
+  }
+  @else if $name == xl {
+    @media (min-width: 1200px) { @content; }
+  }
+  @else if $name == xxl {
+    @media (min-width: 1400px) { @content; }
+  }
+}
+
+@mixin media-breakpoint-down($name) {
+  @if $name == xs {
+    @media (max-width: 575.98px) { @content; }
+  }
+  @else if $name == sm {
+    @media (max-width: 767.98px) { @content; }
+  }
+  @else if $name == md {
+    @media (max-width: 991.98px) { @content; }
+  }
+  @else if $name == lg {
+    @media (max-width: 1199.98px) { @content; }
+  }
+  @else if $name == xl {
+    @media (max-width: 1399.98px) { @content; }
+  }
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Button mixins
+@mixin button-variant($bg-color, $hover-color) {
+  background-color: $bg-color;
+  border-color: $bg-color;
+  
+  &:hover {
+    background-color: $hover-color;
+    border-color: $hover-color;
+  }
+}
+
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+}
+
+// Card hover effect
+@mixin card-hover {
+  transition: $transition-base;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $box-shadow-lg;
+  }
+}
+
+// Text truncation
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Responsive font sizes
+@mixin responsive-font-size($min-size, $max-size) {
+  font-size: clamp(#{$min-size}, 4vw, #{$max-size});
+}
+
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// Form element mixins
+@mixin form-control-focus($color: $primary-color) {
+  border-color: $color;
+  box-shadow: 0 0 0 0.2rem rgba($color, 0.15);
+  outline: 0;
+}
+
+@mixin form-validation-state($state, $color) {
+  .form-control {
+    &.is-#{$state} {
+      border-color: $color;
+
+      &:focus {
+        border-color: $color;
+        box-shadow: 0 0 0 0.2rem rgba($color, 0.15);
+      }
+    }
+  }
+}
+
+// Animation mixins
+@mixin transition($properties...) {
+  transition: $properties;
+}
+
+@mixin transform($transforms) {
+  transform: $transforms;
+}
+
+// Layout mixins
+@mixin container-padding {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @include media-breakpoint-up(sm) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@mixin card-style {
+  background: $white;
+  border-radius: $border-radius-xl;
+  box-shadow: $box-shadow-sm;
+  border: none;
+}
+
+@mixin font-size-responsive($mobile, $tablet: null, $desktop: null) {
+  font-size: $mobile;
+
+  @if $tablet {
+    @include media-breakpoint-up(md) {
+      font-size: $tablet;
+    }
+  }
+
+  @if $desktop {
+    @include media-breakpoint-up(lg) {
+      font-size: $desktop;
+    }
+  }
+}
+
+@mixin heading-responsive($level: 2) {
+  @if $level == 2 {
+    @include font-size-responsive(18px, 20px, 24px);
+    font-weight: $font-weight-bold;
+  } @else if $level == 3 {
+    @include font-size-responsive(16px, 17px, 18px);
+    font-weight: $font-weight-medium;
+  }
+  
+  color: $primary-color;
+  margin-bottom: 15px;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 20px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 25px;
+  }
+}

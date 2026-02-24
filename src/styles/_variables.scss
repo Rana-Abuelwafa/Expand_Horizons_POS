@@ -1,0 +1,52 @@
+// Colors
+$primary-color: #000000;
+$secondary-color: #5599CB;
+$success-color: #28a745;
+$success-hover: #218838;
+$light-bg: #fafafa;
+$gray-color:#8B8B8B;
+$text-muted: #6c757d;
+$gray-light: #dee2e6;
+$danger-color: #dc3545;
+$border-color: #eee;
+$footer-text: #bdc3c7;
+$footer-border: #34495e;
+$white: #ffffff;
+
+// Typography
+$font-family-base: 'Myriad Pro','Source Sans Pro', sans-serif;
+$font-size-base: 1rem;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Spacing
+$spacer: 1rem;
+$spacer-xs: 0.25rem;
+$spacer-sm: 0.5rem;
+$spacer-md: 1rem;
+$spacer-lg: 1.5rem;
+$spacer-xl: 2rem;
+$spacer-xxl: 3rem;
+$spacer-xxxl: 4rem;
+
+// Border radius
+$border-radius: 0.375rem;
+$border-radius-sm: 0.25rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 10px;
+
+// Shadows
+$box-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$box-shadow-lg: 0 8px 15px rgba(0, 0, 0, 0.1);
+$text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+$text-shadow-lg: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+// Transitions
+$transition-base: all 0.3s ease;
+$transition-fast: all 0.15s ease;
+
+// Z-index
+$zindex-header: 1030;
+$zindex-hero: 1;

@@ -1,7 +1,26 @@
 {
-  "home":{
+  "home": {
     "excursions": "Ausflüge",
     "transfers": "Transfers",
     "diving": "Tauchen"
+  },
+  "general": {
+    "more": "Mehr",
+    "top_offers": "Top Angebote",
+    "show_more": "Mehr anzeigen",
+    "show_less": "Weniger anzeigen",
+    "from": "Ab",
+    "to": "bis zu",
+    "perGroupUpTo": "pro Gruppe bis zu",
+    "perPerson": "pro person",
+    "loading": "Laden...",
+    "loadingMore": "Lade mehr...",
+    "BookNow": "Buchen Sie jetzt",
+    "tours": {
+      "loading": "Touren werden geladen...",
+      "empty_title": "Keine Touren verfügbar",
+      "empty_text": "Schauen Sie später wieder vorbei für neue Angebote.",
+      "top_offers": "Top Angebote"
+    }
   }
 }

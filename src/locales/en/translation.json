@@ -1,7 +1,26 @@
 {
-  "home":{
+  "home": {
     "excursions": "Excursions",
     "transfers": "Transfers",
     "diving": "Diving"
+  },
+  "general": {
+    "more": "More",
+    "top_offers": "Top Offers",
+    "show_more": "Show More",
+    "show_less": "Show Less",
+    "from": "From",
+    "to": "UP To",
+    "perGroupUpTo": "per group up to",
+    "perPerson": "per person",
+    "loading": "Loading...",
+    "loadingMore": "Loading more...",
+    "BookNow": "Book Now"
+  },
+  "tours": {
+    "loading": "Loading tours...",
+    "empty_title": "No tours available",
+    "empty_text": "Please check back later for new offers.",
+    "top_offers": "Top Offers"
   }
 }
