@@ -17,8 +17,7 @@ const DestinationExcursions = () => {
   const tripType = state?.tripType || 1;
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  //   const currentLang =
-  //     useSelector((state) => state.language.currentLang) || "en";
+  const currentLang = localStorage.getItem("i18nextLng") || "en";
   const { user: stateUser } = useSelector((state) => state.auth); // Get user from auth state
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
@@ -29,7 +28,7 @@ const DestinationExcursions = () => {
 
   useEffect(() => {
     const params = {
-      lang_code: localStorage.getItem("i18nextLng") || "en",
+      lang_code: currentLang,
       show_in_top: false,
       destination_id: destinationId,
       currency_code: "EUR",

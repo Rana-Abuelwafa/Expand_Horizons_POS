@@ -9,7 +9,6 @@ const resources = {
   de: { translation: translationDE },
 };
 const Locallang = localStorage.getItem("i18nextLng")?.toLocaleLowerCase();
-console.log("Locallang ", Locallang);
 i18n
   //.use(LanguageDetector)
   .use(initReactI18next)

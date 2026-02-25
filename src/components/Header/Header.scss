@@ -14,9 +14,10 @@
 .back-btn {
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 30px;
+  color: #5599CB !important;
   cursor: pointer;
   svg {
-    color: $primary-color;
+    color: #5599CB !important;
   }
 }

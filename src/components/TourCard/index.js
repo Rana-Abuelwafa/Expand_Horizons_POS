@@ -9,8 +9,7 @@ const TourCard = ({ trip }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  // const currentLang =
-  //   useSelector((state) => state.language.currentLang) || "en";
+  const currentLang = localStorage.getItem("i18nextLng") || "en";
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [needsTruncation, setNeedsTruncation] = useState(false);
 

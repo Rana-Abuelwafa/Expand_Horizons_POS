@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import LogoSection from "../../components/logoSection/LogoSection";
-import { useTranslation } from "react-i18next";
 import "./MainDestinations.scss";
 import Header from "../../components/Header/Header";
 
@@ -11,7 +9,6 @@ const SubDestinations = () => {
   const navigate = useNavigate();
   const childDestination = state?.childDestination;
   const tripType = 1;
-  console.log(childDestination);
 
   const currentLang = localStorage.getItem("i18nextLng") || "en";
 
@@ -24,9 +21,10 @@ const SubDestinations = () => {
     });
   };
   return (
+
     <div className="dest-wrapper">
-      <Header />
       <div className="dest-container">
+         <Header />
         <Row className="g-4 justify-content-center">
           {childDestination.map((dest, index) => (
             <Col
@@ -50,7 +48,7 @@ const SubDestinations = () => {
                   <Col xs={6} className="image-col">
                     <div
                       className="image-bg"
-                      style={{ backgroundImage: `url(${dest.img_path})` }}
+                      style={{ backgroundImage: `url(${encodeURI(dest.img_path)})` }}
                     />
                     <div className="dest-triangle" />
                   </Col>

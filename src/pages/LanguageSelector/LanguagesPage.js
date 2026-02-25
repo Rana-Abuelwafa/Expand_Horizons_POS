@@ -16,7 +16,6 @@ const LanguagesPage = () => {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-    console.log("langggg ", lng);
     localStorage.setItem("i18nextLng", lng); // persist language
     localStorage.setItem("lang", lng);
     navigate("/home"); // go to categories page

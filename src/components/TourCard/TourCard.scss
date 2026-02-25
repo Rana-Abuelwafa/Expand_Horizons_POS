@@ -1,8 +1,9 @@
 .tour-card {
   border: none;
   border-radius: $border-radius-xl;
-  box-shadow: $box-shadow;
+  // box-shadow: $box-shadow;
   background: white;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(85, 153, 203, 0.3);
   overflow: hidden;
   width: 100%;
   margin-bottom: 20px;

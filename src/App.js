@@ -20,7 +20,6 @@ function App() {
           <Route path="/home" element={<HomeCategories />} />
           <Route path="/Destinations" element={<MainDestinations />} />
           <Route path="/Destinations/:location" element={<SubDestinations />} />
-          {/* <Route path="/ExcursionTrips" element={<ExcursionPage />} /> */}
           <Route path="/excursions/:location" element={<ExcursionPage />} />
           <Route path="/Diving" element={<DivingPage />} />
 

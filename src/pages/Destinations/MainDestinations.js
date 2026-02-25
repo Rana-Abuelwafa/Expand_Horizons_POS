@@ -6,7 +6,7 @@ import {
   fetchDestinations,
   fetchDestChildren,
 } from "../../redux/Slices/destinationsSlice";
-import LogoSection from "../../components/logoSection/LogoSection";
+import LoadingPage from "../../components/Loader/LoadingPage";
 import { useTranslation } from "react-i18next";
 import "./MainDestinations.scss";
 import Header from "../../components/Header/Header";
@@ -15,8 +15,8 @@ const MainDestinations = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const currentLang = localStorage.getItem("lang") || "en";
-  console.log(currentLang);
+  const currentLang = localStorage.getItem("i18nextLng") || "en";
+  
   const {
     items: parentDestinations,
     childrenItems: childDestinations,
@@ -25,7 +25,7 @@ const MainDestinations = () => {
 
   useEffect(() => {
     const params = {
-      lang_code: "en",
+      lang_code: currentLang,
       leaf: false,
       parent_id: 0,
     };
@@ -39,7 +39,7 @@ const MainDestinations = () => {
   const handleParentClick = async (parentDestination) => {
     try {
       const params = {
-        lang_code: "en",
+        lang_code: currentLang,
         leaf: true,
         parent_id: parentDestination.destination_id,
       };
@@ -58,6 +58,11 @@ const MainDestinations = () => {
       console.error("Error fetching child destinations:", error);
     }
   };
+
+  if (loading) {
+    return <LoadingPage />;
+  }
+
 
   return (
     <div className="dest-wrapper">
@@ -81,7 +86,7 @@ const MainDestinations = () => {
                   <Col xs={6} className="image-col">
                     <div
                       className="image-bg"
-                      style={{ backgroundImage: `url(${dest.img_path})` }}
+                      style={{ backgroundImage: `url(${encodeURI(dest.img_path)})` }}
                     />
                     <div className="dest-triangle" />
                   </Col>

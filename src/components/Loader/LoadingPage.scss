@@ -17,13 +17,14 @@
       text-align: center;
       
       .loading-gif {
-        width: 60px; // Adjust based on your GIF size
+        width: 120px; // Adjust based on your GIF size
         height: auto;
       }
   
       .loading-text {
         margin-top: 20px;
-        font-size: 1.2rem;
+        font-size: 2rem;
+        font-weight: 500;
         color: #333;
       }
     }
