@@ -7,7 +7,7 @@ const LogoPage = () => {
   return (
     <div className="logo-page">
       <img
-        src={"../images/logo.png"}
+        src={process.env.PUBLIC_URL + '/images/logo.png'}
         alt="Logo"
         className="logo"
         loading="lazy"

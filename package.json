@@ -1,6 +1,7 @@
 {
   "name": "expand-horizons-pos",
   "version": "0.1.0",
+  "homepage": "/pos",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",

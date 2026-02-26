@@ -9,7 +9,7 @@ const LoadingPage = () => {
       <div className="loading-content">
         {/* Loading GIF to indicate loading progress */}
         <img
-          src="/images/loading.gif"
+          src={process.env.PUBLIC_URL + '/images/loading.gif'}
           alt="Loading..."
           className="loading-gif"
           loading="lazy" 

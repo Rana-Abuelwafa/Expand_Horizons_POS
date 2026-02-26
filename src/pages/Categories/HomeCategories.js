@@ -15,19 +15,19 @@ const HomeCategories = () => {
   const categories = [
     {
       title: t("home.excursions"),
-      image: "../images/excursions.jpg",
+      image: "/images/excursions.jpg",
       icon: <IoBoatOutline />,
       pg: "/Destinations",
     },
     {
       title: t("home.transfers"),
-      image: "../images/transfer.jpeg",
+      image: "/images/transfer.jpeg",
       icon: <FaBus />,
       pg: "/Transfers",
     },
     {
       title: t("home.diving"),
-      image: "../images/diving.png",
+      image: "/images/diving.png",
       icon: <MdOutlineScubaDiving />,
       pg: "/Diving",
     },
@@ -51,7 +51,7 @@ const HomeCategories = () => {
                   <Col xs={6} className="image-col">
                     <div
                       className="image-bg"
-                      style={{ backgroundImage: `url(${cat.image})` }}
+                      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${cat.image})` }}
                     />
                   </Col>
 

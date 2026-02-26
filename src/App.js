@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       {" "}
-      <Router>
+      <Router basename="/pos">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/app-lang" element={<LangSelector />} />

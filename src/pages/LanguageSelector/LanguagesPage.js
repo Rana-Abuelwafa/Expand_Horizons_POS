@@ -10,8 +10,8 @@ const LanguagesPage = () => {
   const { i18n } = useTranslation();
 
   const languages = [
-    { name: "English", flag: "../images/gb.png", code: "en" },
-    { name: "Deutsch", flag: "../images/de.png", code: "de" },
+    { name: "English", flag: "/images/gb.png", code: "en" },
+    { name: "Deutsch", flag: "/images/de.png", code: "de" },
   ];
 
   const changeLanguage = (lng) => {
@@ -34,7 +34,7 @@ const LanguagesPage = () => {
               onClick={() => changeLanguage(lang.code)}
             >
               <div className="flag-wrapper">
-                <img src={lang.flag} alt={lang.name} />
+                <img src={process.env.PUBLIC_URL + lang.flag} alt={lang.name} />
               </div>
               <span>{lang.name}</span>
             </button>
