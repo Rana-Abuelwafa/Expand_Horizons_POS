@@ -12,6 +12,7 @@ const LanguagesPage = () => {
   const languages = [
     { name: "English", flag: "/images/gb.png", code: "en" },
     { name: "Deutsch", flag: "/images/de.png", code: "de" },
+    { name: "Русский", flag: "/images/ru.png", code: "ru" }
   ];
 
   const changeLanguage = (lng) => {
