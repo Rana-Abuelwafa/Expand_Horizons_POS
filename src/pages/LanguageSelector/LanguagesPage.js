@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LogoSection from "../../components/logoSection/LogoSection";
 import "./LanguagesPage.scss";
 import Header from "../../components/Header/Header";
+import { isTokenExpired, getUserData } from '../../utils/auth';
 
 const LanguagesPage = () => {
   const navigate = useNavigate();
@@ -19,7 +19,12 @@ const LanguagesPage = () => {
     i18n.changeLanguage(lng);
     localStorage.setItem("i18nextLng", lng); // persist language
     localStorage.setItem("lang", lng);
-    navigate("/home"); // go to categories page
+     const user = getUserData();
+    if (user && !isTokenExpired(user.refreshTokenExpiryTime)) {
+      navigate('/home');
+    } else {
+      navigate('/login');
+    }
   };
 
   return (

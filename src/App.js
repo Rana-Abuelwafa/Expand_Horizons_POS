@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import LoginPage from "./pages/Login/LoginPage";
 import Home from "./pages/Home/LogoPage";
 import LangSelector from "./pages/LanguageSelector/LanguagesPage";
 import HomeCategories from "./pages/Categories/HomeCategories";
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/app-lang" element={<LangSelector />} />
+           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<HomeCategories />} />
           <Route path="/Destinations" element={<MainDestinations />} />
           <Route path="/Destinations/:location" element={<SubDestinations />} />

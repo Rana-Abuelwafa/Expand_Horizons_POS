@@ -15,12 +15,21 @@
     "perPerson": "pro person",
     "loading": "Laden...",
     "loadingMore": "Lade mehr...",
-    "BookNow": "Buchen Sie jetzt",
-    "tours": {
+    "BookNow": "Buchen Sie jetzt"
+  },
+   "tours": {
       "loading": "Touren werden geladen...",
       "empty_title": "Keine Touren verfügbar",
       "empty_text": "Schauen Sie später wieder vorbei für neue Angebote.",
       "top_offers": "Top Angebote"
-    }
-  }
+    },
+  "Login": {
+    "loginTitle": "ANMELDUNG",
+    "EmailError": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "PasswordError": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+    "LoginSubTitle": "Mit Ihrem <strong>Expand Horizons</strong> Konto können Sie bequemer buchen und auf Ihre Tickets auf jedem Gerät zugreifen.",
+    "email": "E-Mail-Adresse",
+    "signIn": "Anmelden",
+    "password": "Passwort"
+}
 }

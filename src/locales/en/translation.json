@@ -22,5 +22,14 @@
     "empty_title": "No tours available",
     "empty_text": "Please check back later for new offers.",
     "top_offers": "Top Offers"
+  },
+  "Login":{
+    "loginTitle":"LOGIN",
+    "EmailError": "Please enter a valid email address.",
+    "PasswordError": "Password must be at least 6 characters long.",
+    "LoginSubTitle": "Check out more easily and access your tickets on any device with your <strong>Expand Horizons </strong> account.",
+    "email": "Email Address",
+    "signIn": "Sign in",
+    "password": "Password"
   }
 }
