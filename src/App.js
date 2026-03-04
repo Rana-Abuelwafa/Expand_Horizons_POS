@@ -10,6 +10,7 @@ import ExcursionPage from "./pages/Trips/ExcursionPage";
 import DivingPage from "./pages/Trips/DivingPage";
 import TransfersPage from "./pages/Trips/TransfersPage";
 import BookingPage from "./pages/BookingPage/BookingPage";
+import BookingConfirm from "./pages/BookingConfirmPage/BookingConfirm";
 import AvailabilityPage from "./pages/AvailabilityPage/AvailabilityPage";
 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/Transfers" element={<TransfersPage />} />
           <Route path="/trip/:tripName" element={<AvailabilityPage />} />
           <Route path="/checkout" element={<BookingPage />} />
+          <Route path="/bookingConfirmation" element={<BookingConfirm />} />
         </Routes>
       </Router>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { BiSolidCard } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchDestinations,
@@ -59,13 +60,24 @@ const MainDestinations = () => {
     }
   };
 
-  if (loading) {
-    return <LoadingPage />;
-  }
-
-
   return (
-    <div className="dest-wrapper">
+    <>
+       {loading && <LoadingPage />}
+
+       
+        {!loading && parentDestinations.length === 0 && (
+        <section className="dest-wrapper">
+          <div className="dest-container">
+            <Header />
+            <BiSolidCard className="empty-icon" />
+            <h3 className="empty-title">{t("tours.empty_dest_title")}</h3>
+          </div>
+        </section>
+      )}
+
+  
+    {!loading && parentDestinations.length > 0 && (
+    <section className="dest-wrapper">
       <div className="dest-container">
         <Header />
 
@@ -96,7 +108,10 @@ const MainDestinations = () => {
           ))}
         </Row>
       </div>
-    </div>
+    </section>
+    )}
+
+      </>
   );
 };
 

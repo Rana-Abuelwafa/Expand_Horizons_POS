@@ -1,0 +1,56 @@
+
+.booking-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; 
+  background-color: #f5f5f5;
+  padding: 20px;
+
+  .booking-card {
+    max-width: 400px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(85, 153, 203, 0.3);
+    // box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+    .booking-icon {
+      font-size: 120px;
+      margin-bottom: 15px;
+      color: black;
+      display: block; // Ensures it behaves like a block for spacing
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .booking-message {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #000;
+    }
+
+    .booking-subtext {
+      font-size: 14px;
+      color: #333;
+      margin: 0 0 20px 0; // Added bottom margin for spacing before button
+    }
+
+    button.okBtn {
+      background-color: $secondary-color !important;
+      border: 1px solid $secondary-color !important;
+      border-radius: 8px;
+      padding: 6px 20px;
+      min-width: 100px; // Slightly wider for better appearance
+
+      &:hover,
+      &:active {
+        background-color: $secondary-color !important;
+        border: 1px solid $secondary-color !important;
+      }
+    }
+  }
+}

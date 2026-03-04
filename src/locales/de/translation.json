@@ -20,6 +20,7 @@
    "tours": {
       "loading": "Touren werden geladen...",
       "empty_title": "Keine Touren verfügbar",
+      "empty_dest_title": "Keine Ziele verfügbar",
       "empty_text": "Schauen Sie später wieder vorbei für neue Angebote.",
       "top_offers": "Top Angebote"
     },

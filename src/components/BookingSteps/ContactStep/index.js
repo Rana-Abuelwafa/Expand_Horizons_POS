@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkAvailability } from "../../../redux/Slices/bookingSlice";
 import { confirmBooking } from "../../../redux/Slices/confirmSlice";
 // import { fetchProfile } from "../../../redux/Slices/profileSlice";
-import BookingModal from "../../Shared/BookingModal";
 import PopUp from "../../Shared/popup/PopUp";
 import LoadingPage from "../../Loader/LoadingPage";
 import {
@@ -56,7 +55,6 @@ const ContactStep = ({ availabilityData, childAges }) => {
   });
   const [notes, setNotes] = useState("");
   const [errors, setErrors] = useState({});
-  const [showBookingModal, setShowBookingModal] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("alert");
@@ -205,7 +203,7 @@ const ContactStep = ({ availabilityData, childAges }) => {
       const result = await dispatch(confirmBooking(confirmData)).unwrap();
 
       if (result === true) {
-        setShowBookingModal(true);
+        navigate("/bookingConfirmation");
       }
       // else {
       //     setPopupMessage(t('bookings.contact.bookingConfirmationFailed'));
@@ -218,12 +216,6 @@ const ContactStep = ({ availabilityData, childAges }) => {
       setShowPopup(true);
     }
   };
-
-  // useEffect(() => {
-  //     if (confirmed) {
-  //         setShowBookingModal(true);
-  //     }
-  // }, [confirmed, t]);
 
   // Show error popup if there's a confirmation error
   useEffect(() => {
@@ -347,7 +339,6 @@ const ContactStep = ({ availabilityData, childAges }) => {
         />
       )}
 
-      {showBookingModal && <BookingModal />}
     </>
   );
 };
