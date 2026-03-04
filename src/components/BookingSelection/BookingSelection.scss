@@ -1,0 +1,658 @@
+.booking-selection {
+  font-family: $font-family-base;
+
+  .booking-selection-content {
+    max-width: 450px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: $spacer-xl;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(85, 153, 203, 0.3);
+    border: 1px solid #e0e0e0;
+
+    @include media-breakpoint-down(lg) {
+      max-width: 100%;
+      padding: $spacer-lg;
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: $spacer-md;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: $spacer-sm;
+    }
+  }
+
+  &__title {
+    color: #000000;
+    font-size: 28px;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacer-lg;
+
+    @include media-breakpoint-down(md) {
+      font-size: 24px;
+      margin-bottom: $spacer-md;
+    }
+
+    @include media-breakpoint-down(sm) {
+      font-size: 20px;
+    }
+  }
+
+  // Required fields notice
+  &__required-notice {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    text-align: right;
+  }
+
+  // Override Bootstrap button styles
+  &__button {
+    height: 44px !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: $spacer-md !important;
+    font-size: $spacer-md !important;
+    font-weight: $font-weight-medium !important;
+    color: #000000 !important;
+    box-shadow: $box-shadow-sm !important;
+    transition: $transition-base !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #ffffff !important;
+      border-color: $secondary-color !important;
+      box-shadow: $box-shadow !important;
+      transform: translateY(-2px);
+      color: #000000 !important;
+    }
+
+    &:focus-visible {
+      box-shadow: $box-shadow, 0 0 0 0.25rem rgba($secondary-color, 0.25) !important;
+    }
+
+    @include media-breakpoint-down(sm) {
+      height: 48px !important;
+      font-size: 14px !important;
+    }
+  }
+
+  &__icon {
+    color: #666666;
+    font-size: 18px;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 16px;
+    }
+  }
+
+  &__chevron {
+    color: #666666;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+
+    @include media-breakpoint-down(sm) {
+      font-size: 12px;
+    }
+  }
+
+  // Override Bootstrap dropdown menu styles
+  &__dropdown {
+    border-radius: $spacer-md !important;
+    border: 1px solid #e0e0e0 !important;
+    box-shadow: $box-shadow-lg !important;
+    padding: $spacer-md !important;
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100% !important;
+
+    @include media-breakpoint-down(sm) {
+      padding: $spacer-sm !important;
+    }
+  }
+
+  &__warning {
+    color: #dc3545;
+    font-size: 0.875rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacer-md;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: $spacer-sm;
+    }
+  }
+
+  &__counter-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__counter-title {
+    font-weight: $font-weight-medium;
+    color: #000000;
+    font-size: $spacer-md;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 14px;
+    }
+  }
+
+  &__counter-subtitle {
+    font-size: 14px;
+    color: #666666;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 12px;
+    }
+  }
+
+  &__counter-controls {
+    display: flex;
+    align-items: center;
+    gap: $spacer-sm;
+  }
+
+  // Override Bootstrap button styles for counter buttons
+  &__counter-btn {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    font-size: 12px !important;
+    transition: $transition-base !important;
+
+    &:hover:not(:disabled) {
+      transform: scale(1.1) !important;
+    }
+
+    &:disabled {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+    }
+
+    // Primary variant (active buttons)
+    &.btn-primary {
+      background-color: $secondary-color !important;
+      border-color: $secondary-color !important;
+      color: white !important;
+
+      &:hover:not(:disabled) {
+        background-color: darken($secondary-color, 10%) !important;
+        border-color: darken($secondary-color, 10%) !important;
+      }
+    }
+
+    // Outline variant (inactive buttons)
+    &.btn-outline-primary {
+      border-color: $secondary-color !important;
+      color: $secondary-color !important;
+      background-color: transparent !important;
+
+      &:hover:not(:disabled) {
+        background-color: $secondary-color !important;
+        border-color: $secondary-color !important;
+        color: white !important;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: 28px !important;
+      height: 28px !important;
+      font-size: 10px !important;
+    }
+  }
+
+  &__counter-value {
+    min-width: 24px;
+    text-align: center;
+    font-size: $spacer-md;
+    font-weight: $font-weight-medium;
+    color: #000000;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 14px;
+    }
+  }
+
+  // Age input styles
+  &__age-inputs {
+    padding: $spacer-sm 0;
+  }
+
+  &__age-input-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__age-input {
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 8px !important;
+    padding: $spacer-sm $spacer-md !important;
+    font-size: 14px !important;
+    height: 40px !important;
+    color: #000000 !important;
+
+    &:focus {
+      border-color: $secondary-color !important;
+      box-shadow: 0 0 0 0.2rem rgba($secondary-color, 0.25) !important;
+    }
+
+    &.is-invalid {
+      border-color: #dc3545 !important;
+    }
+
+    &::placeholder {
+      color: #999999;
+    }
+  }
+
+  // Form group styles
+  &__group {
+    margin-bottom: 1.25rem;
+  }
+
+  // Input styles for contact form
+  &__input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #ffffff;
+    transition: all 0.2s ease;
+    height: 50px;
+    box-sizing: border-box;
+    color: #000000;
+
+    &:focus {
+      outline: none;
+      border-color: $secondary-color;
+      box-shadow: 0 0 0 3px rgba($secondary-color, 0.1);
+    }
+
+    &::placeholder {
+      color: #999999;
+      font-weight: 400;
+    }
+
+    &.is-invalid {
+      border-color: #dc3545;
+
+      &:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+      }
+    }
+
+    // textarea& {
+    //   height: auto;
+    //   min-height: 100px;
+    //   resize: vertical;
+    // }
+  }
+
+  // Phone input styling
+  &__phone-input {
+    position: relative;
+    display: flex;
+    width: 100%;
+
+    .PhoneInputCountry {
+      border: 2px solid #e0e0e0;
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      background: #ffffff;
+      padding: 0 0.5rem;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      box-sizing: border-box;
+
+      &:focus-within {
+        border-color: $secondary-color;
+      }
+
+      .PhoneInputCountrySelect {
+        border: none;
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        outline: none;
+        cursor: pointer;
+        color: #000000;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .PhoneInputCountrySelectArrow {
+        color: #666666;
+        margin-left: 0.25rem;
+      }
+
+      .PhoneInputCountryIcon {
+        width: 1.5rem;
+        height: 1rem;
+      }
+    }
+
+    .PhoneInputInput {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+      font-size: 1rem;
+      background: #ffffff;
+      transition: all 0.2s ease;
+      height: 50px;
+      box-sizing: border-box;
+      outline: none;
+      color: #000000;
+
+      &:focus {
+        border-color: $secondary-color;
+        box-shadow: 0 0 0 3px rgba($secondary-color, 0.1);
+      }
+
+      &::placeholder {
+        color: #999999;
+        font-weight: 400;
+      }
+    }
+
+    &.is-invalid {
+      .PhoneInputCountry {
+        border-color: #dc3545;
+      }
+
+      .PhoneInputInput {
+        border-color: #dc3545;
+
+        &:focus {
+          border-color: #dc3545;
+          box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+        }
+      }
+    }
+  }
+
+  // Error message styles
+  &__error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    margin-left: 0.25rem;
+  }
+
+  // Checkbox styles
+  &__checkbox {
+    margin: $spacer-md 0;
+    
+    .form-check-input {
+      width: 20px;
+      height: 20px;
+      margin-right: $spacer-sm;
+      border: 2px solid $secondary-color;
+      cursor: pointer;
+      
+      &:checked {
+        background-color: $secondary-color;
+        border-color: $secondary-color;
+      }
+      
+      &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($secondary-color, 0.25);
+      }
+    }
+    
+    .form-check-label {
+      color: #000000;
+      font-size: 16px;
+      font-weight: $font-weight-medium;
+      cursor: pointer;
+      
+      @include media-breakpoint-down(sm) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  // Price Breakdown Styles
+  &__price-breakdown {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: $spacer-lg;
+    border: 1px solid #e0e0e0;
+    margin: 1rem 0;
+  }
+
+  &__final-price {
+    font-size: 32px;
+    font-weight: $font-weight-bold;
+    color: #000000;
+    line-height: 1;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 28px;
+    }
+  }
+
+  &__price-note {
+    color: #666666 !important;
+    margin-top: 4px;
+    font-size: 0.875rem;
+  }
+
+  &__price-details {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: $spacer-md;
+    border: 1px solid #e0e0e0;
+  }
+
+  &__price-line {
+    color: #000000;
+    font-size: 14px;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    @include media-breakpoint-down(sm) {
+      font-size: 13px;
+    }
+  }
+
+  // Disclaimer styles
+  &__disclaimer {
+    color: #666666;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin: 2rem 0;
+    text-align: left;
+  }
+
+  // Custom check availability button
+  &__check-btn {
+    height: 44px !important;
+    background-color: $secondary-color !important;
+    border: none !important;
+    border-radius: $spacer-md !important;
+    font-size: 18px !important;
+    font-weight: $font-weight-medium !important;
+    color: white !important;
+    transition: $transition-base !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: darken($secondary-color, 10%) !important;
+      border: none !important;
+      transform: translateY(-2px);
+      color: white !important;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @include media-breakpoint-down(sm) {
+      height: 48px !important;
+      font-size: 16px !important;
+    }
+  }
+
+  // Bootstrap Grid overrides
+  .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  // Custom datepicker styles
+  .react-datepicker-wrapper {
+    display: block !important;
+    width: 100%;
+  }
+
+  .custom-datepicker-popper {
+    z-index: 9999 !important;
+
+    .react-datepicker {
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      font-family: $font-family-base;
+      background-color: #ffffff;
+    }
+
+    .react-datepicker__header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e0e0e0;
+      border-radius: 16px 16px 0 0;
+      padding: 0;
+    }
+
+    .react-datepicker__month-container {
+      margin: 8px;
+    }
+
+    .react-datepicker__day-names {
+      margin-top: 8px;
+    }
+
+    .react-datepicker__day-name {
+      color: #666666;
+      font-weight: $font-weight-medium;
+      font-size: 12px;
+      width: 32px;
+      line-height: 32px;
+    }
+
+    .react-datepicker__day {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 50%;
+      margin: 2px;
+      font-size: 14px;
+      color: #000000;
+
+      &:hover {
+        background-color: #f0f0f0;
+        border-radius: 50%;
+      }
+
+      &--selected,
+      &--keyboard-selected {
+        background-color: $secondary-color;
+        color: white;
+      }
+
+      &--disabled {
+        color: #cccccc;
+      }
+    }
+
+    .react-datepicker__time-container {
+      border-left: 1px solid #e0e0e0;
+      
+      .react-datepicker__time {
+        background: #ffffff;
+        
+        .react-datepicker__time-box {
+          width: 100% !important;
+          
+          ul.react-datepicker__time-list {
+            padding: 0;
+            
+            li.react-datepicker__time-list-item {
+              height: 40px;
+              line-height: 40px;
+              padding: 0 10px;
+              font-size: 14px;
+              color: #000000;
+              
+              &:hover {
+                background-color: #f8f9fa;
+              }
+              
+              &--selected {
+                background-color: $secondary-color;
+                color: white;
+                font-weight: $font-weight-medium;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .react-datepicker__navigation {
+      top: 16px;
+    }
+
+    .react-datepicker__current-month {
+      font-weight: $font-weight-medium;
+      color: #000000;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .react-datepicker-time__header {
+      font-weight: $font-weight-medium;
+      color: #000000;
+      font-size: 14px;
+    }
+  }
+}

@@ -31,5 +31,156 @@
     "email": "E-Mail-Adresse",
     "signIn": "Anmelden",
     "password": "Passwort"
-}
+  },
+   "booking": {
+    "returnDate": {
+      "title": "Rückfahrt-Datum & Uhrzeit auswählen",
+      "note": "Bitte wählen Sie Ihr gewünschtes Rückfahrt-Datum und Uhrzeit"
+    },
+    "returnDateTimeRequired": "Bitte wählen Sie Datum und Uhrzeit für die Rückfahrt",
+    "returnDateAfterDeparture": "Das Rückfahrt-Datum muss nach dem Abfahrtsdatum liegen",
+    "date": {
+      "selectReturnDateTime": "Rückfahrt-Datum & Uhrzeit auswählen",
+      "selectDateTime": "Datum & Uhrzeit auswählen",
+      "time": "Uhrzeit"
+    },
+    "dateTimeRequired": "Bitte wählen Sie sowohl Datum als auch Uhrzeit aus",
+    "invalidDateTime": "Bitte wählen Sie ein Datum mindestens {{releaseDays}} Tage ab jetzt",
+    "availabilityError": "Verfügbarkeitsprüfung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "availabilitySuccess": "Verfügbarkeit erfolgreich geprüft!",
+    "checkingAvailability": "Verfügbarkeit wird geprüft...",
+    "title": "Teilnehmer und Datum auswählen",
+    "checkAvailability": "Verfügbarkeit prüfen",
+    "maxCapacityExceeded": "Bitte wählen Sie maximal {{maxCapacity}} Teilnehmer für diese Aktivität.",
+    "invalidChildAges": "Bitte geben Sie gültige Alter für alle Kinder ein (0-{{maxAge}} Jahre)",
+    "continue": "Weiter",
+    "allTaxesIncluded": "Alle Steuern und Gebühren inklusive",
+    "twoWayTransfer": "Hin- und Rücktransfer",
+    "included": "Inklusive",
+    "participants": {
+      "adult": "Erwachsener",
+      "child": "Kind",
+      "adultSingle": "Erwachsener x 1",
+      "adults": "Erwachsene x {{count}}",
+      "children": "Kinder x {{count}}",
+      "mixed": "Erwachsene x {{adults}}, Kinder x {{children}}",
+      "ageRangeAdults": "Alter 12-99",
+      "enterChildAges": "Alter der Kinder eingeben",
+      "childAge": "Alter Kind {{number}}",
+      "invalidAge": "Alter muss zwischen 0 und {{maxAge}} liegen",
+      "ageRangeChildren": "0-{{maxAge}} Jahre"
+    },
+    "language": {
+      "english": "Englisch",
+      "spanish": "Spanisch",
+      "french": "Französisch",
+      "german": "Deutsch",
+      "italian": "Italienisch"
+    }
+  },
+  "bookings": {
+    "tripDate": "Reisedatum",
+    "returnDate": "Rückreisedatum",
+    "myBookings": "Deine Buchungen",
+    "noBookings": "Keine Buchungen in Ihrem Warenkorb",
+    "noBookingsText": "Entdecken Sie unsere Reisen und machen Sie Ihre erste Reservierung!",
+    "BackBtn": "Zurück zur Startseite",
+    "fetchError": "Fehler beim Laden Ihrer Buchungen. Bitte versuchen Sie es später erneut.",
+    "dateToBeConfirmed": "Datum muss noch bestätigt werden",
+    "timeToBeConfirmed": "Uhrzeit muss noch bestätigt werden",
+    "bookingCode": "Buchungscode",
+    "priceToBeConfirmed": "Preis muss noch bestätigt werden",
+    "totalBookings": "Gesamtbuchungen",
+    "allBookingsLoaded": "Alle Buchungen geladen",
+    "adults": "Erwachsene",
+    "children": "Kinder",
+    "infants": "Säuglinge",
+    "resevePay": "Jetzt reservieren & später bezahlen",
+    "steps": {
+      "pickup": "Abholung",
+      "agreement": "Vereinbarung",
+      "contact": "Kontakt",
+      "payment": "Zahlung",
+      "confirm": "Bestätigung"
+    },
+    "pickup": {
+      "addPickUp": "Wissen Sie, wo Sie abgeholt werden möchten?",
+      "canAddNow": "Ja, ich kann es jetzt hinzufügen",
+      "dontKnow": "Ich weiß es noch nicht",
+      "addExtras": "Möchten Sie Extras hinzufügen?",
+      "adultsOnly": "Nur für Erwachsene",
+      "continue": "Weiter",
+      "nextBtn": "Weiter: Persönliche Daten",
+      "nextBtnAgree": "Weiter : Vereinbarung",
+      "selectLocation": "Abholort auf der Karte auswählen",
+      "searchPlaceholder": "Nach Hotel, Adresse usw. suchen",
+      "confirmLocation": "Ort bestätigen",
+      "locationInstructions": "Bitte geben Sie den Namen oder die Adresse des Ortes ein oder klicken Sie auf einen Punkt innerhalb des markierten Bereichs, um einen Ort auszuwählen."
+    },
+    "agreement": {
+      "title": "Tauchvereinbarung",
+      "confirm": "Ich habe die Tauchvereinbarung gelesen und stimme den Bedingungen zu",
+      "continueButton": "Weiter zu Kontaktdetails"
+    },
+    "contact": {
+      "title": "Geben Sie Ihre persönlichen Daten ein",
+      "requiredFields": "Pflichtfelder*",
+      "fullNamePlaceholder": "Vollständiger Name*",
+      "emailPlaceholder": "E-Mail*",
+      "phonePlaceholder": "Handynummer*",
+      "nationalityPlaceholder": "Staatsangehörigkeit*",
+      "notesLabel": "Zusätzliche Hinweise",
+      "notesPlaceholder": "Besondere Wünsche oder zusätzliche Informationen...",
+      "confirmButton": "Buchung bestätigen",
+      "disclaimer": "Wir kontaktieren Sie bei wichtigen Updates oder Änderungen Ihrer Buchung",
+      "nextButton": "Weiter: Zur Zahlung",
+      "bookingConfirmed": "Buchung erfolgreich bestätigt!",
+      "bookingConfirmationFailed": "Buchungsbestätigung fehlgeschlagen",
+      "processing": "Wird verarbeitet...",
+      "saveError": "Kontaktinformationen konnten nicht gespeichert werden",
+      "errors": {
+        "required": "Dieses Feld ist erforderlich",
+        "invalidEmail": "Ungültiges E-Mail-Format"
+      }
+    },
+    "payment": {
+      "title": "Wählen Sie Ihre Zahlungsmethode",
+      "countryOfBank": "Bankland",
+      "iban": "IBAN",
+      "swift": "SWIFT/BIC",
+      "beneficiaryName": "Name des Begünstigten",
+      "selectBeneficiary": "Begünstigten auswählen",
+      "disclaimer": "Sie erhalten eine Bestätigungs-E-Mail für die Zahlung",
+      "checkoutWith": "Bezahlen mit",
+      "payNow": "Jetzt bezahlen",
+      "countries": {
+        "egypt": "Ägypten",
+        "unitedStates": "Vereinigte Staaten",
+        "unitedKingdom": "Vereinigtes Königreich",
+        "germany": "Deutschland",
+        "france": "Frankreich"
+      }
+    },
+    "confirmation": {
+      "title": "Ihre Buchung für die Reise wurde bestätigt",
+      "subtitle": "Bitte überprüfen Sie Ihre E-Mail für weitere Details",
+      "bookAnother": "Weitere Reise buchen"
+    },
+    "orderSummary": {
+      "title": "Bestellübersicht",
+      "total": "Gesamt"
+    },
+    "giftCode": {
+      "enterCode": "Gutschein- oder Geschenkcode eingeben",
+      "redeem": "Einlösen",
+      "placeholder": "Code eingeben"
+    },
+    "cancel": {
+      "cancelConfirmation1": "Sie erhalten eine E-Mail mit den Stornogebühren",
+      "cancelConfirmation2": "oder kontaktieren Sie booking@expand-horizons.de",
+      "cancelConfirmation3": "Sind Sie sicher, dass Sie stornieren möchten?",
+      "cancelSuccess": "Buchung erfolgreich storniert",
+      "cancelError": "Stornierung der Buchung fehlgeschlagen"
+    }
+  }
 }

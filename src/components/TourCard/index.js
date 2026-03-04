@@ -27,6 +27,13 @@ const TourCard = ({ trip }) => {
 
   const handleCardClick = () => {
     console.log("click");
+
+
+    navigate(`/trip/${trip.route}`, {
+        state: {
+          trip: trip
+        }
+      });
     // if (!trip.is_comm_soon) {
     //   navigate(`/trip/${trip.route}`, {
     //     state: {

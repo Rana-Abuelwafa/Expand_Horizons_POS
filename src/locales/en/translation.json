@@ -31,5 +31,156 @@
     "email": "Email Address",
     "signIn": "Sign in",
     "password": "Password"
+  },
+   "booking": {
+    "returnDate": {
+      "title": "Select Return Date & Time",
+      "note": "Please select your preferred return date and time"
+    },
+    "returnDateTimeRequired": "Please select return date and time for two-way transfer",
+    "returnDateAfterDeparture": "Return date must be after departure date",
+    "date": {
+      "selectReturnDateTime": "Select Return Date & Time",
+      "selectDateTime": "Select Date & Time",
+      "time": "Time"
+    },
+    "dateTimeRequired": "Please select both date and time",
+    "invalidDateTime": "Please select a date at least {{releaseDays}} days from now",
+    "availabilityError": "Failed to check availability. Please try again.",
+    "availabilitySuccess": "Availability checked successfully!",
+    "checkingAvailability": "Checking availability...",
+    "title": "Select participants and date",
+    "checkAvailability": "Check availability",
+    "maxCapacityExceeded": "Please select {{maxCapacity}} participants or fewer for this activity.",
+    "invalidChildAges": "Please enter valid ages for all children (0-{{maxAge}} years)",
+    "continue": "Continue",
+    "allTaxesIncluded": "All taxes and fees included",
+    "twoWayTransfer": "Two-way transfer",
+    "included": "Included",
+    "participants": {
+      "adult": "Adult",
+      "child": "Child",
+      "adultSingle": "Adult x 1",
+      "adults": "Adults x {{count}}",
+      "children": "Children x {{count}}",
+      "mixed": "Adults x {{adults}}, Children x {{children}}",
+      "ageRangeAdults": "Age 12-99",
+      "enterChildAges": "Enter children's ages",
+      "childAge": "Child {{number}} age",
+      "invalidAge": "Age must be between 0 and {{maxAge}}",
+      "ageRangeChildren": "0-{{maxAge}} years"
+    },
+    "language": {
+      "english": "English",
+      "spanish": "Spanish",
+      "french": "French",
+      "german": "German",
+      "italian": "Italian"
+    }
+  },
+  "bookings": {
+    "tripDate": "Trip Date",
+    "returnDate": "Return Date",
+    "myBookings": "Your Bookings",
+    "noBookings": "No bookings in your cart",
+    "noBookingsText": "Start exploring our trips and make your first reservation!",
+    "BackBtn":"Back To Home",
+    "fetchError": "Failed to load your bookings. Please try again later.",
+    "dateToBeConfirmed": "Date to be confirmed",
+    "timeToBeConfirmed": "Time to be confirmed",
+    "bookingCode": "Booking code",
+    "priceToBeConfirmed": "Price to be confirmed",
+    "totalBookings": "Total bookings",
+    "allBookingsLoaded": "All bookings loaded",
+    "adults": "adults",
+    "children": "children",
+    "infants": "infants",
+    "resevePay": "Reserve now & pay later",
+    "steps": {
+      "pickup": "Pickup",
+      "contact": "Contact",
+      "agreement": "Agreement",
+      "payment": "Payment",
+      "confirm": "Confirm"
+    },
+    "pickup": {
+      "addPickUp": "Do You Know where you want to be picked up?",
+      "canAddNow": "Yes, I can add it now",
+      "dontKnow": "I don't know yet",
+      "addExtras": "Do You want to add any extra?",
+      "adultsOnly": "adults only",
+      "continue": "Continue",
+      "nextBtn": "Next : Personal details",
+      "nextBtnAgree": "Next : Agreement",
+      "selectLocation": "Select Pickup Location on Map",
+      "searchPlaceholder": "Search for hotel, address, etc.",
+      "confirmLocation": "Confirm Location",
+      "locationInstructions": "Please enter the location's name or address, or click on a spot within the highlighted area to select a location."
+    },
+    "agreement": {
+      "title": "Diving Agreement",
+      "confirm": "I have read and agree to the diving agreement terms",
+      "continueButton": "Continue to Contact Details"
+    },
+    "contact": {
+      "title": "Enter your personal details",
+      "requiredFields": "Required fields*",
+      "fullNamePlaceholder": "Full name*",
+      "emailPlaceholder": "Email*",
+      "phonePlaceholder": "Mobile phone number*",
+      "nationalityPlaceholder": "Nationality*",
+      "notesLabel": "Additional Notes",
+      "notesPlaceholder": "Any special requests or additional information...",
+      "confirmButton": "Confirm Booking",
+      "disclaimer": "We'll contact you with essential updates or changes to your booking",
+      "nextButton": "Next : Go to payment",
+      "bookingConfirmed": "Booking confirmed successfully!",
+      "bookingConfirmationFailed": "Booking confirmation failed",
+      "processing": "Processing...",
+      "saveError": "Failed to save contact information",
+      "errors": {
+        "required": "This field is required",
+        "invalidEmail": "Invalid email format"
+      }
+    },
+    "payment": {
+      "title": "Choose your payment method",
+      "countryOfBank": "Country of bank",
+      "iban": "IBAN",
+      "swift": "SWIFT/BIC",
+      "beneficiaryName": "Beneficiary name",
+      "selectBeneficiary": "Select beneficiary",
+      "disclaimer": "You will receive a confirmation email for payment",
+      "checkoutWith": "Check Out with",
+      "payNow": "Pay Now",
+      "countries": {
+        "egypt": "Egypt",
+        "unitedStates": "United States",
+        "unitedKingdom": "United Kingdom",
+        "germany": "Germany",
+        "france": "France"
+      }
+    },
+    "confirmation": {
+      "title": "Your Booking for The trip has been confirmed",
+      "subtitle": "Please Check your E-mail for more details",
+      "bookAnother": "Book Another Trip"
+    },
+    "orderSummary": {
+      "title": "Order Summary",
+      "total": "Total"
+    },
+    "giftCode": {
+      "enterCode": "Enter promo or gift code",
+      "redeem": "Redeem",
+      "placeholder": "Enter code"
+    },
+    "cancel":{
+      "cancelConfirmation1": "You will receive e-mail with cancellation fees",
+      "cancelConfirmation2": "or contact booking@expand-horizons.de",
+      "cancelConfirmation3": "Are you sure to cancel?",
+      "cancelSuccess": "Booking cancelled successfully",
+      "cancelError": "Failed to cancel booking"
+    }
   }
 }

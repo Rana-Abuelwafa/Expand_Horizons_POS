@@ -9,7 +9,16 @@ import SubDestinations from "./pages/Destinations/SubDestinations";
 import ExcursionPage from "./pages/Trips/ExcursionPage";
 import DivingPage from "./pages/Trips/DivingPage";
 import TransfersPage from "./pages/Trips/TransfersPage";
+import BookingPage from "./pages/BookingPage/BookingPage";
+import AvailabilityPage from "./pages/AvailabilityPage/AvailabilityPage";
+
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-popup-alert/dist/index.css";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-phone-number-input/style.css";
 import "./styles/main.scss";
+
 function App() {
   return (
     <div className="App">
@@ -24,8 +33,10 @@ function App() {
           <Route path="/Destinations/:location" element={<SubDestinations />} />
           <Route path="/excursions/:location" element={<ExcursionPage />} />
           <Route path="/Diving" element={<DivingPage />} />
-
+          
           <Route path="/Transfers" element={<TransfersPage />} />
+          <Route path="/trip/:tripName" element={<AvailabilityPage />} />
+          <Route path="/checkout" element={<BookingPage />} />
         </Routes>
       </Router>
     </div>
