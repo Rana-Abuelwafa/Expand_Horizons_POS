@@ -346,11 +346,11 @@ const BookingSelection = ({ tripData }) => {
 
         try {
 
-            console.log('NNNNNNNN',bookingData)
+            //console.log('NNNNNNNN',bookingData)
             // First save the booking
             const result = await dispatch(checkAvailability(bookingData)).unwrap();
 
-            console.log(result)
+           // console.log(result)
             // If both operations succeeded, navigate to checkout
             navigate("/checkout", {
                 state: {

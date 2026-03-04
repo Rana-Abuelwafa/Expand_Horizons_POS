@@ -1,6 +1,6 @@
 // src/redux/Slices/bookingSummarySlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
+import axios from "axios";
 import {
   checkAUTH,
   isUserNotLoggedIn,
@@ -10,41 +10,41 @@ import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
-// const getAuthHeaders = () => {
-//     const user = JSON.parse(localStorage.getItem("user"));
-//     const accessToken = user?.accessToken;
-//     let lang = localStorage.getItem("lang") || "en";
-//     return {
-//         headers: {
-//             Authorization: `Bearer ${accessToken}`,
-//             "Content-Type": "application/json",
-//             "Accept-Language": lang,
-//         },
-//     };
-// };
+const getAuthHeaders = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const accessToken = user?.accessToken;
+  let lang = localStorage.getItem("lang") || "en";
+  return {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      "Accept-Language": lang,
+    },
+  };
+};
 
 // Async thunk to get booking summary
 export const getBookingSummary = createAsyncThunk(
   "bookingSummary/getBookingSummary",
   async (bookingData, { rejectWithValue }) => {
     // Check authentication
-    // if (isUserNotLoggedIn()) {
-    //   return rejectWithValue(createAuthError("notLoggedIn"));
-    // }
+    if (isUserNotLoggedIn()) {
+      return rejectWithValue(createAuthError("notLoggedIn"));
+    }
 
-    // if (isTokenExpiredOnly()) {
-    //   return rejectWithValue(createAuthError("expired"));
-    // }
+    if (isTokenExpiredOnly()) {
+      return rejectWithValue(createAuthError("expired"));
+    }
 
-    // if (!checkAUTH()) {
-    //   return rejectWithValue(createAuthError("expired"));
-    // }
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError("expired"));
+    }
 
     try {
-      const response = await api.post(
+      const response = await axios.post(
         `${BOOKING_URL}/GetBookingSummary`,
-        bookingData
-        //getAuthHeaders()
+        bookingData,
+        getAuthHeaders(),
       );
 
       return response.data;
@@ -55,7 +55,7 @@ export const getBookingSummary = createAsyncThunk(
 
       return rejectWithValue(error.response?.data || error.message);
     }
-  }
+  },
 );
 
 const bookingSummarySlice = createSlice({

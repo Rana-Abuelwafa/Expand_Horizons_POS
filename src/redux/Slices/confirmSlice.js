@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
+import axios from "axios";
 import {
   checkAUTH,
   isUserNotLoggedIn,
@@ -9,41 +9,41 @@ import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
-// const getAuthHeaders = () => {
-//   const user = JSON.parse(localStorage.getItem("user"));
-//   const accessToken = user?.accessToken;
-//   let lang = localStorage.getItem("lang") || "en";
-//   return {
-//     headers: {
-//       Authorization: `Bearer ${accessToken}`,
-//       "Content-Type": "application/json",
-//       "Accept-Language": lang,
-//     },
-//   };
-// };
+const getAuthHeaders = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const accessToken = user?.accessToken;
+  let lang = localStorage.getItem("lang") || "en";
+  return {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      "Accept-Language": lang,
+    },
+  };
+};
 
 // Async thunk to confirm booking
 export const confirmBooking = createAsyncThunk(
   "confirm/confirmBooking",
   async (confirmData, { rejectWithValue }) => {
     // Check authentication with proper scenario detection
-    // if (isUserNotLoggedIn()) {
-    //   return rejectWithValue(createAuthError("notLoggedIn"));
-    // }
+    if (isUserNotLoggedIn()) {
+      return rejectWithValue(createAuthError("notLoggedIn"));
+    }
 
-    // if (isTokenExpiredOnly()) {
-    //   return rejectWithValue(createAuthError("expired"));
-    // }
+    if (isTokenExpiredOnly()) {
+      return rejectWithValue(createAuthError("expired"));
+    }
 
-    // if (!checkAUTH()) {
-    //   return rejectWithValue(createAuthError("expired"));
-    // }
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError("expired"));
+    }
 
     try {
-      const response = await api.post(
+      const response = await axios.post(
         `${BOOKING_URL}/ConfirmBooking`,
-        confirmData
-        //getAuthHeaders()
+        confirmData,
+        getAuthHeaders(),
       );
 
       return response.data;
@@ -53,7 +53,7 @@ export const confirmBooking = createAsyncThunk(
       // }
       return rejectWithValue(error.response?.data || error.message);
     }
-  }
+  },
 );
 
 const confirmSlice = createSlice({

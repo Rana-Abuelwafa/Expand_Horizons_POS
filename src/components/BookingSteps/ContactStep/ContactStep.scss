@@ -1,0 +1,214 @@
+.contact-step {
+  //   padding: 0.75rem 3rem;
+  background: transparent;
+  // max-width: 550px;
+
+  .contact-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .required-fields-notice {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    text-align: right;
+  }
+
+  .contact-details {
+    .form-group {
+      margin-bottom: 1.25rem;
+
+      .form-input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #fff;
+        transition: all 0.2s ease;
+        height: 50px;
+        box-sizing: border-box;
+
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+          box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        &::placeholder {
+          color: #999;
+          font-weight: 400;
+        }
+
+        &.is-invalid {
+          border-color: #dc3545;
+
+          &:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+          }
+        }
+      }
+
+      // Phone input styling
+      .phone-input {
+        position: relative;
+        display: flex;
+        width: 100%;
+
+        .PhoneInputCountry {
+          border: 2px solid #e0e0e0;
+          border-right: none;
+          border-radius: 8px 0 0 8px;
+          background: #fff;
+          padding: 0 0.5rem;
+          display: flex;
+          align-items: center;
+          height: 50px;
+          box-sizing: border-box;
+
+          &:focus-within {
+            border-color: #007bff;
+          }
+
+          .PhoneInputCountrySelect {
+            border: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            outline: none;
+            cursor: pointer;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .PhoneInputCountrySelectArrow {
+            color: #666;
+            margin-left: 0.25rem;
+          }
+
+          .PhoneInputCountryIcon {
+            width: 1.5rem;
+            height: 1rem;
+          }
+        }
+
+        .PhoneInputInput {
+          flex: 1;
+          padding: 1rem;
+          border: 2px solid #e0e0e0;
+          border-left: none;
+          border-radius: 0 8px 8px 0;
+          font-size: 1rem;
+          background: #fff;
+          transition: all 0.2s ease;
+          height: 50px;
+          box-sizing: border-box;
+          outline: none;
+
+          &:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+          }
+
+          &::placeholder {
+            color: #999;
+            font-weight: 400;
+          }
+        }
+
+        &.is-invalid {
+          .PhoneInputCountry {
+            border-color: #dc3545;
+          }
+
+          .PhoneInputInput {
+            border-color: #dc3545;
+
+            &:focus {
+              border-color: #dc3545;
+              box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+            }
+          }
+        }
+      }
+
+      .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        margin-left: 0.25rem;
+      }
+    }
+
+    .disclaimer {
+      color: #666;
+      font-size: 0.875rem;
+      line-height: 1.4;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .payment-btn {
+      width: 100%;
+      background: $primary-color;
+      color: white;
+      border: none;
+      padding: 0.875rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 2rem;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba($primary-color, 0.2);
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .contact-title {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-details {
+      .form-group {
+        .form-input {
+          padding: 1rem;
+          font-size: 1rem;
+        }
+
+        .phone-input {
+          .PhoneInputCountry {
+            padding: 0 0.4rem;
+          }
+
+          .PhoneInputInput {
+            padding: 1rem;
+          }
+        }
+      }
+
+      .payment-btn {
+        padding: 1.125rem 2rem;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
