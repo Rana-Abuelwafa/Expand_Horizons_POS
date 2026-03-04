@@ -199,7 +199,7 @@ const ContactStep = ({ availabilityData, childAges }) => {
         booking_id: bookingId,
         client_id: clientId,
         lang_code: currentLang,
-        client_email: contactInfo.email,
+        ClientEmail: contactInfo.email,
       };
 
       const result = await dispatch(confirmBooking(confirmData)).unwrap();
