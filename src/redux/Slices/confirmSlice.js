@@ -41,7 +41,7 @@ export const confirmBooking = createAsyncThunk(
 
     try {
       const response = await axios.post(
-        `${BOOKING_URL}/ConfirmBooking`,
+        `${BOOKING_URL}/ConfirmBookingPos`,
         confirmData,
         getAuthHeaders(),
       );

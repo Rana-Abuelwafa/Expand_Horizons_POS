@@ -199,12 +199,13 @@ const ContactStep = ({ availabilityData, childAges }) => {
         booking_id: bookingId,
         client_id: clientId,
         lang_code: currentLang,
+        client_email: contactInfo.email,
       };
 
       const result = await dispatch(confirmBooking(confirmData)).unwrap();
 
       if (result === true) {
-       // setShowBookingModal(true);
+        setShowBookingModal(true);
       }
       // else {
       //     setPopupMessage(t('bookings.contact.bookingConfirmationFailed'));
