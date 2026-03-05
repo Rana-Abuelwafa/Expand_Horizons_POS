@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 const TransfersPage = () => {
   return (
     <>
-      <ToursSection tripType={2} />
+      <ToursSection />
     </>
   );
 };

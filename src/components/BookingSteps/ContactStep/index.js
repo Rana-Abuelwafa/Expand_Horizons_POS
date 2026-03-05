@@ -6,7 +6,6 @@ import PhoneInput from "react-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAvailability } from "../../../redux/Slices/bookingSlice";
 import { confirmBooking } from "../../../redux/Slices/confirmSlice";
-// import { fetchProfile } from "../../../redux/Slices/profileSlice";
 import PopUp from "../../Shared/popup/PopUp";
 import LoadingPage from "../../Loader/LoadingPage";
 import {

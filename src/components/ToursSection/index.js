@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { BiSolidCard } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
 import { fetchToursSectionTrips } from "../../redux/Slices/tripsSlice";
@@ -8,10 +9,24 @@ import PopUp from "../Shared/popup/PopUp";
 import TourCard from "../TourCard";
 import Header from "../Header/Header";
 
-const ToursSection = (props) => {
+const ToursSection = () => {
   const dispatch = useDispatch();
-  const tripType = props.tripType || 1;
-  const {
+  const location = useLocation();
+   const [tripType, setTripType] = useState(() => {
+    // Check sessionStorage first (for refresh)
+    const saved = sessionStorage.getItem('toursTripType');
+    if (saved) {
+      return parseInt(saved);
+    }
+    // Then check location state
+    if (location.state?.tripType) {
+      return location.state.tripType;
+    }
+    // Default value
+    return 1;
+  });
+
+ const {
     toursSectionTrips: trips,
     loading,
     error,
@@ -27,6 +42,14 @@ const ToursSection = (props) => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("error");
   const { t } = useTranslation();
+  // Update storage when location state changes
+  useEffect(() => {
+    if (location.state?.tripType) {
+      setTripType(location.state.tripType);
+      sessionStorage.setItem('toursTripType', location.state.tripType);
+    }
+  }, [location.state]);
+  
 
   useEffect(() => {
     const params = {

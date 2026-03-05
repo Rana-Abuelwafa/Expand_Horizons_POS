@@ -18,23 +18,30 @@ const HomeCategories = () => {
       image: "/images/excursions.jpg",
       icon: <IoBoatOutline />,
       pg: "/Destinations",
+      tripType: 1
     },
     {
       title: t("home.transfers"),
       image: "/images/transfer.jpeg",
       icon: <FaBus />,
       pg: "/Transfers",
+      tripType: 2
     },
     {
       title: t("home.diving"),
       image: "/images/diving.png",
       icon: <MdOutlineScubaDiving />,
       pg: "/Diving",
+      tripType: 3
     },
   ];
 
-  const nextPage = (pg) => {
-    navigate(pg);
+  const nextPage = (pg,tripType) => {
+    navigate(pg,{ 
+      state: { 
+        tripType: tripType
+      } 
+    });
   };
 
   return (
@@ -44,7 +51,7 @@ const HomeCategories = () => {
 
         <Row className="g-4 justify-content-center">
           {categories.map((cat, index) => (
-            <Col xs={12} key={index} onClick={() => nextPage(cat.pg)}>
+            <Col xs={12} key={index} onClick={() => nextPage(cat.pg,cat.tripType)}>
               <Card className="category-card">
                 <Row className="g-0 h-100">
                   {/* Image Column */}

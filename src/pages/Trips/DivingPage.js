@@ -4,7 +4,7 @@ import ToursSection from "../../components/ToursSection";
 const DivingPage = () => {
   return (
     <>
-      <ToursSection tripType={3} />
+      <ToursSection />
     </>
   );
 };

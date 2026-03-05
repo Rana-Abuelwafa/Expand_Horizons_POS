@@ -21,7 +21,11 @@ const LanguagesPage = () => {
     localStorage.setItem("lang", lng);
      const user = getUserData();
     if (user && !isTokenExpired(user.refreshTokenExpiryTime)) {
-      navigate('/home');
+       navigate('/Transfers', { 
+            state: { 
+              tripType: 2
+            } 
+          });
     } else {
       navigate('/login');
     }
