@@ -20,7 +20,7 @@ function Login() {
     email: "",
     password: "",
     ConfirmPassword: "",
-    Role: "User",
+    Role: "POS",
     sendOffers: false,
   });
 
@@ -80,7 +80,7 @@ function Login() {
   return (
     <section className="centerSection">
       <div className="login_page">
-         {/* <div className="d-flex justify-content-center align-items-center logo-div">
+        {/* <div className="d-flex justify-content-center align-items-center logo-div">
                     <img 
           src={process.env.PUBLIC_URL + '/logo1.png'}
           alt="expand horizons"
