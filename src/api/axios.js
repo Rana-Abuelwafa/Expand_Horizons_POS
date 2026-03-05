@@ -18,7 +18,10 @@ let showingLoginAlert = false;
 // =========================
 api.interceptors.request.use(
   (config) => {
-    let lang = localStorage.getItem("lang");
+    //console.log("config ", config);
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user?.accessToken;
+    let lang = localStorage.getItem("i18nextLng");
     config.headers["Accept-Language"] = lang;
     if (config.isFormData) {
       config.headers["Content-Type"] = "multipart/form-data";
@@ -30,9 +33,6 @@ api.interceptors.request.use(
     }
     // Allow non-auth requests
     if (config.skipAuth === true) return config;
-
-    const user = JSON.parse(localStorage.getItem("user"));
-    const token = user?.accessToken;
 
     // No token → cancel request + show login popup
     if (!token) {
@@ -94,7 +94,7 @@ api.interceptors.response.use(
 
   async (error) => {
     const originalRequest = error.config;
-
+    //console.log("error ", error);
     // Handle aborted request → DO NOT reject in thunk
     if (error.name === "CanceledError" || error.code === "ERR_CANCELED") {
       return new Promise(() => {}); // silent ignore
@@ -102,6 +102,7 @@ api.interceptors.response.use(
 
     // Skip refresh on auth endpoints
     if (
+      originalRequest.url.includes("/api/login") ||
       originalRequest.url.includes("/api/LoginUser") ||
       originalRequest.url.includes("/api/RegisterUser") ||
       originalRequest.url.includes("/api/ConfirmOTP") ||

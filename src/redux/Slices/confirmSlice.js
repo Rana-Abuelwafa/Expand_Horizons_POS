@@ -27,23 +27,23 @@ export const confirmBooking = createAsyncThunk(
   "confirm/confirmBooking",
   async (confirmData, { rejectWithValue }) => {
     // Check authentication with proper scenario detection
-    if (isUserNotLoggedIn()) {
-      return rejectWithValue(createAuthError("notLoggedIn"));
-    }
+    // if (isUserNotLoggedIn()) {
+    //   return rejectWithValue(createAuthError("notLoggedIn"));
+    // }
 
-    if (isTokenExpiredOnly()) {
-      return rejectWithValue(createAuthError("expired"));
-    }
+    // if (isTokenExpiredOnly()) {
+    //   return rejectWithValue(createAuthError("expired"));
+    // }
 
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError("expired"));
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError("expired"));
+    // }
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${BOOKING_URL}/ConfirmBookingPos`,
         confirmData,
-        getAuthHeaders(),
+        //getAuthHeaders(),
       );
 
       return response.data;

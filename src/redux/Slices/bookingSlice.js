@@ -39,23 +39,23 @@ export const checkAvailability = createAsyncThunk(
   "booking/checkAvailability",
   async (bookingData, { rejectWithValue }) => {
     // Check authentication with proper scenario detection
-    if (isUserNotLoggedIn()) {
-      return rejectWithValue(createAuthError("notLoggedIn"));
-    }
+    // if (isUserNotLoggedIn()) {
+    //   return rejectWithValue(createAuthError("notLoggedIn"));
+    // }
 
-    if (isTokenExpiredOnly()) {
-      return rejectWithValue(createAuthError("expired"));
-    }
+    // if (isTokenExpiredOnly()) {
+    //   return rejectWithValue(createAuthError("expired"));
+    // }
 
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError("expired"));
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError("expired"));
+    // }
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${BOOKING_URL}/SaveClientBooking`,
         bookingData,
-        getAuthHeaders(),
+        //getAuthHeaders(),
       );
 
       // Handle API response with success: false
