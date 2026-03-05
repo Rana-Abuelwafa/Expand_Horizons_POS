@@ -12,21 +12,8 @@ import Header from "../Header/Header";
 const ToursSection = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-   const [tripType, setTripType] = useState(() => {
-    // Check sessionStorage first (for refresh)
-    const saved = sessionStorage.getItem('toursTripType');
-    if (saved) {
-      return parseInt(saved);
-    }
-    // Then check location state
-    if (location.state?.tripType) {
-      return location.state.tripType;
-    }
-    // Default value
-    return 1;
-  });
-
- const {
+  const tripType = location.state?.tripType || 1;
+  const {
     toursSectionTrips: trips,
     loading,
     error,
@@ -42,14 +29,6 @@ const ToursSection = () => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("error");
   const { t } = useTranslation();
-  // Update storage when location state changes
-  useEffect(() => {
-    if (location.state?.tripType) {
-      setTripType(location.state.tripType);
-      sessionStorage.setItem('toursTripType', location.state.tripType);
-    }
-  }, [location.state]);
-  
 
   useEffect(() => {
     const params = {
@@ -57,10 +36,10 @@ const ToursSection = () => {
       show_in_top: false,
       currency_code: "EUR",
       client_id: user?.id || "",
-      trip_type: tripType,
+      trip_type: 2,
     };
     dispatch(fetchToursSectionTrips(params));
-  }, [dispatch, refreshTrigger, tripType]);
+  }, [dispatch, refreshTrigger]);
 
   if (loading) {
     return <LoadingPage />;
