@@ -1,9 +1,108 @@
-.logo-section {
-  //margin-bottom: 30px;
+// LogoSection.scss - Larger for lobby screen
 
+.logo-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   .logo {
     width: 100%;
-    max-width: 150px;
+    max-width: 220px; // Much larger for lobby
     height: auto;
+    transition: all 0.3s ease;
+  }
+}
+
+/* =============================
+ Responsive Styles - Maintain large size
+  ============================= */
+
+/* Large tablets and small desktops */
+@media (max-width: 992px) {
+  .logo-section {
+    .logo {
+      max-width: 200px;
+    }
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .logo-section {
+    .logo {
+      max-width: 180px;
+    }
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 600px) {
+  .logo-section {
+    .logo {
+      max-width: 160px;
+    }
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .logo-section {
+    .logo {
+      max-width: 140px;
+    }
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 380px) {
+  .logo-section {
+    .logo {
+      max-width: 120px;
+    }
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 320px) {
+  .logo-section {
+    .logo {
+      max-width: 100px;
+    }
+  }
+}
+
+/* Landscape Mode */
+@media (max-width: 768px) and (orientation: landscape) {
+  .logo-section {
+    .logo {
+      max-width: 110px;
+    }
+  }
+}
+
+/* Large screens - make even larger for big displays */
+@media (min-width: 1200px) {
+  .logo-section {
+    .logo {
+      max-width: 260px;
+    }
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1600px) {
+  .logo-section {
+    .logo {
+      max-width: 300px;
+    }
+  }
+}
+
+/* 4K screens */
+@media (min-width: 2000px) {
+  .logo-section {
+    .logo {
+      max-width: 350px;
+    }
   }
 }

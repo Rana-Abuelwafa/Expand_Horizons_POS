@@ -21,11 +21,7 @@ const LanguagesPage = () => {
     localStorage.setItem("lang", lng);
      const user = getUserData();
     if (user && !isTokenExpired(user.refreshTokenExpiryTime)) {
-       navigate('/Transfers', { 
-            state: { 
-              tripType: 2
-            } 
-          });
+       navigate('/car-categories');
     } else {
       navigate('/login');
     }
@@ -33,8 +29,9 @@ const LanguagesPage = () => {
 
   return (
     <div className="language-wrapper">
+       <Header />
       <div className="language-card">
-        <Header />
+       
 
         <div className="language-list">
           {languages.map((lang, index) => (

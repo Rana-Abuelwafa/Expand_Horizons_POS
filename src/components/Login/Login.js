@@ -108,7 +108,7 @@ function Login() {
               <FloatingLabel label={t("Login.email")} className="mb-3">
                 <Form.Control
                   type="email"
-                  placeholder={t("Login.email")}
+                  // placeholder={t("Login.email")}
                   required
                   name="email"
                   className="formInput"
@@ -127,7 +127,7 @@ function Login() {
               <FloatingLabel label={t("Login.password")} className="mb-3">
                 <Form.Control
                   type="password"
-                  placeholder={t("Login.password")}
+                  // placeholder={t("Login.password")}
                   required
                   name="password"
                   className="formInput"

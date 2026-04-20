@@ -1,23 +1,260 @@
+// Header.scss - Updated with larger logo support
+
 @import "../../styles/variables";
+
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
-  //   background-color: #fff;
-  //   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 28px 40px; // Even larger padding for lobby
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 24px;
+  background: #ffffff;
 }
 
-/* Back Button */
+/* Back Button - Extra large for lobby */
 .back-btn {
   background: none;
   border: none;
-  font-size: 30px;
-  color: #5599CB !important;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  min-width: 70px;
+  min-height: 70px;
+  flex-shrink: 0;
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
   svg {
     color: #5599CB !important;
+    font-size: 42px; // Extra large icon
+  }
+}
+
+/* Logo Section wrapper */
+.logo-section {
+  flex-shrink: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =============================
+ Responsive Styles
+  ============================= */
+
+/* Large tablets and small desktops */
+@media (max-width: 992px) {
+  .app-header {
+    padding: 24px 32px;
+    margin-bottom: 40px;
+    gap: 20px;
+  }
+  
+  .back-btn {
+    min-width: 65px;
+    min-height: 65px;
+    padding: 12px;
+    
+    svg {
+      font-size: 38px;
+    }
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 20px 28px;
+    margin-bottom: 35px;
+    gap: 18px;
+  }
+  
+  .back-btn {
+    min-width: 60px;
+    min-height: 60px;
+    padding: 12px;
+    
+    svg {
+      font-size: 34px;
+    }
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 600px) {
+  .app-header {
+    padding: 18px 24px;
+    margin-bottom: 30px;
+    gap: 16px;
+  }
+  
+  .back-btn {
+    min-width: 55px;
+    min-height: 55px;
+    padding: 10px;
+    
+    svg {
+      font-size: 30px;
+    }
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .app-header {
+    padding: 16px 20px;
+    margin-bottom: 25px;
+    gap: 14px;
+  }
+  
+  .back-btn {
+    min-width: 50px;
+    min-height: 50px;
+    padding: 10px;
+    
+    svg {
+      font-size: 28px;
+    }
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 380px) {
+  .app-header {
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+  
+  .back-btn {
+    min-width: 45px;
+    min-height: 45px;
+    padding: 8px;
+    
+    svg {
+      font-size: 26px;
+    }
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 320px) {
+  .app-header {
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    gap: 10px;
+  }
+  
+  .back-btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 6px;
+    
+    svg {
+      font-size: 24px;
+    }
+  }
+}
+
+/* Landscape orientation - keep reasonably sized */
+@media (max-width: 768px) and (orientation: landscape) {
+  .app-header {
+    padding: 14px 24px;
+    margin-bottom: 25px;
+    gap: 16px;
+  }
+  
+  .back-btn {
+    min-width: 50px;
+    min-height: 50px;
+    
+    svg {
+      font-size: 28px;
+    }
+  }
+}
+
+/* Touch devices - maintain large tap targets */
+@media (hover: none) and (pointer: coarse) {
+  .back-btn {
+    min-width: 70px;
+    min-height: 70px;
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+/* Hover effect for devices that support it */
+@media (hover: hover) {
+  .back-btn:hover {
+    background: rgba(85, 153, 203, 0.1);
+    transform: scale(1.05);
+  }
+}
+
+/* Large screens - make header even more prominent */
+@media (min-width: 1200px) {
+  .app-header {
+    padding: 32px 50px;
+    margin-bottom: 60px;
+    gap: 28px;
+  }
+  
+  .back-btn {
+    min-width: 80px;
+    min-height: 80px;
+    
+    svg {
+      font-size: 48px;
+    }
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1600px) {
+  .app-header {
+    padding: 36px 60px;
+    margin-bottom: 70px;
+    gap: 32px;
+  }
+  
+  .back-btn {
+    min-width: 90px;
+    min-height: 90px;
+    
+    svg {
+      font-size: 54px;
+    }
+  }
+}
+
+/* 4K screens */
+@media (min-width: 2000px) {
+  .app-header {
+    padding: 40px 80px;
+    margin-bottom: 80px;
+    gap: 40px;
+  }
+  
+  .back-btn {
+    min-width: 100px;
+    min-height: 100px;
+    
+    svg {
+      font-size: 60px;
+    }
   }
 }

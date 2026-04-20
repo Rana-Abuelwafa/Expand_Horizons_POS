@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.login-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.login-page-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  min-height: calc(100vh - 140px);
+  
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 120px);
+    padding: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    min-height: calc(100vh - 100px);
+    padding: 15px;
+  }
+}

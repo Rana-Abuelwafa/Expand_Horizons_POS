@@ -1,69 +1,89 @@
 @import "../../styles/variables";
+
+.centerSection {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .login_page {
   text-align: center;
   background-color: white;
-  // margin:auto auto ;
-  margin: 40px auto;
-  max-width: 450px;
-  border-radius: 20px;
-  padding: 10px 30px;
-  border: 1px solid #f0f0f0; // Very light border
-  cursor: pointer;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(85, 153, 203, 0.3);
+  margin: 0 auto;
+  max-width: 650px; /* Increased from 500px */
+  width: 100%;
+ 
+  padding: 60px 50px; /* Much larger padding */
   transition: all 0.3s ease;
 
-  .logo-div{
-    margin: 30px !important;
+  .logo-div {
+    margin: 20px 0 40px 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-   .logo-img {
-      height: auto;
-      width: 150px;
-      max-width: 100%;
-      transition: width 0.3s ease;
-    }
+  .logo-img {
+    height: auto;
+    width: 220px; /* Much larger logo */
+    max-width: 100%;
+    transition: all 0.3s ease;
+  }
 
   .title {
     color: $primary-color;
-    font-size: 28px;
+    font-size: 42px; /* Much larger title */
     text-align: center;
-    // margin-bottom: 20px;
     font-weight: bold;
+    margin-bottom: 20px;
   }
+
   .SubTitle,
   .form-check-label,
   .formText {
-    font-size: 14px;
+    font-size: 18px; /* Larger subtitle */
     color: $primary-color;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    line-height: 1.5;
   }
+
   strong {
     font-weight: bold !important;
   }
 
   .form-floating {
-    margin: 20px 0;
+    margin: 25px 0;
     background-color: white;
-    border: 1px solid #707070;
-    border-radius: 8px;
-    //margin-top: 10px;
-    height: 45px;
+    border: 1px solid #d0d0d0;
+    border-radius: 16px; /* Larger border radius */
+    height: 75px; /* Much taller inputs */
     padding: 0;
+    transition: all 0.2s ease;
+
+    &:focus-within {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 4px rgba(85, 153, 203, 0.1);
+    }
+
     &:focus,
     &:active {
       outline: 0;
-      border: 1px solid #707070;
+      border: 1px solid #d0d0d0;
       background-color: white !important;
     }
+
     .formInput {
-      height: 40px;
-      min-height: 40px;
+      height: 73px;
+      min-height: 73px;
       color: $primary-color;
       border: 0 !important;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: lighter;
+      border-radius: 16px;
+      font-size: 18px; /* Larger text */
+      font-weight: normal;
+      background-color: transparent;
+
       &:focus,
       &:active {
         outline: 0;
@@ -71,25 +91,446 @@
         background-color: white !important;
         box-shadow: unset !important;
       }
+
+      &::placeholder {
+        color: #bbb;
+        font-size: 16px;
+      }
     }
+
     label {
-      font-size: 14px;
-      color: #cdcdcd;
-      padding: 10px;
+      font-size: 18px; /* Larger label */
+      color: #999;
+      padding: 22px 16px;
+      font-weight: normal;
     }
   }
+
   .frmBtn {
-    color:#ffffff !important;
-    border-radius: 34px;
-    margin: 20px 0;
+    color: #ffffff !important;
+    border-radius: 50px; /* Larger border radius */
+    margin: 35px 0 20px 0;
+    padding: 16px 32px; /* Much larger button */
+    font-size: 20px; /* Larger text */
+    font-weight: 600;
+    background-color: $primary-color;
+    border: none;
+    transition: all 0.2s ease;
+    width: 100%;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(85, 153, 203, 0.35);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
   }
+
   .form_title {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
   .errorTxt {
-    color: red !important;
+    color: #dc3545 !important;
+    font-size: 14px; /* Larger error text */
+    margin-top: 8px;
+    display: block;
+    text-align: left;
+  }
+
+  .form-check {
+    text-align: left;
+    margin: 20px 0;
+    
+    .form-check-input {
+      width: 18px;
+      height: 18px;
+      border-color: #d0d0d0;
+
+      &:checked {
+        background-color: $primary-color;
+        border-color: $primary-color;
+      }
+    }
+
+    .form-check-label {
+      font-size: 16px;
+      margin-bottom: 0;
+      color: #666;
+    }
+  }
+}
+
+/* =============================
+ Responsive Styles - Maintain large size
+  ============================= */
+
+/* Large tablets and small desktops */
+@media (max-width: 992px) {
+  .login_page {
+    max-width: 580px;
+    padding: 50px 40px;
+    border-radius: 28px;
+
+    .logo-img {
+      width: 190px;
+    }
+
+    .title {
+      font-size: 36px;
+    }
+    
+    .SubTitle {
+      font-size: 16px;
+    }
+
+    .form-floating {
+      height: 68px;
+
+      .formInput {
+        height: 66px;
+        min-height: 66px;
+        font-size: 16px;
+      }
+
+      label {
+        font-size: 16px;
+        padding: 20px 16px;
+      }
+    }
+    
+    .frmBtn {
+      padding: 14px 28px;
+      font-size: 18px;
+    }
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .login_page {
+    max-width: 520px;
+    padding: 40px 35px;
+    border-radius: 24px;
+
+    .logo-div {
+      margin: 15px 0 30px 0 !important;
+    }
+
+    .logo-img {
+      width: 160px;
+    }
+
+    .title {
+      font-size: 32px;
+    }
+
+    .SubTitle {
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    .form-floating {
+      margin: 20px 0;
+      height: 62px;
+      border-radius: 14px;
+
+      .formInput {
+        height: 60px;
+        min-height: 60px;
+        font-size: 15px;
+      }
+
+      label {
+        font-size: 15px;
+        padding: 18px 14px;
+      }
+    }
+
+    .frmBtn {
+      padding: 12px 24px;
+      font-size: 17px;
+      margin: 30px 0 15px 0;
+      border-radius: 45px;
+    }
+    
+    .errorTxt {
+      font-size: 13px;
+    }
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 600px) {
+  .login_page {
+    max-width: 90%;
+    padding: 35px 30px;
+    border-radius: 22px;
+
+    .logo-img {
+      width: 140px;
+    }
+
+    .title {
+      font-size: 28px;
+    }
+
+    .SubTitle {
+      font-size: 14px;
+    }
+
+    .form-floating {
+      height: 58px;
+
+      .formInput {
+        height: 56px;
+        min-height: 56px;
+        font-size: 14px;
+      }
+
+      label {
+        font-size: 14px;
+        padding: 16px 14px;
+      }
+    }
+
+    .frmBtn {
+      padding: 11px 22px;
+      font-size: 16px;
+      border-radius: 40px;
+    }
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .login_page {
+    max-width: 95%;
+    padding: 30px 25px;
+    border-radius: 20px;
+
+    .logo-div {
+      margin: 10px 0 25px 0 !important;
+    }
+
+    .logo-img {
+      width: 120px;
+    }
+
+    .title {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+
+    .SubTitle {
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .form-floating {
+      margin: 18px 0;
+      height: 54px;
+      border-radius: 12px;
+
+      .formInput {
+        height: 52px;
+        min-height: 52px;
+        font-size: 14px;
+      }
+
+      label {
+        font-size: 14px;
+        padding: 14px 14px;
+      }
+    }
+
+    .frmBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 25px 0 12px 0;
+      border-radius: 35px;
+    }
+
+    .errorTxt {
+      font-size: 12px;
+    }
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 380px) {
+  .login_page {
+    padding: 25px 20px;
+    border-radius: 18px;
+
+    .logo-img {
+      width: 100px;
+    }
+
+    .title {
+      font-size: 24px;
+    }
+
+    .form-floating {
+      height: 50px;
+
+      .formInput {
+        height: 48px;
+        min-height: 48px;
+        font-size: 13px;
+      }
+
+      label {
+        font-size: 13px;
+        padding: 12px 12px;
+      }
+    }
+    
+    .frmBtn {
+      padding: 9px 18px;
+      font-size: 15px;
+    }
+  }
+}
+
+/* Landscape orientation for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .login_page {
+    max-width: 70%;
+    padding: 25px 30px;
+    
+    .logo-div {
+      margin: 5px 0 20px 0 !important;
+    }
+
+    .logo-img {
+      width: 100px;
+    }
+
+    .title {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+    
+    .SubTitle {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .form-floating {
+      margin: 15px 0;
+      height: 52px;
+
+      .formInput {
+        height: 50px;
+        min-height: 50px;
+      }
+      
+      label {
+        padding: 14px 14px;
+      }
+    }
+
+    .frmBtn {
+      margin: 20px 0 10px 0;
+      padding: 10px 20px;
+    }
+  }
+}
+
+/* Hover effects for devices that support it */
+@media (hover: hover) {
+  .login_page {
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+/* Large screens - make even larger */
+@media (min-width: 1200px) {
+  .login_page {
+    max-width: 700px;
+    padding: 70px 60px;
+    border-radius: 36px;
+
+    .logo-img {
+      width: 250px;
+    }
+
+    .title {
+      font-size: 48px;
+    }
+    
+    .SubTitle {
+      font-size: 20px;
+    }
+
+    .form-floating {
+      height: 82px;
+      border-radius: 18px;
+
+      .formInput {
+        height: 80px;
+        min-height: 80px;
+        font-size: 20px;
+      }
+
+      label {
+        font-size: 20px;
+        padding: 25px 18px;
+      }
+    }
+
+    .frmBtn {
+      padding: 18px 36px;
+      font-size: 22px;
+      border-radius: 55px;
+    }
+    
+    .errorTxt {
+      font-size: 15px;
+    }
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1600px) {
+  .login_page {
+    max-width: 800px;
+    padding: 80px 70px;
+    
+    .logo-img {
+      width: 280px;
+    }
+    
+    .title {
+      font-size: 54px;
+    }
+    
+    .form-floating {
+      height: 90px;
+      
+      .formInput {
+        height: 88px;
+        min-height: 88px;
+        font-size: 22px;
+      }
+      
+      label {
+        font-size: 22px;
+        padding: 28px 20px;
+      }
+    }
+    
+    .frmBtn {
+      padding: 20px 40px;
+      font-size: 24px;
+    }
   }
 }

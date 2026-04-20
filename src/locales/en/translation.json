@@ -22,7 +22,8 @@
     "empty_title": "No tours available",
     "empty_dest_title":"No destinations available",
     "empty_text": "Please check back later for new offers.",
-    "top_offers": "Top Offers"
+    "top_offers": "Top Offers",
+    "Choose_your_vehicle": "Choose Your Vehicle"
   },
   "Login":{
     "loginTitle":"LOGIN",
