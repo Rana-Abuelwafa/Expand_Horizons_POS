@@ -13,12 +13,12 @@ import BookingConfirm from "./pages/BookingConfirmPage/BookingConfirm";
 import AvailabilityPage from "./pages/AvailabilityPage/AvailabilityPage";
 import CarCategoriesPage from "./pages/CarCategories/CarCategoriesPage";
 
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-popup-alert/dist/index.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
 import "./styles/main.scss";
+import BookingMapPage from "./pages/MapPage/BookingMapPage";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/app-lang" element={<LangSelector />} />
-           <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/Destinations" element={<MainDestinations />} />
           <Route path="/Destinations/:location" element={<SubDestinations />} />
           <Route path="/excursions/:location" element={<ExcursionPage />} />
@@ -38,6 +38,7 @@ function App() {
           <Route path="/trip/:tripName" element={<AvailabilityPage />} />
           <Route path="/checkout" element={<BookingPage />} />
           <Route path="/bookingConfirmation" element={<BookingConfirm />} />
+          <Route path="/BookingMap" element={<BookingMapPage />} />
         </Routes>
       </Router>
     </div>
