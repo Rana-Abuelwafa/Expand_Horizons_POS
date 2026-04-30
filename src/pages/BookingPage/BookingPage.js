@@ -16,6 +16,33 @@ const BookingPage = () => {
   const [availabilityData, setAvailabilityData] = useState(null);
   const [childAges, setchildAges] = useState(null);
 
+  const [MapData, setMapData] = useState(null);
+  // const {
+  //   pickup_address,
+  //   pickup_lat,
+  //   pickup_long,
+  //   drop_address,
+  //   drop_lat,
+  //   drop_long,
+  //   distance,
+  //   duration,
+  //   price,
+  // } = state;
+  useEffect(() => {
+    if (state) {
+      // ✅ case 1: came from navigation
+      setMapData(state);
+    } else {
+      // ✅ case 2: page refresh → load from localStorage
+      const stored = localStorage.getItem("booking_data");
+
+      if (stored) {
+        // setMapData(stored?.booking_data);
+        setMapData(JSON.parse(stored));
+      }
+    }
+  }, [state]);
+
   useEffect(() => {
     if (state?.trip) {
       setTripData(state.trip);

@@ -7,10 +7,12 @@ import { getRouteData } from "../../services/routingService";
 import "./MapPage.scss";
 import Header from "../../components/Header/Header";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BookingMapPage = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const dest_name = state?.dest_name;
   const {
     location: pickup,
     address: pickupAddress,
@@ -35,7 +37,23 @@ const BookingMapPage = () => {
 
     fetchRoute();
   }, [pickup, drop]);
-
+  const handleBooking = () => {
+    const bookingData = {
+      pickup_address: pickupAddress,
+      pickup_lat: "",
+      pickup_long: "",
+      drop_address: drop,
+      drop_lat: "",
+      drop_long: "",
+      distance,
+      duration,
+      price,
+    };
+    localStorage.setItem("booking_data", JSON.stringify(bookingData));
+    navigate("/checkout", {
+      state: bookingData,
+    });
+  };
   return (
     <div className="bookmap-wrapper">
       <Header />
@@ -61,9 +79,7 @@ const BookingMapPage = () => {
           <button
             className="book-btn"
             disabled={!pickup || !drop}
-            onClick={() => {
-              navigate("/checkout");
-            }}
+            onClick={handleBooking}
           >
             Book Now
           </button>

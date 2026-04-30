@@ -13,30 +13,37 @@ const CarCategoriesPage = () => {
       id: 1,
       name: "Standard Car",
       title: "STANDARD",
-      description: "Economy & Comfort - Perfect for daily travel and business trips",
+      description:
+        "Economy & Comfort - Perfect for daily travel and business trips",
       image: "/images/standard-car.jpg",
       bgColor: "#fff",
       tripType: 2,
-      features: ["4 Passengers", "2 Luggage", "AC", "GPS Navigation"]
+      features: ["4 Passengers", "2 Luggage", "AC", "GPS Navigation"],
     },
     {
       id: 2,
       name: "Luxury Car",
       title: "LUXURY",
-      description: "Premium & Elegance - First class experience with premium comfort",
+      description:
+        "Premium & Elegance - First class experience with premium comfort",
       image: "/images/luxury-car.jpg",
       bgColor: "#fff",
       tripType: 2,
-      features: ["4 Passengers", "3 Luggage", "Leather Seats", "WiFi", "Water"]
-    }
+      features: ["4 Passengers", "3 Luggage", "Leather Seats", "WiFi", "Water"],
+    },
   ];
 
   const handleCategorySelect = (tripType) => {
-    navigate('/Transfers', {
+    navigate("/Destinations", {
       state: {
-        tripType: tripType
-      }
+        tripType: tripType,
+      },
     });
+    // navigate('/Transfers', {
+    //   state: {
+    //     tripType: tripType
+    //   }
+    // });
   };
 
   return (
@@ -45,7 +52,9 @@ const CarCategoriesPage = () => {
       <div className="car-categories-content">
         <div className="car-categories-container">
           <div className="categories-header">
-            <h1 className="categories-title">{t("tours.Choose_your_vehicle")}</h1>
+            <h1 className="categories-title">
+              {t("tours.Choose_your_vehicle")}
+            </h1>
             {/* <p className="categories-subtitle">Select the perfect ride for your journey</p> */}
           </div>
 

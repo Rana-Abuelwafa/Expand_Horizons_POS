@@ -8,6 +8,8 @@ export const searchPlaces = async (query) => {
       q: query,
       format: "json",
       limit: 5,
+      // ✅ restrict to Egypt
+      countrycodes: "eg",
     },
   });
 

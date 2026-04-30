@@ -17,7 +17,7 @@ const MainDestinations = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentLang = localStorage.getItem("i18nextLng") || "en";
-  
+
   const {
     items: parentDestinations,
     childrenItems: childDestinations,
@@ -54,6 +54,14 @@ const MainDestinations = () => {
             state: { childDestination: result.payload },
           },
         );
+      } else {
+        navigate("/BookingMap", {
+          state: {
+            DestinationId: parentDestination.destination_id,
+            tripType: 2,
+            dest_name: parentDestination.dest_name,
+          },
+        });
       }
     } catch (error) {
       console.error("Error fetching child destinations:", error);
@@ -62,10 +70,8 @@ const MainDestinations = () => {
 
   return (
     <>
-       {loading && <LoadingPage />}
-
-       
-        {!loading && parentDestinations.length === 0 && (
+      {loading && <LoadingPage />}
+      {!loading && parentDestinations.length === 0 && (
         <section className="dest-wrapper">
           <div className="dest-container">
             <Header />
@@ -75,43 +81,47 @@ const MainDestinations = () => {
         </section>
       )}
 
-  
-    {!loading && parentDestinations.length > 0 && (
-    <section className="dest-wrapper">
-      <div className="dest-container">
-        <Header />
+      {!loading && parentDestinations.length > 0 && (
+        <section className="dest-wrapper">
+          <div className="dest-container">
+            <Header />
 
-        <Row className="g-4 justify-content-center">
-          {parentDestinations.map((dest, index) => (
-            <Col xs={12} key={index} onClick={() => handleParentClick(dest)}>
-              <Card className="dest-card">
-                <Row className="g-0 h-100">
-                  {/* Icon + Text Column */}
-                  <Col xs={6} className="content-col">
-                    <div className="content-wrapper">
-                      {/* <div className="icon">{cat.icon}</div> */}
-                      <div className="title">{dest.dest_name}</div>
-                    </div>
-                  </Col>
+            <Row className="g-4 justify-content-center">
+              {parentDestinations.map((dest, index) => (
+                <Col
+                  xs={12}
+                  key={index}
+                  onClick={() => handleParentClick(dest)}
+                >
+                  <Card className="dest-card">
+                    <Row className="g-0 h-100">
+                      {/* Icon + Text Column */}
+                      <Col xs={6} className="content-col">
+                        <div className="content-wrapper">
+                          {/* <div className="icon">{cat.icon}</div> */}
+                          <div className="title">{dest.dest_name}</div>
+                        </div>
+                      </Col>
 
-                  {/* Image Column */}
-                  <Col xs={6} className="image-col">
-                    <div
-                      className="image-bg"
-                      style={{ backgroundImage: `url(${encodeURI(dest.img_path)})` }}
-                    />
-                    <div className="dest-triangle" />
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
-    </section>
-    )}
-
-      </>
+                      {/* Image Column */}
+                      <Col xs={6} className="image-col">
+                        <div
+                          className="image-bg"
+                          style={{
+                            backgroundImage: `url(${encodeURI(dest.img_path)})`,
+                          }}
+                        />
+                        <div className="dest-triangle" />
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 

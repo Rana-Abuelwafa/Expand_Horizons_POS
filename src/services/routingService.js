@@ -16,7 +16,7 @@ export const getRouteData = async (start, end) => {
   );
 
   const data = res.data.features[0];
-
+  console.log("data ", data);
   return {
     coordinates: data.geometry.coordinates.map((c) => [c[1], c[0]]),
     distance: data.properties.summary.distance / 1000,

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./LanguagesPage.scss";
 import Header from "../../components/Header/Header";
-import { isTokenExpired, getUserData } from '../../utils/auth';
+import { isTokenExpired, getUserData } from "../../utils/auth";
 
 const LanguagesPage = () => {
   const navigate = useNavigate();
@@ -12,27 +12,26 @@ const LanguagesPage = () => {
   const languages = [
     { name: "English", flag: "/images/gb.png", code: "en" },
     { name: "Deutsch", flag: "/images/de.png", code: "de" },
-    { name: "Русский", flag: "/images/ru.png", code: "ru" }
+    { name: "Русский", flag: "/images/ru.png", code: "ru" },
   ];
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     localStorage.setItem("i18nextLng", lng); // persist language
     localStorage.setItem("lang", lng);
-     const user = getUserData();
+    const user = getUserData();
+    //navigate("/car-categories");
     if (user && !isTokenExpired(user.refreshTokenExpiryTime)) {
-       navigate('/car-categories');
+      navigate("/car-categories");
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   };
 
   return (
     <div className="language-wrapper">
-       <Header />
+      <Header />
       <div className="language-card">
-       
-
         <div className="language-list">
           {languages.map((lang, index) => (
             <button
