@@ -7,7 +7,9 @@
     background-color: #ffffff;
     border-radius: 24px;
     padding: $spacer-xl;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(85, 153, 203, 0.3);
+    box-shadow:
+      0 10px 10px rgba(0, 0, 0, 0.15),
+      0 0 0 2px rgba(85, 153, 203, 0.3);
     border: 1px solid #e0e0e0;
 
     @include media-breakpoint-down(lg) {
@@ -50,32 +52,39 @@
 
   // Override Bootstrap button styles
   &__button {
-    height: 44px !important;
-    background-color: #f8f9fa !important;
-    border: 1px solid #e0e0e0 !important;
-    border-radius: $spacer-md !important;
-    font-size: $spacer-md !important;
+    // height: 44px !important;
+    height: 50px;
+    // background-color: #f8f9fa !important;
+    // border: 1px solid #e0e0e0 !important;
+    //border-radius: $spacer-md !important;
+    //font-size: $spacer-md !important;
     font-weight: $font-weight-medium !important;
-    color: #000000 !important;
-    box-shadow: $box-shadow-sm !important;
-    transition: $transition-base !important;
+    //color: #000000 !important;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fff;
+    // box-shadow: $box-shadow-sm !important;
+    // transition: $transition-base !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    &:hover,
-    &:focus,
-    &:active {
-      background-color: #ffffff !important;
-      border-color: $secondary-color !important;
-      box-shadow: $box-shadow !important;
-      transform: translateY(-2px);
-      color: #000000 !important;
-    }
+    // &:hover,
+    // &:focus,
+    // &:active {
+    //   background-color: #ffffff !important;
+    //   border-color: $secondary-color !important;
+    //   box-shadow: $box-shadow !important;
+    //   transform: translateY(-2px);
+    //   color: #000000 !important;
+    // }
 
-    &:focus-visible {
-      box-shadow: $box-shadow, 0 0 0 0.25rem rgba($secondary-color, 0.25) !important;
-    }
+    // &:focus-visible {
+    //   box-shadow:
+    //     $box-shadow,
+    //     0 0 0 0.25rem rgba($secondary-color, 0.25) !important;
+    // }
 
     @include media-breakpoint-down(sm) {
       height: 48px !important;
@@ -414,30 +423,30 @@
   // Checkbox styles
   &__checkbox {
     margin: $spacer-md 0;
-    
+
     .form-check-input {
       width: 20px;
       height: 20px;
       margin-right: $spacer-sm;
       border: 2px solid $secondary-color;
       cursor: pointer;
-      
+
       &:checked {
         background-color: $secondary-color;
         border-color: $secondary-color;
       }
-      
+
       &:focus {
         box-shadow: 0 0 0 0.2rem rgba($secondary-color, 0.25);
       }
     }
-    
+
     .form-check-label {
       color: #000000;
       font-size: 16px;
       font-weight: $font-weight-medium;
       cursor: pointer;
-      
+
       @include media-breakpoint-down(sm) {
         font-size: 14px;
       }
@@ -606,27 +615,27 @@
 
     .react-datepicker__time-container {
       border-left: 1px solid #e0e0e0;
-      
+
       .react-datepicker__time {
         background: #ffffff;
-        
+
         .react-datepicker__time-box {
           width: 100% !important;
-          
+
           ul.react-datepicker__time-list {
             padding: 0;
-            
+
             li.react-datepicker__time-list-item {
               height: 40px;
               line-height: 40px;
               padding: 0 10px;
               font-size: 14px;
               color: #000000;
-              
+
               &:hover {
                 background-color: #f8f9fa;
               }
-              
+
               &--selected {
                 background-color: $secondary-color;
                 color: white;

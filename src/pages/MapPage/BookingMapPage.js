@@ -19,6 +19,7 @@ const BookingMapPage = () => {
     loading,
   } = useCurrentLocation();
   const [drop, setDrop] = useState(null);
+  const [dropCord, setDropCord] = useState(null);
   const [route, setRoute] = useState([]);
   const [distance, setDistance] = useState(null);
   const [duration, setDuration] = useState(null);
@@ -27,8 +28,8 @@ const BookingMapPage = () => {
   const price = distance ? (distance * RATE_PER_KM).toFixed(2) : null;
   useEffect(() => {
     const fetchRoute = async () => {
-      if (pickup && drop) {
-        const data = await getRouteData(pickup, drop);
+      if (pickup && dropCord) {
+        const data = await getRouteData(pickup, dropCord);
         setRoute(data.coordinates);
         setDistance(data.distance);
         setDuration(data.duration);
@@ -36,15 +37,15 @@ const BookingMapPage = () => {
     };
 
     fetchRoute();
-  }, [pickup, drop]);
+  }, [pickup, dropCord]);
   const handleBooking = () => {
     const bookingData = {
       pickup_address: pickupAddress,
-      pickup_lat: "",
-      pickup_long: "",
+      pickup_lat: pickup[0],
+      pickup_long: pickup[1],
       drop_address: drop,
-      drop_lat: "",
-      drop_long: "",
+      drop_lat: dropCord[0],
+      drop_long: dropCord[1],
       distance,
       duration,
       price,
@@ -54,12 +55,18 @@ const BookingMapPage = () => {
       state: bookingData,
     });
   };
+  const handleDropLocation = (cord, addr) => {
+    // console.log("cord ", cord);
+    // console.log("addr ", addr);
+    setDrop(addr);
+    setDropCord(cord);
+  };
   return (
     <div className="bookmap-wrapper">
       <Header />
       <div className="bookingmap-page">
         <div className="map-section">
-          <MapView pickup={pickup} drop={drop} route={route} />
+          <MapView pickup={pickup} drop={dropCord} route={route} />
         </div>
 
         <div className="details-section">
@@ -72,7 +79,10 @@ const BookingMapPage = () => {
                 : localStorage.getItem("pickup_address")}
             </h3>
 
-            <LocationInput label="Drop Location" onSelect={setDrop} />
+            <LocationInput
+              label="Drop Location"
+              onSelect={handleDropLocation}
+            />
           </div>
 
           <RouteInfo distance={distance} duration={duration} price={price} />

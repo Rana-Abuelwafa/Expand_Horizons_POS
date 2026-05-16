@@ -59,6 +59,7 @@
     "allTaxesIncluded": "All taxes and fees included",
     "twoWayTransfer": "Two-way transfer",
     "included": "Included",
+    "TotalPax":"Total Pax*",
     "participants": {
       "adult": "Adult",
       "child": "Child",

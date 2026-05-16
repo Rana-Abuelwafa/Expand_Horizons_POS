@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import Header from "../../components/Header/Header";
 import ContactPage from "../../components/BookingSteps/ContactStep/index";
 import { clearBookingSummary } from "../../redux/Slices/bookingSummarySlice";
+import MapSummaryCard from "./MapSummaryCard";
 const BookingPage = () => {
   const { t } = useTranslation();
   const { state } = useLocation();
@@ -65,14 +66,24 @@ const BookingPage = () => {
     };
   }, [state, dispatch]);
 
+  //console.log("MapData ", MapData);
   return (
     <div className="dest-wrapper">
       <div className="dest-container">
         <Header />
+        <MapSummaryCard
+          pickupAddress={MapData?.pickup_address}
+          dropAddress={MapData?.drop_address}
+          distance={MapData?.distance}
+          duration={MapData?.duration}
+          price={MapData?.price}
+        />
+        <hr />
         <ContactPage
           tripData={tripData}
           availabilityData={availabilityData}
           childAges={childAges}
+          MapData={MapData}
         />
       </div>
     </div>

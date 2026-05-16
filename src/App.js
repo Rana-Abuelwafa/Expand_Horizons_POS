@@ -12,7 +12,6 @@ import BookingPage from "./pages/BookingPage/BookingPage";
 import BookingConfirm from "./pages/BookingConfirmPage/BookingConfirm";
 import AvailabilityPage from "./pages/AvailabilityPage/AvailabilityPage";
 import CarCategoriesPage from "./pages/CarCategories/CarCategoriesPage";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-popup-alert/dist/index.css";
 import "react-datepicker/dist/react-datepicker.css";

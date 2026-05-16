@@ -59,6 +59,7 @@
     "allTaxesIncluded": "Все налоги и сборы включены",
     "twoWayTransfer": "Трансфер туда и обратно",
     "included": "Включено",
+    "TotalPax": "Всего чел.*",
     "participants": {
       "adult": "Взрослый",
       "child": "Ребенок",

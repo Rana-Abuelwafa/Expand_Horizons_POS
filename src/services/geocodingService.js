@@ -24,6 +24,8 @@ export const reverseGeocode = async (lat, lon) => {
       lat,
       lon,
       format: "json",
+      // optional: better results
+      addressdetails: 1,
     },
   });
 

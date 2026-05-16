@@ -62,11 +62,16 @@ function Login() {
         if (result.payload && result.payload.isSuccessed) {
           //if user register successfully so navigate to  verify email first
           setShowPopup(false);
-          navigate('/Transfers', { 
-            state: { 
-              tripType: 2
-            } 
+          navigate("/car-categories", {
+            state: {
+              tripType: 2,
+            },
           });
+          // navigate('/Transfers', {
+          //   state: {
+          //     tripType: 2
+          //   }
+          // });
         } else {
           setShowPopup(true);
         }

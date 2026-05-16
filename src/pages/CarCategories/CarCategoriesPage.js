@@ -33,7 +33,8 @@ const CarCategoriesPage = () => {
     },
   ];
 
-  const handleCategorySelect = (tripType) => {
+  const handleCategorySelect = (tripType, vehicle_id) => {
+    localStorage.setItem("horizon_pos_vehicle_id", vehicle_id);
     navigate("/Destinations", {
       state: {
         tripType: tripType,
@@ -63,7 +64,9 @@ const CarCategoriesPage = () => {
               <button
                 key={category.id}
                 className="category-card"
-                onClick={() => handleCategorySelect(category.tripType)}
+                onClick={() =>
+                  handleCategorySelect(category.tripType, category.id)
+                }
               >
                 <div className="card-image-wrapper">
                   <img

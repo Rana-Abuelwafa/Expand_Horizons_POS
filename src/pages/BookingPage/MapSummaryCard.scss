@@ -1,0 +1,142 @@
+.booking-summary-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f1f1;
+
+  .summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      margin: 0;
+    }
+
+    .status {
+      background: rgba(42, 157, 143, 0.1);
+      color: #2a9d8f;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+  }
+
+  .location-section {
+    position: relative;
+    margin-bottom: 25px;
+
+    .route-line {
+      position: absolute;
+      left: 8px;
+      top: 38px;
+      width: 2px;
+      height: 45px;
+      background: #dcdcdc;
+    }
+
+    .location-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+
+      &:not(:last-child) {
+        margin-bottom: 22px;
+      }
+
+      .marker {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+
+      &.pickup .marker {
+        background: #2a9d8f;
+      }
+
+      &.drop .marker {
+        background: #e63946;
+      }
+
+      .location-content {
+        .label {
+          display: block;
+          font-size: 12px;
+          text-align: left;
+          color: #888;
+          margin-bottom: 4px;
+        }
+
+        p {
+          margin: 0;
+          font-size: 13px;
+          line-height: 1.5;
+          color: #222;
+          font-weight: 500;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .booking-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+
+    .stat-box {
+      background: #f8f9fa;
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      span {
+        font-size: 12px;
+        color: #888;
+      }
+
+      strong {
+        font-size: 15px;
+        color: #111;
+      }
+
+      &.price {
+        background: #111;
+
+        span,
+        strong {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .booking-summary-card {
+    padding: 18px;
+    border-radius: 18px;
+
+    .summary-header {
+      h3 {
+        font-size: 18px;
+      }
+    }
+
+    // .booking-stats {
+    //   grid-template-columns: 1fr;
+    // }
+  }
+}

@@ -17,14 +17,14 @@
     "loadingMore": "Lade mehr...",
     "BookNow": "Buchen Sie jetzt"
   },
-   "tours": {
-      "loading": "Touren werden geladen...",
-      "empty_title": "Keine Touren verfügbar",
-      "empty_dest_title": "Keine Ziele verfügbar",
-      "empty_text": "Schauen Sie später wieder vorbei für neue Angebote.",
-      "top_offers": "Top Angebote",
-      "Choose_your_vehicle": "Wählen Sie Ihr Fahrzeug"
-    },
+  "tours": {
+    "loading": "Touren werden geladen...",
+    "empty_title": "Keine Touren verfügbar",
+    "empty_dest_title": "Keine Ziele verfügbar",
+    "empty_text": "Schauen Sie später wieder vorbei für neue Angebote.",
+    "top_offers": "Top Angebote",
+    "Choose_your_vehicle": "Wählen Sie Ihr Fahrzeug"
+  },
   "Login": {
     "loginTitle": "ANMELDUNG",
     "EmailError": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
@@ -34,7 +34,7 @@
     "signIn": "Anmelden",
     "password": "Passwort"
   },
-   "booking": {
+  "booking": {
     "returnDate": {
       "title": "Rückfahrt-Datum & Uhrzeit auswählen",
       "note": "Bitte wählen Sie Ihr gewünschtes Rückfahrt-Datum und Uhrzeit"
@@ -59,6 +59,7 @@
     "allTaxesIncluded": "Alle Steuern und Gebühren inklusive",
     "twoWayTransfer": "Hin- und Rücktransfer",
     "included": "Inklusive",
+    "TotalPax": "Gesamtzahl der Personen*",
     "participants": {
       "adult": "Erwachsener",
       "child": "Kind",

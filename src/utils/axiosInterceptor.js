@@ -21,7 +21,7 @@ const apiInstances = [authApi, clientApi, bookingApi, contactApi];
 const requestInterceptor = (config) => {
   const lang = localStorage.getItem("lang") || "en";
 
-   // Skip token for login and refresh
+  // Skip token for login and refresh
   if (config.url.includes("/login") || config.url.includes("/refresh")) {
     return config;
   }
@@ -30,7 +30,9 @@ const requestInterceptor = (config) => {
   const token = user?.accessToken;
 
   config.headers["Accept-Language"] = lang;
-  config.headers["Content-Type"] = config.isFormData ? "multipart/form-data" : "application/json";
+  config.headers["Content-Type"] = config.isFormData
+    ? "multipart/form-data"
+    : "application/json";
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -46,7 +48,7 @@ let failedQueue = [];
 const processQueue = (error, token = null) => {
   failedQueue.forEach((prom) => {
     error ? prom.reject(error) : prom.resolve(token);
-});
+  });
   failedQueue = [];
 };
 
@@ -57,28 +59,28 @@ const responseInterceptor = async (error) => {
 
   // Handle 401 Unauthorized
   if (error.response?.status === 401 && !originalRequest._retry) {
-    console.log('Token expired, attempting refresh...');
+    console.log("Token expired, attempting refresh...");
     originalRequest._retry = true;
-    
+
     if (isRefreshing) {
-      console.log('Refresh already in progress, queuing request...');
+      console.log("Refresh already in progress, queuing request...");
       return new Promise((resolve, reject) => {
         failedQueue.push({ resolve, reject });
       }).then((token) => {
-        console.log('Retrying queued request with new token');
+        console.log("Retrying queued request with new token");
         originalRequest.headers.Authorization = `Bearer ${token}`;
         return originalRequest.instance(originalRequest);
       });
     }
 
     isRefreshing = true;
-    console.log('Starting token refresh process...');
+    console.log("Starting token refresh process...");
 
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const refreshToken = user?.refreshToken;
 
-      console.log('Refresh token available:', !!refreshToken);
+      console.log("Refresh token available:", !!refreshToken);
 
       if (!refreshToken) {
         throw new Error("No refresh token available");
@@ -90,22 +92,25 @@ const responseInterceptor = async (error) => {
         {
           headers: {
             "Content-Type": "application/json",
-            "Accept-Language": localStorage.getItem("lang") || "en"
-          }
-        }
+            "Accept-Language": localStorage.getItem("lang") || "en",
+          },
+        },
       );
 
-      console.log('Refresh API response:', refreshResponse.data);
+      console.log("Refresh API response:", refreshResponse.data);
 
       if (!refreshResponse.data.isSuccessed) {
-        throw new Error("Refresh failed: " + (refreshResponse.data.message || "Unknown error"));
+        throw new Error(
+          "Refresh failed: " +
+            (refreshResponse.data.message || "Unknown error"),
+        );
       }
 
       const newUser = refreshResponse.data.user;
       const newToken = newUser.accessToken;
-      
-      console.log('New token received, updating storage...');
-      
+
+      console.log("New token received, updating storage...");
+
       // Update localStorage with new tokens
       localStorage.setItem("user", JSON.stringify(newUser));
       localStorage.setItem("token", newToken);
@@ -120,23 +125,24 @@ const responseInterceptor = async (error) => {
 
       // Update and retry the original request
       originalRequest.headers.Authorization = `Bearer ${newToken}`;
-      console.log('Retrying original request with new token');
+      console.log("Retrying original request with new token");
       return originalRequest.instance(originalRequest);
-
     } catch (err) {
       console.error("Token refresh failed:", err);
-      
+
       // Process queued requests with error
       processQueue(err, null);
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      
-      console.log('Redirecting to login...');
+
+      console.log("Redirecting to login...");
       setTimeout(() => {
         store.dispatch(logout());
-        window.dispatchEvent(new CustomEvent('showAuthModal', { 
-          detail: { type: 'login' } 
-        }));
+        window.dispatchEvent(
+          new CustomEvent("showAuthModal", {
+            detail: { type: "login" },
+          }),
+        );
       }, 0);
 
       return Promise.reject(err);
@@ -147,10 +153,12 @@ const responseInterceptor = async (error) => {
 
   // Handle 403 Forbidden
   if (error.response?.status === 403) {
-    console.log('Access forbidden, redirecting to login');
-    window.dispatchEvent(new CustomEvent('showAuthModal', { 
-      detail: { type: 'login' } 
-    }));
+    console.log("Access forbidden, redirecting to login");
+    window.dispatchEvent(
+      new CustomEvent("showAuthModal", {
+        detail: { type: "login" },
+      }),
+    );
   }
 
   return Promise.reject(error);
@@ -164,7 +172,7 @@ apiInstances.forEach((instance) => {
     (err) => {
       err.config.instance = instance;
       return responseInterceptor(err);
-    }
+    },
   );
 });
 
@@ -187,22 +195,22 @@ export const manualTokenRefresh = async () => {
       {
         headers: {
           "Content-Type": "application/json",
-          "Accept-Language": localStorage.getItem("lang") || "en"
-        }
-      }
+          "Accept-Language": localStorage.getItem("lang") || "en",
+        },
+      },
     );
 
     if (response.data.isSuccessed) {
       const newUserData = response.data.user;
       localStorage.setItem("user", JSON.stringify(newUserData));
       localStorage.setItem("token", newUserData.accessToken);
-      
+
       // Update all instances
       const newToken = newUserData.accessToken;
-      apiInstances.forEach(instance => {
+      apiInstances.forEach((instance) => {
         instance.defaults.headers.common.Authorization = `Bearer ${newToken}`;
       });
-      
+
       return newUserData;
     } else {
       throw new Error(response.data.message || "Manual token refresh failed");

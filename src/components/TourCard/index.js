@@ -26,7 +26,7 @@ const TourCard = ({ trip }) => {
     : trip?.trip_description;
 
   const handleCardClick = () => {
-    console.log("click");
+   // console.log("click");
 
 
     navigate(`/trip/${trip.route}`, {
