@@ -13,11 +13,16 @@ const BookingMapPage = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const dest_name = state?.dest_name;
+
   const {
-    location: pickup,
-    address: pickupAddress,
-    loading,
+    location: currentLocation,
+    address: currentAddress,
+    loading: currentLocationLoading,
   } = useCurrentLocation();
+
+  // Pickup state - will be set with current location as default
+  const [pickup, setPickup] = useState(null);
+  const [pickupAddress, setPickupAddress] = useState("");
   const [drop, setDrop] = useState(null);
   const [dropCord, setDropCord] = useState(null);
   const [route, setRoute] = useState([]);
@@ -26,6 +31,15 @@ const BookingMapPage = () => {
   const RATE_PER_KM = 1; // €1 per KM
 
   const price = distance ? (distance * RATE_PER_KM).toFixed(2) : null;
+
+  // Set default pickup to current location when available
+  useEffect(() => {
+    if (currentLocation && currentAddress && !pickup) {
+      setPickup(currentLocation);
+      setPickupAddress(currentAddress);
+    }
+  }, [currentLocation, currentAddress]);
+
   useEffect(() => {
     const fetchRoute = async () => {
       if (pickup && dropCord) {
@@ -38,6 +52,7 @@ const BookingMapPage = () => {
 
     fetchRoute();
   }, [pickup, dropCord]);
+
   const handleBooking = () => {
     const bookingData = {
       pickup_address: pickupAddress,
@@ -55,12 +70,31 @@ const BookingMapPage = () => {
       state: bookingData,
     });
   };
+
+  const handlePickupLocation = (cord, addr) => {
+    setPickup(cord);
+    setPickupAddress(addr);
+  };
+
   const handleDropLocation = (cord, addr) => {
-    // console.log("cord ", cord);
-    // console.log("addr ", addr);
     setDrop(addr);
     setDropCord(cord);
   };
+
+  // Show loading state while getting current location
+  if (currentLocationLoading) {
+    return (
+      <div className="bookmap-wrapper">
+        <Header />
+        <div className="bookingmap-page">
+          <div className="loading-container">
+            <p>Getting your current location...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bookmap-wrapper">
       <Header />
@@ -71,24 +105,42 @@ const BookingMapPage = () => {
 
         <div className="details-section">
           <div className="inputs">
-            <h3>
-              <FaMapMarkerAlt className="pick_marker" />
-              Pickup:{" "}
-              {pickupAddress != null
-                ? pickupAddress
-                : localStorage.getItem("pickup_address")}
-            </h3>
+            <div className="pickup-section">
+              <h3>
+                <FaMapMarkerAlt className="pick_marker" />
+                Pickup Location
+              </h3>
+              <LocationInput
+                label="Pickup Location"
+                onSelect={handlePickupLocation}
+                defaultValue={currentAddress}
+                placeholder="Search or change pickup location"
+              />
+              {pickupAddress && (
+                <div className="selected-address">
+                  <small>Selected: {pickupAddress}</small>
+                </div>
+              )}
+            </div>
 
-            <LocationInput
-              label="Drop Location"
-              onSelect={handleDropLocation}
-            />
+            <div className="drop-section">
+              <h3>
+                <FaMapMarkerAlt className="drop_marker" />
+                Drop Location
+              </h3>
+              <LocationInput
+                label="Drop Location"
+                onSelect={handleDropLocation}
+                placeholder="Enter your destination"
+              />
+            </div>
           </div>
 
           <RouteInfo distance={distance} duration={duration} price={price} />
+
           <button
             className="book-btn"
-            disabled={!pickup || !drop}
+            disabled={!pickup || !dropCord}
             onClick={handleBooking}
           >
             Book Now

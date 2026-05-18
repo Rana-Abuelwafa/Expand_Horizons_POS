@@ -3,30 +3,40 @@ import { searchPlaces } from "../../services/geocodingService";
 import { useDebounce } from "../../services/useDebounce";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-const LocationInput = ({ label, onSelect }) => {
-  const [query, setQuery] = useState("");
+const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
+  const [query, setQuery] = useState(defaultValue || "");
   const [results, setResults] = useState([]);
   const debouncedQuery = useDebounce(query);
 
+   // Update query when defaultValue changes
   useEffect(() => {
-    const fetch = async () => {
-      const data = await searchPlaces(debouncedQuery);
-      setResults(data);
-    };
-    fetch();
+    if (defaultValue && !query) {
+      setQuery(defaultValue);
+    }
+  }, [defaultValue]);
+
+   useEffect(() => {
+    if (debouncedQuery.length > 2) {
+      const fetch = async () => {
+        const data = await searchPlaces(debouncedQuery);
+        setResults(data);
+      };
+      fetch();
+    } else {
+      setResults([]);
+    }
   }, [debouncedQuery]);
 
   return (
     <div className="location-input">
-      {/* <label>{label}</label> */}
+     {/* {label && <label>{label}</label>} */}
 
       <div className="input-wrapper">
         <FaMapMarkerAlt className="icon" />
-
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Enter destination"
+          placeholder={placeholder || `Enter ${label?.toLowerCase() || "location"}`}
         />
       </div>
 
