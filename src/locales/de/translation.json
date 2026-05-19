@@ -25,6 +25,10 @@
     "top_offers": "Top Angebote",
     "Choose_your_vehicle": "Wählen Sie Ihr Fahrzeug"
   },
+  "vehicles": {
+    "limousine": "Limousine",
+    "shuttle_bus": "Shuttle Bus"
+  },
   "Login": {
     "loginTitle": "ANMELDUNG",
     "EmailError": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
@@ -184,6 +188,22 @@
       "cancelConfirmation3": "Sind Sie sicher, dass Sie stornieren möchten?",
       "cancelSuccess": "Buchung erfolgreich storniert",
       "cancelError": "Stornierung der Buchung fehlgeschlagen"
+    },
+    "route": {
+      "distance": "Distanz",
+      "time": "Zeit",
+      "price": "Preis"
+    },
+    "bookingMap": {
+      "gettingLocation": "Ihren aktuellen Standort wird ermittelt...",
+      "pickupTitle": "Abholort",
+      "pickupLabel": "Abholort",
+      "pickupPlaceholder": "Abholort suchen oder ändern",
+      "dropTitle": "Zielort",
+      "dropLabel": "Zielort",
+      "dropPlaceholder": "Geben Sie Ihr Ziel ein",
+      "selectedAddress": "Ausgewählt:",
+      "bookNow": "Jetzt buchen"
     }
   }
 }

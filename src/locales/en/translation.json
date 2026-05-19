@@ -20,13 +20,17 @@
   "tours": {
     "loading": "Loading tours...",
     "empty_title": "No tours available",
-    "empty_dest_title":"No destinations available",
+    "empty_dest_title": "No destinations available",
     "empty_text": "Please check back later for new offers.",
     "top_offers": "Top Offers",
     "Choose_your_vehicle": "Choose Your Vehicle"
   },
-  "Login":{
-    "loginTitle":"LOGIN",
+  "vehicles": {
+    "limousine": "Limousine",
+    "shuttle_bus": "Shuttle Bus"
+  },
+  "Login": {
+    "loginTitle": "LOGIN",
     "EmailError": "Please enter a valid email address.",
     "PasswordError": "Password must be at least 6 characters long.",
     "LoginSubTitle": "Check out more easily and access your tickets on any device with your <strong>Expand Horizons </strong> account.",
@@ -34,7 +38,7 @@
     "signIn": "Sign in",
     "password": "Password"
   },
-   "booking": {
+  "booking": {
     "returnDate": {
       "title": "Select Return Date & Time",
       "note": "Please select your preferred return date and time"
@@ -59,7 +63,7 @@
     "allTaxesIncluded": "All taxes and fees included",
     "twoWayTransfer": "Two-way transfer",
     "included": "Included",
-    "TotalPax":"Total Pax*",
+    "TotalPax": "Total Pax*",
     "participants": {
       "adult": "Adult",
       "child": "Child",
@@ -87,7 +91,7 @@
     "myBookings": "Your Bookings",
     "noBookings": "No bookings in your cart",
     "noBookingsText": "Start exploring our trips and make your first reservation!",
-    "BackBtn":"Back To Home",
+    "BackBtn": "Back To Home",
     "fetchError": "Failed to load your bookings. Please try again later.",
     "dateToBeConfirmed": "Date to be confirmed",
     "timeToBeConfirmed": "Time to be confirmed",
@@ -178,12 +182,28 @@
       "redeem": "Redeem",
       "placeholder": "Enter code"
     },
-    "cancel":{
+    "cancel": {
       "cancelConfirmation1": "You will receive e-mail with cancellation fees",
       "cancelConfirmation2": "or contact booking@expand-horizons.de",
       "cancelConfirmation3": "Are you sure to cancel?",
       "cancelSuccess": "Booking cancelled successfully",
       "cancelError": "Failed to cancel booking"
+    },
+    "route": {
+      "distance": "Distance",
+      "time": "Time",
+      "price": "Price"
+    },
+    "bookingMap": {
+      "gettingLocation": "Getting your current location...",
+      "pickupTitle": "Pickup Location",
+      "pickupLabel": "Pickup Location",
+      "pickupPlaceholder": "Search or change pickup location",
+      "dropTitle": "Drop Location",
+      "dropLabel": "Drop Location",
+      "dropPlaceholder": "Enter your destination",
+      "selectedAddress": "Selected:",
+      "bookNow": "Book Now"
     }
   }
 }

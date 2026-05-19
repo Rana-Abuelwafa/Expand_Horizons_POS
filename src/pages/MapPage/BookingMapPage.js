@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import MapView from "../../components/MapComponents/MapView";
 import LocationInput from "../../components/MapComponents/LocationInput";
 import RouteInfo from "../../components/MapComponents/RouteInfo";
@@ -10,6 +11,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const BookingMapPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { state } = useLocation();
   const dest_name = state?.dest_name;

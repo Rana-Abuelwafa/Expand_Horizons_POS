@@ -1,4 +1,9 @@
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 const RouteInfo = ({ distance, duration, price }) => {
+  const { t } = useTranslation();
+  
   if (!distance) return null;
 
   const hours = Math.floor(duration / 60);

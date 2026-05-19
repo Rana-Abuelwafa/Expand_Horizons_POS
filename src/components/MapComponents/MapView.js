@@ -31,6 +31,10 @@ const MapView = ({ pickup, drop, route }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; OpenStreetMap contributors"
       />
+      {/* <TileLayer
+  url="https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+  attribution='&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+/> */}
       {pickup && <Marker position={pickup} icon={customIcon} />}
       {drop && <Marker position={drop} icon={customIcon} />}
       {route?.length > 0 && <Polyline positions={route} />}
