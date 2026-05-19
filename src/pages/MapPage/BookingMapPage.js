@@ -109,7 +109,7 @@ const BookingMapPage = () => {
           <div className="inputs">
             <div className="pickup-section">
               <h3>
-                <FaMapMarkerAlt className="pick_marker" />
+                {/* <FaMapMarkerAlt className="pick_marker" /> */}
                 Pickup Location
               </h3>
               <LocationInput
@@ -120,14 +120,14 @@ const BookingMapPage = () => {
               />
               {pickupAddress && (
                 <div className="selected-address">
-                  <small>Selected: {pickupAddress}</small>
+                  {/* <small>Selected: {pickupAddress}</small> */}
                 </div>
               )}
             </div>
 
             <div className="drop-section">
               <h3>
-                <FaMapMarkerAlt className="drop_marker" />
+                {/* <FaMapMarkerAlt className="drop_marker" /> */}
                 Drop Location
               </h3>
               <LocationInput
