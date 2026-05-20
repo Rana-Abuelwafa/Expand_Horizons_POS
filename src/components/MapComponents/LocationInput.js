@@ -6,21 +6,29 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
   const [query, setQuery] = useState(defaultValue || "");
   const [results, setResults] = useState([]);
+  const [selected, setSelected] = useState(false);
+
   const debouncedQuery = useDebounce(query);
 
-   // Update query when defaultValue changes
   useEffect(() => {
     if (defaultValue && !query) {
       setQuery(defaultValue);
     }
   }, [defaultValue]);
 
-   useEffect(() => {
+  useEffect(() => {
+    // prevent search after selecting item
+    if (selected) {
+      setSelected(false);
+      return;
+    }
+
     if (debouncedQuery.length > 2) {
       const fetch = async () => {
         const data = await searchPlaces(debouncedQuery);
         setResults(data);
       };
+
       fetch();
     } else {
       setResults([]);
@@ -29,14 +37,18 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
 
   return (
     <div className="location-input">
-     {/* {label && <label>{label}</label>} */}
-
       <div className="input-wrapper">
         <FaMapMarkerAlt className="icon" />
+
         <input
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={placeholder || `Enter ${label?.toLowerCase() || "location"}`}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setSelected(false);
+          }}
+          placeholder={
+            placeholder || `Enter ${label?.toLowerCase() || "location"}`
+          }
         />
       </div>
 
@@ -50,11 +62,14 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
                   [parseFloat(r.lat), parseFloat(r.lon)],
                   r.display_name,
                 );
+
+                setSelected(true);
                 setQuery(r.display_name);
                 setResults([]);
               }}
             >
               <span className="title">{r.display_name.split(",")[0]}</span>
+
               <span className="subtitle">{r.display_name}</span>
             </li>
           ))}

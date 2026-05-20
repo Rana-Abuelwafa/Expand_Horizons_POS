@@ -193,17 +193,26 @@
       "distance": "Расстояние",
       "time": "Время",
       "price": "Цена"
-    },
-    "bookingMap": {
-      "gettingLocation": "Определение вашего местоположения...",
-      "pickupTitle": "Место посадки",
-      "pickupLabel": "Место посадки",
-      "pickupPlaceholder": "Поиск или изменение места посадки",
-      "dropTitle": "Место назначения",
-      "dropLabel": "Место назначения",
-      "dropPlaceholder": "Введите пункт назначения",
-      "selectedAddress": "Выбрано:",
-      "bookNow": "Забронировать"
     }
+  },
+
+  "bookingMap": {
+    "gettingLocation": "Получение вашего текущего местоположения...",
+    "pickupTitle": "Место посадки",
+    "pickupLabel": "Место посадки",
+    "pickupPlaceholder": "Поиск или изменение места посадки",
+    "dropTitle": "Место назначения",
+    "dropLabel": "Место назначения",
+    "dropPlaceholder": "Введите пункт назначения",
+    "selectedAddress": "Выбрано:",
+    "bookNow": "Забронировать",
+    "Distance": "Расстояние",
+    "Time": "Время",
+    "Price": "Цена",
+    "BookingDetails": "Детали бронирования",
+    "Pickup": "Посадка",
+    "Drop-off": "Высадка",
+    "Duration": "Длительность",
+    "Total": "Итого"
   }
 }

@@ -9,6 +9,7 @@ import "./MapPage.scss";
 import Header from "../../components/Header/Header";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 
 const BookingMapPage = () => {
   const { t } = useTranslation();
@@ -23,6 +24,7 @@ const BookingMapPage = () => {
   } = useCurrentLocation();
 
   // Pickup state - will be set with current location as default
+  const [routeErr, setRouteErr] = useState(null);
   const [pickup, setPickup] = useState(null);
   const [pickupAddress, setPickupAddress] = useState("");
   const [drop, setDrop] = useState(null);
@@ -43,15 +45,32 @@ const BookingMapPage = () => {
   }, [currentLocation, currentAddress]);
 
   useEffect(() => {
+    // const fetchRoute = async () => {
+    //   if (pickup && dropCord) {
+    //     const data = await getRouteData(pickup, dropCord);
+    //     setRoute(data.coordinates);
+    //     setDistance(data.distance);
+    //     setDuration(data.duration);
+    //   }
+    // };
     const fetchRoute = async () => {
-      if (pickup && dropCord) {
-        const data = await getRouteData(pickup, dropCord);
-        setRoute(data.coordinates);
-        setDistance(data.distance);
-        setDuration(data.duration);
+      try {
+        if (pickup && dropCord) {
+          setRouteErr(null);
+          const data = await getRouteData(pickup, dropCord);
+
+          setRoute(data.coordinates);
+          setDistance(data.distance);
+          setDuration(data.duration);
+        }
+      } catch (err) {
+        //console.log(err.message);
+
+        // optional
+        setRouteErr(err.message);
+        // alert(err.message);
       }
     };
-
     fetchRoute();
   }, [pickup, dropCord]);
 
@@ -90,7 +109,7 @@ const BookingMapPage = () => {
         <Header />
         <div className="bookingmap-page">
           <div className="loading-container">
-            <p>Getting your current location...</p>
+            <p>{t("bookingMap.gettingLocation")}</p>
           </div>
         </div>
       </div>
@@ -106,17 +125,19 @@ const BookingMapPage = () => {
         </div>
 
         <div className="details-section">
+          {routeErr && <Alert variant={"danger"}>{routeErr}</Alert>}
           <div className="inputs">
             <div className="pickup-section">
               <h3>
                 {/* <FaMapMarkerAlt className="pick_marker" /> */}
-                Pickup Location
+                {/* // Pickup Location */}
+                {t("bookingMap.pickupTitle")}
               </h3>
               <LocationInput
-                label="Pickup Location"
+                label={t("bookingMap.pickupTitle")}
                 onSelect={handlePickupLocation}
                 defaultValue={currentAddress}
-                placeholder="Search or change pickup location"
+                placeholder={t("bookingMap.pickupPlaceholder")}
               />
               {pickupAddress && (
                 <div className="selected-address">
@@ -128,12 +149,12 @@ const BookingMapPage = () => {
             <div className="drop-section">
               <h3>
                 {/* <FaMapMarkerAlt className="drop_marker" /> */}
-                Drop Location
+                {t("bookingMap.dropTitle")}
               </h3>
               <LocationInput
-                label="Drop Location"
+                label={t("bookingMap.dropTitle")}
                 onSelect={handleDropLocation}
-                placeholder="Enter your destination"
+                placeholder={t("bookingMap.dropPlaceholder")}
               />
             </div>
           </div>
@@ -145,7 +166,7 @@ const BookingMapPage = () => {
             disabled={!pickup || !dropCord}
             onClick={handleBooking}
           >
-            Book Now
+            {t("bookingMap.bookNow")}
           </button>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./MapSummaryCard.scss";
 function MapSummaryCard({
   pickupAddress,
@@ -7,10 +8,11 @@ function MapSummaryCard({
   duration,
   price,
 }) {
+  const { t } = useTranslation();
   return (
     <div className="booking-summary-card">
       <div className="summary-header">
-        <h3>Booking Details</h3>
+        <h3>{t("bookingMap.BookingDetails")}</h3>
         {/* <span className="status">Estimated</span> */}
       </div>
 
@@ -19,7 +21,7 @@ function MapSummaryCard({
           <div className="marker"></div>
 
           <div className="location-content">
-            <span className="label">Pickup</span>
+            <span className="label">{t("bookingMap.Pickup")}</span>
             <p>{pickupAddress}</p>
           </div>
         </div>
@@ -30,7 +32,7 @@ function MapSummaryCard({
           <div className="marker"></div>
 
           <div className="location-content">
-            <span className="label">Drop-off</span>
+            <span className="label">{t("bookingMap.Drop-off")}</span>
             <p>{dropAddress}</p>
           </div>
         </div>
@@ -38,17 +40,17 @@ function MapSummaryCard({
 
       <div className="booking-stats">
         <div className="stat-box">
-          <span>Distance</span>
+          <span>{t("bookingMap.Distance")}</span>
           <strong>{distance?.toFixed(2)} KM</strong>
         </div>
 
         <div className="stat-box">
-          <span>Duration</span>
+          <span>{t("bookingMap.Duration")}</span>
           <strong>{Math.round(duration)} Min</strong>
         </div>
 
         <div className="stat-box price">
-          <span>Total</span>
+          <span>{t("bookingMap.Total")}</span>
           <strong>€ {price}</strong>
         </div>
       </div>

@@ -193,17 +193,25 @@
       "distance": "Distance",
       "time": "Time",
       "price": "Price"
-    },
-    "bookingMap": {
-      "gettingLocation": "Getting your current location...",
-      "pickupTitle": "Pickup Location",
-      "pickupLabel": "Pickup Location",
-      "pickupPlaceholder": "Search or change pickup location",
-      "dropTitle": "Drop Location",
-      "dropLabel": "Drop Location",
-      "dropPlaceholder": "Enter your destination",
-      "selectedAddress": "Selected:",
-      "bookNow": "Book Now"
     }
+  },
+  "bookingMap": {
+    "gettingLocation": "Getting your current location...",
+    "pickupTitle": "Pickup Location",
+    "pickupLabel": "Pickup Location",
+    "pickupPlaceholder": "Search or change pickup location",
+    "dropTitle": "Drop Location",
+    "dropLabel": "Drop Location",
+    "dropPlaceholder": "Enter your destination",
+    "selectedAddress": "Selected:",
+    "bookNow": "Book Now",
+    "Distance": "Distance",
+    "Time": "Time",
+    "Price": "Price",
+    "BookingDetails": "Booking Details",
+    "Pickup": "Pickup",
+    "Drop-off": "Drop-off",
+    "Duration": "Duration",
+    "Total": "Total"
   }
 }

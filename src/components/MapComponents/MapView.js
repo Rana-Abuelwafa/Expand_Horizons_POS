@@ -20,17 +20,21 @@ const MapView = ({ pickup, drop, route }) => {
   return (
     <MapContainer
       center={pickup}
-      zoom={8}
+      zoom={10}
       style={{ height: "100%", width: "100%" }}
       //whenCreated={handleMapLoad}
       ref={mapRef}
     >
-      {/* // <MapContainer center={pickup} zoom={13} style={{ height: "100%" }}>
-    //   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />  */}
+      {/* //english map */}
       <TileLayer
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        attribution="&copy; OpenStreetMap contributors &copy; CARTO"
+      />
+      {/* //arabic map view */}
+      {/* <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; OpenStreetMap contributors"
-      />
+      /> */}
       {/* <TileLayer
   url="https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
   attribution='&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

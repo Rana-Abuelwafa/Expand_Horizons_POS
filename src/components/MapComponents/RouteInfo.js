@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const RouteInfo = ({ distance, duration, price }) => {
   const { t } = useTranslation();
-  
+
   if (!distance) return null;
 
   const hours = Math.floor(duration / 60);
@@ -12,12 +12,12 @@ const RouteInfo = ({ distance, duration, price }) => {
   return (
     <div className="route-info">
       <div className="info-item">
-        <span>Distance: </span>
+        <span>{t("bookingMap.Distance")}: </span>
         <strong>{distance.toFixed(2)} KM</strong>
       </div>
 
       <div className="info-item">
-        <span>Time: </span>
+        <span>{t("bookingMap.Time")}: </span>
         <strong>
           {hours > 0 ? `${hours}h ` : ""}
           {minutes} min
@@ -25,7 +25,7 @@ const RouteInfo = ({ distance, duration, price }) => {
       </div>
 
       <div className="info-item price">
-        <span>Price: </span>
+        <span>{t("bookingMap.Price")}: </span>
         <strong> {price}€</strong>
       </div>
     </div>

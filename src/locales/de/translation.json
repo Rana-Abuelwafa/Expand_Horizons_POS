@@ -193,17 +193,26 @@
       "distance": "Distanz",
       "time": "Zeit",
       "price": "Preis"
-    },
-    "bookingMap": {
-      "gettingLocation": "Ihren aktuellen Standort wird ermittelt...",
-      "pickupTitle": "Abholort",
-      "pickupLabel": "Abholort",
-      "pickupPlaceholder": "Abholort suchen oder ändern",
-      "dropTitle": "Zielort",
-      "dropLabel": "Zielort",
-      "dropPlaceholder": "Geben Sie Ihr Ziel ein",
-      "selectedAddress": "Ausgewählt:",
-      "bookNow": "Jetzt buchen"
     }
+  },
+
+  "bookingMap": {
+    "gettingLocation": "Ihr aktueller Standort wird ermittelt...",
+    "pickupTitle": "Abholort",
+    "pickupLabel": "Abholort",
+    "pickupPlaceholder": "Abholort suchen oder ändern",
+    "dropTitle": "Zielort",
+    "dropLabel": "Zielort",
+    "dropPlaceholder": "Geben Sie Ihr Ziel ein",
+    "selectedAddress": "Ausgewählt:",
+    "bookNow": "Jetzt buchen",
+    "Distance": "Entfernung",
+    "Time": "Zeit",
+    "Price": "Preis",
+    "BookingDetails": "Buchungsdetails",
+    "Pickup": "Abholung",
+    "Drop-off": "Ziel",
+    "Duration": "Dauer",
+    "Total": "Gesamt"
   }
 }
