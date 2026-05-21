@@ -77,6 +77,7 @@ const BookingPage = () => {
           distance={MapData?.distance}
           duration={MapData?.duration}
           price={MapData?.price}
+          isTwoWay={MapData?.isTwoWay}
         />
         <hr />
         <ContactPage

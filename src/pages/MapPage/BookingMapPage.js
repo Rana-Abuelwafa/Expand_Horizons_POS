@@ -87,6 +87,7 @@ const BookingMapPage = () => {
       distance,
       duration,
       totalPrice,
+      isTwoWay,
     };
     localStorage.setItem("booking_data", JSON.stringify(bookingData));
     navigate("/checkout", {

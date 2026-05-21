@@ -233,7 +233,7 @@ const ContactStep = ({ childAges, MapData }) => {
         pickup_address: MapData?.pickup_address,
         booking_status: 2,
         total_price: MapData?.price,
-        is_two_way: false,
+        is_two_way: MapData.isTwoWay,
         trip_return_dateStr: null,
         child_ages: "",
         pricing_type: 0,
@@ -264,8 +264,8 @@ const ContactStep = ({ childAges, MapData }) => {
         const result = await dispatch(confirmBooking(confirmData)).unwrap();
         console.log("result ", result);
         //if (result != null && result === true) {
-          //if (result != null && result.success) {
-          navigate("/bookingConfirmation");
+        //if (result != null && result.success) {
+        navigate("/bookingConfirmation");
         // } else {
         //   setPopupMessage(t("bookings.contact.bookingConfirmationFailed"));
         //   setPopupType("alert");
