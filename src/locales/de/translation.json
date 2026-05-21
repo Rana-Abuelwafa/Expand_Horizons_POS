@@ -213,6 +213,7 @@
     "Pickup": "Abholung",
     "Drop-off": "Ziel",
     "Duration": "Dauer",
-    "Total": "Gesamt"
+    "Total": "Gesamt",
+    "TwoWayTrip": "Zwei-Wege-Reise"
   }
 }

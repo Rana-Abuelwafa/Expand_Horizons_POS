@@ -255,23 +255,23 @@ const ContactStep = ({ childAges, MapData }) => {
       console.log("availabilityResult ", availabilityResult);
       if (availabilityResult != null && availabilityResult.success) {
         //Now confirm the booking
-        // const confirmData = {
-        //   booking_id: availabilityResult?.idOut,
-        //   client_id: clientId,
-        //   lang_code: currentLang,
-        //   ClientEmail: contactInfo.email,
-        // };
-        // const result = await dispatch(confirmBooking(confirmData)).unwrap();
-        // console.log("result ", result);
-        // if (result === true) {
-        //if (result != null && result.success) {
-        navigate("/bookingConfirmation");
-      } else {
-        setPopupMessage(t("bookings.contact.bookingConfirmationFailed"));
-        setPopupType("alert");
-        setShowPopup(true);
+        const confirmData = {
+          booking_id: availabilityResult?.idOut,
+          client_id: clientId,
+          lang_code: currentLang,
+          ClientEmail: contactInfo.email,
+        };
+        const result = await dispatch(confirmBooking(confirmData)).unwrap();
+        console.log("result ", result);
+        //if (result != null && result === true) {
+          //if (result != null && result.success) {
+          navigate("/bookingConfirmation");
+        // } else {
+        //   setPopupMessage(t("bookings.contact.bookingConfirmationFailed"));
+        //   setPopupType("alert");
+        //   setShowPopup(true);
+        // }
       }
-      // }
       // }
     } catch (error) {
       // console.log("error ", error);

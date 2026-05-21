@@ -9,7 +9,7 @@ import "./MapPage.scss";
 import Header from "../../components/Header/Header";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Alert } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 
 const BookingMapPage = () => {
   const { t } = useTranslation();
@@ -32,10 +32,12 @@ const BookingMapPage = () => {
   const [route, setRoute] = useState([]);
   const [distance, setDistance] = useState(null);
   const [duration, setDuration] = useState(null);
+  const [isTwoWay, setIsTwoWay] = useState(false);
   const RATE_PER_KM = 1; // €1 per KM
 
   const price = distance ? (distance * RATE_PER_KM).toFixed(2) : null;
 
+  const totalPrice = isTwoWay ? (price * 2).toFixed(2) : price;
   // Set default pickup to current location when available
   useEffect(() => {
     if (currentLocation && currentAddress && !pickup) {
@@ -84,7 +86,7 @@ const BookingMapPage = () => {
       drop_long: dropCord[1],
       distance,
       duration,
-      price,
+      totalPrice,
     };
     localStorage.setItem("booking_data", JSON.stringify(bookingData));
     navigate("/checkout", {
@@ -157,9 +159,27 @@ const BookingMapPage = () => {
                 placeholder={t("bookingMap.dropPlaceholder")}
               />
             </div>
+            <div className="d-flex justify-content-between">
+              <Form.Group className="trip-option">
+                <Form.Check
+                  type="checkbox"
+                  id="two-way-checkbox"
+                  label={t("bookingMap.TwoWayTrip")}
+                  checked={isTwoWay}
+                  onChange={(e) => setIsTwoWay(e.target.checked)}
+                />
+              </Form.Group>
+              {isTwoWay && (
+                <p className="trip-note">Return trip included in total fare.</p>
+              )}
+            </div>
           </div>
 
-          <RouteInfo distance={distance} duration={duration} price={price} />
+          <RouteInfo
+            distance={distance}
+            duration={duration}
+            price={totalPrice}
+          />
 
           <button
             className="book-btn"
