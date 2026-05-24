@@ -76,7 +76,7 @@ const BookingPage = () => {
           dropAddress={MapData?.drop_address}
           distance={MapData?.distance}
           duration={MapData?.duration}
-          price={MapData?.price}
+          price={MapData?.totalPrice}
           isTwoWay={MapData?.isTwoWay}
         />
         <hr />

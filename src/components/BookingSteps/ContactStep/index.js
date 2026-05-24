@@ -232,7 +232,7 @@ const ContactStep = ({ childAges, MapData }) => {
         currency_code: "EUR",
         pickup_address: MapData?.pickup_address,
         booking_status: 2,
-        total_price: MapData?.price,
+        total_price: MapData?.totalPrice,
         is_two_way: MapData.isTwoWay,
         trip_return_dateStr: null,
         child_ages: "",
@@ -244,7 +244,7 @@ const ContactStep = ({ childAges, MapData }) => {
         drop_lat: MapData?.drop_lat,
         drop_long: MapData?.drop_long,
         route_distance: MapData?.distance,
-        route_price: MapData?.price,
+        route_price: MapData?.totalPrice,
         vehicle_id: localStorage.getItem("horizon_pos_vehicle_id"),
       };
 
