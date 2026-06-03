@@ -27,17 +27,33 @@ const API_KEY =
 
 export const getRouteData = async (start, end) => {
   try {
-    const res = await axios.get(
-      "https://api.openrouteservice.org/v2/directions/driving-car",
+    // const res = await axios.get(
+    //   "https://api.openrouteservice.org/v2/directions/driving-car",
+    //   {
+    //     params: {
+    //       api_key: API_KEY,
+    //       start: `${start[1]},${start[0]}`,
+    //       end: `${end[1]},${end[0]}`,
+    //       radiuses: [1000, 1000],
+    //     },
+    //   },
+    // );
+    const res = await axios.post(
+      "https://api.openrouteservice.org/v2/directions/driving-car/geojson",
       {
-        params: {
-          api_key: API_KEY,
-          start: `${start[1]},${start[0]}`,
-          end: `${end[1]},${end[0]}`,
+        coordinates: [
+          [start[1], start[0]],
+          [end[1], end[0]],
+        ],
+        radiuses: [1000, 1000],
+      },
+      {
+        headers: {
+          Authorization: API_KEY,
+          "Content-Type": "application/json",
         },
       },
     );
-
     const data = res.data.features[0];
 
     return {
@@ -46,7 +62,7 @@ export const getRouteData = async (start, end) => {
       duration: data.properties.summary.duration / 60,
     };
   } catch (error) {
-    //console.error("Route API Error:", error);
+    // console.error("Route API Error:", error);
 
     if (axios.isAxiosError(error)) {
       if (error.response) {

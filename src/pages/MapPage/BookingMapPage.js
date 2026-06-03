@@ -118,7 +118,7 @@ const BookingMapPage = () => {
       </div>
     );
   }
-
+  // console.log("pickup ", pickup);
   return (
     <div className="bookmap-wrapper">
       <Header />
@@ -184,7 +184,7 @@ const BookingMapPage = () => {
 
           <button
             className="book-btn"
-            disabled={!pickup || !dropCord}
+            disabled={!pickup || !dropCord || routeErr}
             onClick={handleBooking}
           >
             {t("bookingMap.bookNow")}

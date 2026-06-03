@@ -30,6 +30,7 @@ export const useCurrentLocation = () => {
     // ❌ No cache → get from GPS + API
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
+        // console.log("pos ", pos);
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
 
@@ -37,9 +38,11 @@ export const useCurrentLocation = () => {
         setLocation(coords);
 
         try {
-          const data = await reverseGeocode(lat, lon);
-          const addr = data.display_name;
+          // const data = await reverseGeocode(lat, lon);
+          // const addr = data.display_name;
+          const feature = await reverseGeocode(lat, lon);
 
+          const addr = feature.properties.label;
           setAddress(addr);
 
           // ✅ Save to localStorage

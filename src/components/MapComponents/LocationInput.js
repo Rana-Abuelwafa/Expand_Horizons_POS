@@ -26,6 +26,7 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
     if (debouncedQuery.length > 2) {
       const fetch = async () => {
         const data = await searchPlaces(debouncedQuery);
+
         setResults(data);
       };
 
@@ -54,10 +55,35 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
 
       {results.length > 0 && (
         <ul className="dropdown">
-          {results.map((r, i) => (
+          {results.map((r, index) => (
+            <li
+              key={index}
+              onClick={() => {
+               // console.log("rrrr ", r);
+                //  const [lng, lat] = r.geometry.coordinates;
+                const lng = r.geometry.coordinates[0];
+                const lat = r.geometry.coordinates[1];
+                onSelect(
+                  [parseFloat(lat), parseFloat(lng)],
+                  r.properties.label,
+                  // coords: [lat, lng],
+                  //address: r.properties.label,
+                );
+                setSelected(true);
+                setQuery(r.properties.label);
+                setResults([]);
+              }}
+            >
+              <span className="title">{r.properties.label}</span>
+
+              <span className="subtitle">{r.properties.label}</span>
+            </li>
+          ))}
+          {/* {results.map((r, i) => (
             <li
               key={i}
               onClick={() => {
+                console.log(JSON.stringify(r));
                 onSelect(
                   [parseFloat(r.lat), parseFloat(r.lon)],
                   r.display_name,
@@ -72,7 +98,7 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
 
               <span className="subtitle">{r.display_name}</span>
             </li>
-          ))}
+          ))} */}
         </ul>
       )}
     </div>

@@ -16,7 +16,7 @@ const customIcon = L.icon({
 const MapView = ({ pickup, drop, route }) => {
   const mapRef = useRef();
   if (!pickup) return <p>Loading map...</p>;
-  //console.log("pick", pickup);
+  //console.log("drop ", drop);
   return (
     <MapContainer
       center={pickup}
