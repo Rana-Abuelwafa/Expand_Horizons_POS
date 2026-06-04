@@ -1,4 +1,22 @@
 import axios from "axios";
+const popularHotels = [
+  {
+    id: "hotel-1",
+    isPopular: true,
+    name: "Jaz Soma Beach",
+    address: "Soma Bay, Red Sea, Egypt",
+    lat: 26.845,
+    lng: 33.99,
+  },
+  {
+    id: "hotel-2",
+    isPopular: true,
+    name: "Steigenberger ALDAU Beach Hotel",
+    address: "Hurghada, Red Sea, Egypt",
+    lat: 27.177,
+    lng: 33.826,
+  },
+];
 const API_KEY =
   "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjEyNmQ3ZTY2MDc3NDRkMjY5NDhlYWJmODU0MzMwNDIyIiwiaCI6Im11cm11cjY0In0=";
 export const searchPlaces = async (query) => {
@@ -16,22 +34,43 @@ export const searchPlaces = async (query) => {
   //     },
   //   },
   // );
+  //   const response = await axios.get(
+  //     "https://api.openrouteservice.org/geocode/search",
+  //     {
+  //       params: {
+  //         api_key: API_KEY,
+  //         text: `${query}`,
+  //         // size: 20,
+  //         "boundary.country": "EGY",
+  //       },
+  //     },
+  //   );
+  //   // console.log(response.data);
+  //   // return response.data;
+  //   return response.data.features;
+  // };
+
   const response = await axios.get(
     "https://api.openrouteservice.org/geocode/search",
     {
       params: {
         api_key: API_KEY,
         text: query,
-        size: 10,
         "boundary.country": "EGY",
       },
     },
   );
-  // console.log(response.data);
-  // return response.data;
-  return response.data.features;
-};
 
+  const apiResults = response.data.features || [];
+
+  const hotelResults = popularHotels.filter(
+    (hotel) =>
+      hotel.name.toLowerCase().includes(query.toLowerCase()) ||
+      hotel.address.toLowerCase().includes(query.toLowerCase()),
+  );
+
+  return [...hotelResults, ...apiResults];
+};
 // 📍 NEW: reverse geocoding
 //to get address of current location
 // export const reverseGeocode = async (lat, lon) => {

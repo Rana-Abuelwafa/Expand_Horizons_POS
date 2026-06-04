@@ -52,10 +52,56 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
           }
         />
       </div>
-
       {results.length > 0 && (
         <ul className="dropdown">
-          {results.map((r, index) => (
+          {results.map((r, index) => {
+            const isHotel = r.isPopular;
+
+            return (
+              <li
+                key={isHotel ? r.id : index}
+                onClick={() => {
+                  if (isHotel) {
+                    onSelect([r.lat, r.lng], r.name);
+
+                    setQuery(r.name);
+                  } else {
+                    const lng = r.geometry.coordinates[0];
+                    const lat = r.geometry.coordinates[1];
+
+                    onSelect(
+                      [parseFloat(lat), parseFloat(lng)],
+                      r.properties.label,
+                    );
+
+                    setQuery(r.properties.label);
+                  }
+
+                  setSelected(true);
+                  setResults([]);
+                }}
+              >
+                <span className="title">
+                  {isHotel ? r.name : r.properties.label}
+                </span>
+
+                <span className="subtitle">
+                  {isHotel ? r.address : r.properties.label}
+                </span>
+
+                {/* {isHotel && (
+                  <span className="popular-badge">Popular Hotel</span>
+                )} */}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      {/* {results.length > 0 && (
+        <ul className="dropdown">
+          {results.map((r, index) => 
+          
+          (
             <li
               key={index}
               onClick={() => {
@@ -98,9 +144,9 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
 
               <span className="subtitle">{r.display_name}</span>
             </li>
-          ))} */}
-        </ul>
-      )}
+      //     ))} */}
+      {/* //   </ul> */}
+      {/* // )} */}
     </div>
   );
 };
