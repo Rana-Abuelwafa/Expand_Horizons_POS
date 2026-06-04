@@ -10,6 +10,7 @@ import DivingPage from "./pages/Trips/DivingPage";
 import TransfersPage from "./pages/Trips/TransfersPage";
 import BookingPage from "./pages/BookingPage/BookingPage";
 import BookingConfirm from "./pages/BookingConfirmPage/BookingConfirm";
+import PrintTicketPage from "./pages/BookingConfirmPage/PrintTicketPage";
 import AvailabilityPage from "./pages/AvailabilityPage/AvailabilityPage";
 import CarCategoriesPage from "./pages/CarCategories/CarCategoriesPage";
 import BookingMapPage from "./pages/MapPage/BookingMapPage";
@@ -38,6 +39,7 @@ function App() {
           <Route path="/trip/:tripName" element={<AvailabilityPage />} />
           <Route path="/checkout" element={<BookingPage />} />
           <Route path="/bookingConfirmation" element={<BookingConfirm />} />
+          <Route path="/bookingConfirmation/print" element={<PrintTicketPage />} />
           <Route path="/BookingMap" element={<BookingMapPage />} />
         </Routes>
       </Router>

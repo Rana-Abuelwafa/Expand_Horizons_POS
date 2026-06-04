@@ -263,9 +263,29 @@ const ContactStep = ({ childAges, MapData }) => {
         };
         const result = await dispatch(confirmBooking(confirmData)).unwrap();
         console.log("result ", result);
+
+        // Prepare booking data to display on confirmation page
+        const bookingDisplayData = {
+          booking_id: availabilityResult?.idOut,
+          email: contactInfo.email,
+          booking_date: new Date().toISOString(),
+          trip_type: 2,
+          pickup_location: MapData?.pickup_address,
+          dropoff_location: MapData?.drop_address,
+          passengers: totalPax,
+          total_price: MapData?.totalPrice,
+          currency: "EUR",
+        };
+
+        // Store in localStorage as backup
+        localStorage.setItem(
+          "lastBookingData",
+          JSON.stringify(bookingDisplayData),
+        );
+
         //if (result != null && result === true) {
         //if (result != null && result.success) {
-        navigate("/bookingConfirmation");
+        navigate("/bookingConfirmation", { state: { bookingData: bookingDisplayData } });
         // } else {
         //   setPopupMessage(t("bookings.contact.bookingConfirmationFailed"));
         //   setPopupType("alert");
