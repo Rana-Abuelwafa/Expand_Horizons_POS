@@ -275,6 +275,10 @@ const ContactStep = ({ childAges, MapData }) => {
           passengers: totalPax,
           total_price: MapData?.totalPrice,
           currency: "EUR",
+          client_phone: contactInfo.phone,
+          client_name: contactInfo.fullName,
+          nationality: contactInfo.nationality,
+          payment_method: `Payment on site in cash EUR ${MapData?.totalPrice}`,
         };
 
         // Store in localStorage as backup

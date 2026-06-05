@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Button, Container } from "react-bootstrap";
-import { FiPrinter, FiDownload } from "react-icons/fi";
+import { FiPrinter, FiDownload, FiSend } from "react-icons/fi";
+import { FaFacebookF, FaInstagram, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -9,6 +10,25 @@ import "./PrintTicket.scss";
 const PrintTicket = ({ bookingData }) => {
     const { t } = useTranslation();
     const ticketRef = useRef();
+
+    const tripTitle = bookingData?.pickup_location && bookingData?.dropoff_location
+        ? `${bookingData.pickup_location} - ${bookingData.dropoff_location}`
+        : bookingData?.trip_title || "";
+
+    const guestText = `${bookingData?.passengers || 0} Adult(s) - ${bookingData?.children || 0} Child(s)`;
+    const paymentText = bookingData?.payment_method ||
+        `Payment on site in cash ${bookingData?.currency || ""} ${bookingData?.total_price || ""}`;
+    const nationality = bookingData?.nationality || bookingData?.client_nationality || "egyptian";
+    const greetingName = bookingData?.client_name || bookingData?.email || "";
+    const whatsappLabel = t("common.sendViaWhatsApp") || "Send via WhatsApp";
+    const bookingConfirmedText = t("common.tripConfirmed") || "Your trip is confirmed!";
+    const bookingConfirmationLabel = t("common.bookingConfirmationLabel") || "BOOKING CONFIRMATION";
+    const thankYouMessage = t("print.thankYouMessage") || "Thank you for choosing Expand-Horizon.";
+    const bookingRouteMessage = t("print.bookingConfirmedMessage") || "Your booking";
+    const forRouteConfirmed = t("print.forRouteConfirmed") || "for";
+    const isConfirmed = t("print.isConfirmed") || "is confirmed.";
+    const needHelpText = t("common.needHelp") || "Need help? Contact us at";
+    const orCallText = t("common.orCall") || "or call";
 
     const handlePrint = () => {
         window.print();
@@ -50,6 +70,32 @@ const PrintTicket = ({ bookingData }) => {
         }
     };
 
+    /* Temporarily disabled WhatsApp send handler.
+    const handleShareWhatsApp = async () => {
+        if (!bookingData) return;
+
+        try {
+            const element = ticketRef.current;
+            const canvas = await html2canvas(element, {
+                backgroundColor: "#ffffff",
+                scale: 2,
+            });
+
+            const blob = await new Promise((resolve) => {
+                canvas.toBlob(resolve, "image/png");
+            });
+
+            if (!blob) {
+                throw new Error("Unable to create ticket image.");
+            }
+
+            // implementation intentionally removed while disabled
+        } catch (error) {
+            console.error("Error sharing ticket via WhatsApp:", error);
+        }
+    };
+    */
+
     const formatDate = (date) => {
         return new Date(date).toLocaleDateString(
             localStorage.getItem("lang") || "en",
@@ -82,164 +128,111 @@ const PrintTicket = ({ bookingData }) => {
                 >
                     <FiDownload /> {t("common.download") || "Download"}
                 </Button>
+                {/* Temporarily disabled WhatsApp send button */}
+                {/*
+                <Button
+                    variant="success"
+                    className="action-btn"
+                    onClick={handleShareWhatsApp}
+                    disabled={!bookingData}
+                >
+                    <FiSend /> {whatsappLabel}
+                </Button>
+                */}
             </div>
 
             <div className="ticket-wrapper" ref={ticketRef}>
                 <div className="ticket">
-                    {/* Header with Logo */}
-                    <div className="ticket-header">
+                    <div className="ticket-header-row">
                         <div className="ticket-logo">
                             <img
-                                src={process.env.PUBLIC_URL + '/images/logo.png'}
+                                src={process.env.PUBLIC_URL + "/images/logo.png"}
                                 alt="Expand Horizons"
                             />
                         </div>
-                        <div className="ticket-title">
-                            <h1>EXPAND HORIZONS</h1>
-                            <p>{t("common.bookingTicket") || "Booking Ticket"}</p>
+                        <div className="confirmation-header">
+                        <span className="confirmation-label">
+                            {bookingConfirmationLabel}
+                        </span>
+                        <h2>{bookingConfirmedText}</h2>
+                    </div>
+                </div>
+
+                <div className="ticket-greeting">
+                    <p className="greeting-name">{t("common.hi") || "Hi"} {greetingName},</p>
+                    <p className="greeting-text">
+                        {thankYouMessage} {bookingRouteMessage} <strong>{bookingData?.booking_id}</strong> {forRouteConfirmed} <strong>{tripTitle}</strong> {isConfirmed}
+                    </p>
+                </div>
+
+                <div className="ticket-card">
+                    <div className="ticket-card-row">
+                        <div className="ticket-card-column">
+                            <div className="ticket-card-item">
+                                <span className="item-label">{t("common.trip") || "Trip"}</span>
+                                <span className="item-value">{tripTitle || "-"}</span>
+                            </div>
+                            <div className="ticket-card-item">
+                                <span className="item-label">{t("common.date") || "Date"}</span>
+                                <span className="item-value">{bookingData?.booking_date ? formatDate(bookingData.booking_date) : "-"}</span>
+                            </div>
+                            <div className="ticket-card-item">
+                                <span className="item-label">{t("common.pickup") || "Pickup"}</span>
+                                <span className="item-value">{bookingData?.pickup_location || "-"}</span>
+                            </div>
+                            <div className="ticket-card-item is-payment">
+                                <span className="item-label">{t("common.payment") || "Payment"}</span>
+                                <span className="item-value">{paymentText}</span>
+                            </div>
+                        </div>
+
+                        <div className="ticket-card-column">
+                            <div className="ticket-card-item">
+                                <span className="item-label">{t("common.bookingRef") || "Booking Ref"}</span>
+                                <span className="item-value">{bookingData?.booking_id || "-"}</span>
+                            </div>
+                            <div className="ticket-card-item">
+                                <span className="item-label">{t("common.guests") || "Guests"}</span>
+                                <span className="item-value">{guestText}</span>
+                            </div>
+                            <div className="ticket-card-item">
+                                <span className="item-label">{t("common.nationality") || "Nationality"}</span>
+                                <span className="item-value">{nationality}</span>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <hr className="ticket-divider" />
-
-                    {/* Booking Information */}
-                    <div className="ticket-section">
-                        <h3 className="section-title">
-                            {t("common.bookingDetails") || "Booking Details"}
-                        </h3>
-                        <div className="detail-grid">
-                            <div className="detail-item">
-                                <span className="detail-label">
-                                    {t("common.bookingId") || "Booking ID"}:
-                                </span>
-                                <span className="detail-value">{bookingData?.booking_id}</span>
-                            </div>
-                            <div className="detail-item status-item">
-                                <span className="detail-label">
-                                    {t("common.status") || "Status"}:
-                                </span>
-                                <span className="detail-value status-confirmed">
-                                    {t("common.confirmed") || "Confirmed"}
-                                </span>
-                            </div>
-                            <div className="detail-item">
-                                <span className="detail-label">
-                                    {t("common.date") || "Date"}:
-                                </span>
-                                <span className="detail-value">
-                                    {bookingData?.booking_date
-                                        ? formatDate(bookingData.booking_date)
-                                        : new Date().toLocaleDateString()}
-                                </span>
-                            </div>
-                            <div className="detail-item">
-                                <span className="detail-label">
-                                    {t("common.email") || "Email"}:
-                                </span>
-                                <span className="detail-value">{bookingData?.email}</span>
-                            </div>
+                <div className="price-summary-card">
+                    <h3>{t("common.priceSummary") || "Price Summary"}</h3>
+                    <div className="price-summary-list">
+                        <div className="price-row">
+                            <span>{t("common.tripPrice") || "Trip price"}</span>
+                            <span>{bookingData?.total_price} {bookingData?.currency || "EUR"}</span>
+                        </div>
+                        <div className="price-row">
+                            <span>{t("common.discount") || "Discount"}</span>
+                            <span>{bookingData?.discount || 0}</span>
+                        </div>
+                        <div className="price-row total-row">
+                            <span>{t("common.total") || "Total"}</span>
+                            <span>{bookingData?.total_price} {bookingData?.currency || "EUR"}</span>
                         </div>
                     </div>
+                </div>
 
-                    {/* Trip/Service Details */}
-                    {bookingData?.trip_type && (
-                        <div className="ticket-section">
-                            <h3 className="section-title">
-                                {t("common.serviceDetails") || "Service Details"}
-                            </h3>
-                            <div className="detail-grid">
-                                <div className="detail-item full-width service-type-item">
-                                    <span className="detail-label">
-                                        {t("common.serviceType") || "Service Type"}:
-                                    </span>
-                                    <span className="detail-value">
-                                        {bookingData?.trip_type === 1
-                                            ? t("common.tour") || "Tour"
-                                            : bookingData?.trip_type === 2
-                                                ? t("common.transfer") || "Transfer"
-                                                : t("common.excursion") || "Excursion"}
-                                    </span>
-                                </div>
-                            </div>
-
-                            {bookingData?.pickup_location && (
-                                <div className="location-details">
-                                    <div className="location-item">
-                                        <span className="location-label">
-                                            {t("common.pickupLocation") || "Pickup Location"}:
-                                        </span>
-                                        <span className="location-value">
-                                            {bookingData.pickup_location}
-                                        </span>
-                                    </div>
-                                    {bookingData?.dropoff_location && (
-                                        <div className="location-item">
-                                            <span className="location-label">
-                                                {t("common.dropoffLocation") || "Dropoff Location"}:
-                                            </span>
-                                            <span className="location-value">
-                                                {bookingData.dropoff_location}
-                                            </span>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {/* Passenger Information */}
-                    {bookingData?.passengers && (
-                        <div className="ticket-section">
-                            <h3 className="section-title">
-                                {t("common.passengerInfo") || "Passenger Information"}
-                            </h3>
-                            <div className="passenger-details">
-                                <span className="detail-label">
-                                    {t("common.numberOfPassengers") || "Number of Passengers"}:
-                                </span>
-                                <span className="detail-value">{bookingData.passengers}</span>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Price Information */}
-                    {bookingData?.total_price && (
-                        <div className="ticket-section price-section">
-                            <h3 className="section-title">
-                                {t("common.priceDetails") || "Price Details"}
-                            </h3>
-                            <div className="price-details">
-                                <div className="price-item">
-                                    <span className="price-label">
-                                        {t("common.totalPrice") || "Total Price"}:
-                                    </span>
-                                    <span className="price-value">
-                                        {bookingData.total_price} {bookingData?.currency || "SAR"}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    <hr className="ticket-divider" />
-
-                    {/* Footer */}
-                    <div className="ticket-footer">
-                        <p className="footer-text">
-                            {t("common.bookingConfirmation") ||
-                                "Thank you for your booking with Expand Horizons"}
-                        </p>
-                        <p className="footer-note">
-                            {t("common.ticketNotice") ||
-                                "Please present this ticket at the time of service"}
-                        </p>
-                        <p className="footer-contact">
-                            {t("common.contactUs") || "Contact us"}: support@expandhorizons.com
-                        </p>
+                <div className="ticket-footer-row">
+                    <p>{needHelpText} <a href="mailto:info@expand-horizons.de">info@expand-horizons.de</a> {orCallText} <a href="tel:+21034403755">+2 01034403755</a>.</p>
+                    <div className="social-icons">
+                        <a href="https://www.facebook.com/share/1Wqvi9qwjz/?mibextid=wwXIfr" target="_blank" rel="noreferrer"><FaFacebookF /></a>
+                        <a href="https://www.instagram.com/expandhorizonredsea" target="_blank" rel="noreferrer"><FaInstagram /></a>
+                        <a href="mailto:info@expand-horizons.com"><FaEnvelope /></a>
+                        <a href="https://wa.me/201034403755" target="_blank" rel="noreferrer"><FaWhatsapp /></a>
                     </div>
                 </div>
             </div>
-        </Container>
+        </div>
+    </Container>
     );
 };
 

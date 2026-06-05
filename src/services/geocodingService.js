@@ -22,33 +22,12 @@ const API_KEY =
 export const searchPlaces = async (query) => {
   if (!query) return [];
 
-  // const response = await axios.get(
-  //   "https://nominatim.openstreetmap.org/search",
-  //   {
-  //     params: {
-  //       q: query,
-  //       format: "json",
-  //       limit: 10,
-  //       // ✅ restrict to Egypt
-  //       countrycodes: "eg",
-  //     },
-  //   },
-  // );
-  //   const response = await axios.get(
-  //     "https://api.openrouteservice.org/geocode/search",
-  //     {
-  //       params: {
-  //         api_key: API_KEY,
-  //         text: `${query}`,
-  //         // size: 20,
-  //         "boundary.country": "EGY",
-  //       },
-  //     },
-  //   );
-  //   // console.log(response.data);
-  //   // return response.data;
-  //   return response.data.features;
-  // };
+  const hurghadaBounds = {
+    minLon: 33.5,
+    minLat: 26.6,
+    maxLon: 34.2,
+    maxLat: 27.5,
+  };
 
   const response = await axios.get(
     "https://api.openrouteservice.org/geocode/search",
@@ -57,11 +36,20 @@ export const searchPlaces = async (query) => {
         api_key: API_KEY,
         text: query,
         "boundary.country": "EGY",
+        "boundary.rect": `${hurghadaBounds.minLon},${hurghadaBounds.minLat},${hurghadaBounds.maxLon},${hurghadaBounds.maxLat}`,
       },
     },
   );
 
-  const apiResults = response.data.features || [];
+  const apiResults = (response.data.features || []).filter((feature) => {
+    const [lon, lat] = feature.geometry.coordinates;
+    return (
+      lon >= hurghadaBounds.minLon &&
+      lon <= hurghadaBounds.maxLon &&
+      lat >= hurghadaBounds.minLat &&
+      lat <= hurghadaBounds.maxLat
+    );
+  });
 
   const hotelResults = popularHotels.filter(
     (hotel) =>

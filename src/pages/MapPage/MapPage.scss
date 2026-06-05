@@ -55,6 +55,20 @@
         margin-bottom: 5px;
       }
 
+      .fixed-pickup {
+          .fixed-pickup-address {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #222;
+          }
+
+          .pickup-marker {
+            color: #e63946;
+            font-size: 18px;
+          }
+        }
+
       .location-input {
         display: flex;
         flex-direction: column;

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import MapView from "../../components/MapComponents/MapView";
 import LocationInput from "../../components/MapComponents/LocationInput";
 import RouteInfo from "../../components/MapComponents/RouteInfo";
-import { useCurrentLocation } from "../../services/useCurrentLocation";
 import { getRouteData } from "../../services/routingService";
 import "./MapPage.scss";
 import Header from "../../components/Header/Header";
@@ -15,18 +14,13 @@ const BookingMapPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state } = useLocation();
-  const dest_name = state?.dest_name;
 
-  const {
-    location: currentLocation,
-    address: currentAddress,
-    loading: currentLocationLoading,
-  } = useCurrentLocation();
+  const defaultPickup = [26.845, 33.99];
+  const defaultPickupAddress = "Jaz Soma Beach, Soma Bay, Red Sea, Egypt";
 
-  // Pickup state - will be set with current location as default
   const [routeErr, setRouteErr] = useState(null);
-  const [pickup, setPickup] = useState(null);
-  const [pickupAddress, setPickupAddress] = useState("");
+  const [pickup, setPickup] = useState(defaultPickup);
+  const [pickupAddress, setPickupAddress] = useState(defaultPickupAddress);
   const [drop, setDrop] = useState(null);
   const [dropCord, setDropCord] = useState(null);
   const [route, setRoute] = useState([]);
@@ -39,12 +33,12 @@ const BookingMapPage = () => {
 
   const totalPrice = isTwoWay ? (price * 2).toFixed(2) : price;
   // Set default pickup to current location when available
-  useEffect(() => {
-    if (currentLocation && currentAddress && !pickup) {
-      setPickup(currentLocation);
-      setPickupAddress(currentAddress);
-    }
-  }, [currentLocation, currentAddress]);
+  // useEffect(() => {
+  //   if (currentLocation && currentAddress && !pickup) {
+  //     setPickup(currentLocation);
+  //     setPickupAddress(currentAddress);
+  //   }
+  // }, [currentLocation, currentAddress]);
 
   useEffect(() => {
     // const fetchRoute = async () => {
@@ -95,30 +89,11 @@ const BookingMapPage = () => {
     });
   };
 
-  const handlePickupLocation = (cord, addr) => {
-    setPickup(cord);
-    setPickupAddress(addr);
-  };
-
   const handleDropLocation = (cord, addr) => {
     setDrop(addr);
     setDropCord(cord);
   };
 
-  // Show loading state while getting current location
-  if (currentLocationLoading) {
-    return (
-      <div className="bookmap-wrapper">
-        <Header />
-        <div className="bookingmap-page">
-          <div className="loading-container">
-            <p>{t("bookingMap.gettingLocation")}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  // console.log("pickup ", pickup);
   return (
     <div className="bookmap-wrapper">
       <Header />
@@ -131,22 +106,13 @@ const BookingMapPage = () => {
           {routeErr && <Alert variant={"danger"}>{routeErr}</Alert>}
           <div className="inputs">
             <div className="pickup-section">
-              <h3>
-                {/* <FaMapMarkerAlt className="pick_marker" /> */}
-                {/* // Pickup Location */}
-                {t("bookingMap.pickupTitle")}
-              </h3>
-              <LocationInput
-                label={t("bookingMap.pickupTitle")}
-                onSelect={handlePickupLocation}
-                defaultValue={currentAddress}
-                placeholder={t("bookingMap.pickupPlaceholder")}
-              />
-              {pickupAddress && (
-                <div className="selected-address">
-                  {/* <small>Selected: {pickupAddress}</small> */}
-                </div>
-              )}
+              <h3>{t("bookingMap.pickupTitle")}</h3>
+              <div className="fixed-pickup">
+                <p className="fixed-pickup-address">
+                  <FaMapMarkerAlt className="pickup-marker" />
+                    {pickupAddress}
+                </p>
+              </div>
             </div>
 
             <div className="drop-section">
