@@ -289,7 +289,9 @@ const ContactStep = ({ childAges, MapData }) => {
 
         //if (result != null && result === true) {
         //if (result != null && result.success) {
-        navigate("/bookingConfirmation", { state: { bookingData: bookingDisplayData } });
+        navigate("/bookingConfirmation", {
+          state: { bookingData: bookingDisplayData },
+        });
         // } else {
         //   setPopupMessage(t("bookings.contact.bookingConfirmationFailed"));
         //   setPopupType("alert");
