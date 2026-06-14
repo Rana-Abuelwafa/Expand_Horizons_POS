@@ -268,7 +268,8 @@ const ContactStep = ({ childAges, MapData }) => {
         const bookingDisplayData = {
           booking_id: availabilityResult?.idOut,
           email: contactInfo.email,
-          booking_date: new Date().toISOString(),
+          booking_date: selectedDateTime ? selectedDateTime.toISOString() : new Date().toISOString(),
+          trip_date: selectedDateTime ? selectedDateTime.toISOString() : new Date().toISOString(),
           trip_type: 2,
           pickup_location: MapData?.pickup_address,
           dropoff_location: MapData?.drop_address,
