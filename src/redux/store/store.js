@@ -19,6 +19,7 @@ import { authMiddleware } from "../../middleware/authMiddleware";
 import profileReducer from "../Slices/profileSlice";
 import contactReducer from "../Slices/contactSlice";
 import NewsletterReducer from "../Slices/newsletterSlice";
+import TicketPrintReducer from "../Slices/TicketPrintSlice";
 export const store = configureStore({
   reducer: {
     tours: toursReducer,
@@ -40,6 +41,7 @@ export const store = configureStore({
     profile: profileReducer,
     contact: contactReducer,
     newsletter: NewsletterReducer,
+    ticket: TicketPrintReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),

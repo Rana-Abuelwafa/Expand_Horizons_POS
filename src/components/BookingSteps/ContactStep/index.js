@@ -266,10 +266,15 @@ const ContactStep = ({ childAges, MapData }) => {
 
         // Prepare booking data to display on confirmation page
         const bookingDisplayData = {
+          BookingNo: availabilityResult?.refOut,
           booking_id: availabilityResult?.idOut,
           email: contactInfo.email,
-          booking_date: selectedDateTime ? selectedDateTime.toISOString() : new Date().toISOString(),
-          trip_date: selectedDateTime ? selectedDateTime.toISOString() : new Date().toISOString(),
+          booking_date: selectedDateTime
+            ? selectedDateTime.toISOString()
+            : new Date().toISOString(),
+          trip_date: selectedDateTime
+            ? selectedDateTime.toISOString()
+            : new Date().toISOString(),
           trip_type: 2,
           pickup_location: MapData?.pickup_address,
           dropoff_location: MapData?.drop_address,
@@ -279,7 +284,11 @@ const ContactStep = ({ childAges, MapData }) => {
           client_phone: contactInfo.phone,
           client_name: contactInfo.fullName,
           nationality: contactInfo.nationality,
+          is_two_way: MapData.isTwoWay,
           payment_method: `Payment on site in cash EUR ${MapData?.totalPrice}`,
+          booking_notes: notes,
+          vehicle_id: localStorage.getItem("horizon_pos_vehicle_id"),
+          lang_code: currentLang,
         };
 
         // Store in localStorage as backup
