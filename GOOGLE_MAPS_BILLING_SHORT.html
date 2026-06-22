@@ -5,206 +5,271 @@
     <title>Google Maps Billing - Short Summary for Clients</title>
     <style>
         body {
-            font-family: Calibri, Arial, sans-serif;
+            font-family: Roboto, Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 900px;
+            color: #202124;
+            max-width: 920px;
             margin: 40px auto;
-            padding: 20px;
+            padding: 24px;
+            background-color: #f8f9fa;
         }
         h1 {
-            color: #0066cc;
-            font-size: 28px;
+            color: #202124;
+            font-size: 32px;
             margin-bottom: 20px;
-            border-bottom: 3px solid #0066cc;
-            padding-bottom: 10px;
+            border-bottom: 1px solid #dadce0;
+            padding-bottom: 12px;
         }
         h2 {
-            color: #0066cc;
+            color: #1a73e8;
             font-size: 18px;
-            margin-top: 25px;
-            margin-bottom: 15px;
+            margin-top: 28px;
+            margin-bottom: 12px;
         }
         p {
             font-size: 14px;
             margin: 10px 0;
+            color: #5f6368;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 16px 0;
             font-size: 13px;
+            background: white;
+            box-shadow: 0 1px 2px rgba(60,64,67,0.08);
         }
         th {
-            background-color: #0066cc;
-            color: white;
-            padding: 12px;
+            background-color: #f1f3f4;
+            color: #202124;
+            padding: 14px 12px;
             text-align: left;
-            font-weight: bold;
+            font-weight: 600;
+            border-bottom: 1px solid #dadce0;
         }
         td {
-            border: 1px solid #ddd;
-            padding: 10px 12px;
+            padding: 12px;
+            border-bottom: 1px solid #e8eaed;
+            color: #3c4043;
         }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+        tr:nth-child(even) td {
+            background-color: #ffffff;
         }
-        tr:hover {
-            background-color: #f0f0f0;
+        tr:hover td {
+            background-color: #f8f9fa;
         }
         ul {
-            margin: 15px 0;
-            padding-left: 25px;
+            margin: 14px 0;
+            padding-left: 24px;
         }
         li {
             margin: 8px 0;
             font-size: 14px;
+            color: #3c4043;
         }
         .highlight {
-            background-color: #ffffcc;
+            background-color: #fff9c4;
             padding: 2px 4px;
-            border-radius: 3px;
+            border-radius: 4px;
         }
         .checkmark {
-            color: #4CAF50;
-            font-weight: bold;
+            color: #188038;
+            font-weight: 700;
         }
         .section-note {
-            background-color: #e8f4f8;
-            padding: 12px;
-            border-left: 4px solid #0066cc;
-            margin: 15px 0;
+            background-color: #ffffff;
+            padding: 14px 16px;
+            border-left: 4px solid #1a73e8;
+            margin: 16px 0;
             font-size: 13px;
+            color: #3c4043;
+            box-shadow: 0 1px 2px rgba(60,64,67,0.08);
         }
         .footer {
-            margin-top: 30px;
+            margin-top: 32px;
             padding-top: 20px;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #dadce0;
             font-size: 12px;
-            color: #666;
+            color: #5f6368;
         }
     </style>
 </head>
 <body>
-    <h1>Google Maps Billing</h1>
-    <!-- <p style="font-size: 13px; color: #666;">Short Summary for Clients</p> -->
+    <h1>Google Maps Platform core services pricing list</h1>
 
-    <h2>Quick Overview</h2>
-    <p>Google Maps is a <span class="highlight"><strong>pay-as-you-go service</strong></span>. You only pay for what you use, with a <span class="highlight"><strong>$7 USD monthly credit</strong></span> that helps reduce costs.</p>
+    <div class="section-note">
+        This summary reflects the Google Maps Platform pricing page structure: SKU pricing, monthly free usage caps, and usage-based billing.
+    </div>
+
+    <h2>On this page</h2>
+    <ul>
+        <li>Maps pricing lists</li>
+        <li>Routes prices lists</li>
+        <li>Places API (New)</li>
+        <li>Free usage caps</li>
+        <li>Billing examples</li>
+    </ul>
 
     <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
 
-    <h2>How Much Does It Cost?</h2>
+    <h2>Pricing overview</h2>
+    <p>Google Maps Platform uses pay-as-you-go pricing. Each SKU is billed per 1,000 billable events, and the price shown in each table column is the rate for that tier, not the total monthly bill.</p>
+    <p>Most SKUs include a monthly free usage cap, followed by tiered volume pricing that decreases as usage grows.</p>
 
-    <h3 style="color: #333; font-size: 16px; margin-top: 15px;">Pricing Per Request</h3>
+    <h2>Maps pricing lists</h2>
     <table>
         <tr>
-            <th>Service</th>
-            <th>Cost</th>
+            <th>SKU</th>
+            <th>Monthly free cap</th>
+            <th>10,001–100,000</th>
+            <th>100,001–500,000</th>
+            <th>500,001–1,000,000</th>
+            <th>1,000,001–5,000,000</th>
+            <th>5,000,001+</th>
         </tr>
         <tr>
-            <td>Map Display</td>
-            <td>$7 per 1,000 loads</td>
+            <td>Dynamic Maps</td>
+            <td>10,000</td>
+            <td>$7.00</td>
+            <td>$5.60</td>
+            <td>$4.20</td>
+            <td>$2.10</td>
+            <td>$0.53</td>
         </tr>
         <tr>
-            <td>Location Search</td>
-            <td>$0.003 per search</td>
-        </tr>
-        <tr>
-            <td>Directions/Routing</td>
-            <td>$0.005 per request</td>
-        </tr>
-        <tr>
-            <td>Address Verification</td>
-            <td>$0.005 per request</td>
+            <td>Static Maps</td>
+            <td>10,000</td>
+            <td>$2.00</td>
+            <td>$1.60</td>
+            <td>$1.20</td>
+            <td>$0.60</td>
+            <td>$0.15</td>
         </tr>
     </table>
 
-    <h3 style="color: #333; font-size: 16px; margin-top: 20px;">Your Estimated Cost Based on Daily Bookings</h3>
+    <h2>Routes prices lists</h2>
     <table>
         <tr>
-            <th>Daily Bookings</th>
-            <th>Monthly Cost</th>
+            <th>SKU</th>
+            <th>Monthly free cap</th>
+            <th>10,001–100,000</th>
+            <th>100,001–500,000</th>
+            <th>500,001–1,000,000</th>
+            <th>1,000,001–5,000,000</th>
+            <th>5,000,001+</th>
         </tr>
         <tr>
-            <td>50 bookings</td>
-            <td>~$50</td>
+            <td>Compute Routes Essentials</td>
+            <td>10,000</td>
+            <td>$5.00</td>
+            <td>$4.00</td>
+            <td>$3.00</td>
+            <td>$1.50</td>
+            <td>$0.38</td>
         </tr>
         <tr>
-            <td>100 bookings</td>
-            <td>~$75</td>
+            <td>Compute Route Matrix Essentials</td>
+            <td>10,000</td>
+            <td>$5.00</td>
+            <td>$4.00</td>
+            <td>$3.00</td>
+            <td>$1.50</td>
+            <td>$0.38</td>
+        </tr>
+    </table>
+
+    <h2>Places API (New)</h2>
+    <table>
+        <tr>
+            <th>SKU</th>
+            <th>Monthly free cap</th>
+            <th>10,001–100,000</th>
+            <th>100,001–500,000</th>
+            <th>500,001–1,000,000</th>
+            <th>1,000,001–5,000,000</th>
+            <th>5,000,001+</th>
         </tr>
         <tr>
-            <td>500 bookings</td>
-            <td>~$300-350</td>
+            <td>Autocomplete Requests</td>
+            <td>10,000</td>
+            <td>$2.83</td>
+            <td>$2.27</td>
+            <td>$1.70</td>
+            <td>$0.85</td>
+            <td>$0.21</td>
         </tr>
         <tr>
-            <td>1000+ bookings</td>
-            <td>~$650-800</td>
+            <td>Geocoding</td>
+            <td>10,000</td>
+            <td>$5.00</td>
+            <td>$4.00</td>
+            <td>$3.00</td>
+            <td>$1.50</td>
+            <td>$0.38</td>
+        </tr>
+        <tr>
+            <td>Address Validation Pro</td>
+            <td>5,000</td>
+            <td>$17.00</td>
+            <td>$13.60</td>
+            <td>$10.20</td>
+            <td>$5.10</td>
+            <td>$1.28</td>
+        </tr>
+    </table>
+
+    <h2>Free usage caps</h2>
+    <p>Many SKUs include a monthly free usage cap. This example shows how the first billable events can be $0.</p>
+    <table>
+        <tr>
+            <th>Usage range</th>
+            <th>Billable events</th>
+            <th>Price</th>
+            <th>Calculation</th>
+        </tr>
+        <tr>
+            <td>0 - 10,000 free cap</td>
+            <td>First 10,000 events</td>
+            <td>$0</td>
+            <td>$0 * 10,000 / 1,000 = <strong>$0.00</strong></td>
         </tr>
     </table>
 
     <div class="section-note">
-        <strong>Note:</strong> These estimates include the $7/month free credit and assume basic features. Actual costs depend on usage patterns.
+        Free usage caps are applied per SKU before billed usage is calculated.
+    </div>
+
+    <h2>Pricing example</h2>
+    <p>If an application sends 10,000 Autocomplete Requests in a month, those requests are covered by the free cap and are not billed.</p>
+    <div class="section-note">
+        <strong>Example:</strong> Dynamic Maps 100,000 events
+        <br>10,000 free events
+        <br>90,000 billable events at $7.00 per 1,000 = $630.00
+        <br>Total month cost = <strong>$630.00</strong>
     </div>
 
     <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
 
-    <h2>What's Included in the Price?</h2>
+    <h2>Billing controls</h2>
     <ul>
-        <li><span class="checkmark">✓</span> Advanced location search with suggestions</li>
-        <li><span class="checkmark">✓</span> Accurate address verification (98%+)</li>
-        <li><span class="checkmark">✓</span> Real-time route calculation</li>
-        <li><span class="checkmark">✓</span> Distance and duration information</li>
-        <li><span class="checkmark">✓</span> 24/7 service availability</li>
-        <li><span class="checkmark">✓</span> No setup fees or contracts</li>
+        <li><strong>No surprise bills</strong> — Set a monthly spending limit.</li>
+        <li><strong>Billing alerts</strong> — Notifications at 50%, 75%, and 100%.</li>
+        <li><strong>Itemized invoices</strong> — See detailed usage and costs.</li>
+        <li><strong>No contracts</strong> — Month-to-month billing.</li>
     </ul>
 
     <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
 
-    <!-- <h2>Cost Reduction Strategies</h2>
-    <p>We'll implement cost-saving measures to reduce your bill:</p>
-    <ol style="margin: 15px 0; padding-left: 25px;">
-        <li><strong>Smart Caching</strong> - Save location results for 24 hours (saves 20-30%)</li>
-        <li><strong>Efficient Search</strong> - Use optimized search sessions (saves 50%)</li>
-        <li><strong>Smart Batching</strong> - Combine multiple requests when possible (saves 10%)</li>
-    </ol>
-    <div class="section-note">
-        <strong>Result:</strong> Your actual cost could be <strong>30-50% lower</strong> than the estimates above.
-    </div> -->
+    <h2>Additional details</h2>
+    <p>New Google Cloud accounts may receive a one-time trial credit (often $300) for general Cloud usage, separate from the Maps Platform monthly free usage caps.</p>
 
-    <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
-
-    <h2>Budget Protection</h2>
-    <ul>
-        <li><strong>No Surprise Bills:</strong> We'll set a monthly spending limit</li>
-        <li><strong>Billing Alerts:</strong> You get notified at 50%, 75%, and 100% of budget</li>
-        <li><strong>Monthly Invoice:</strong> Itemized bill shows exactly what you paid for</li>
-        <li><strong>Cancel Anytime:</strong> No contracts - use month-to-month only</li>
-    </ul>
-
-    <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
-
-    <h2>Free Trial</h2>
-    <p>Google gives <span class="highlight"><strong>$300 free credit</strong></span> for the first 3 months. This covers most usage for small to medium businesses during the trial period.</p>
-
-    <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
-
-    <h2>Next Steps</h2>
-    <ol style="margin: 15px 0; padding-left: 25px;">
-        <li>We'll set up your Google Cloud project</li>
-        <li>Configure billing alerts so you stay informed</li>
-        <li>Monitor costs during first month</li>
-        <li>Optimize based on actual usage</li>
-    </ol>
-
-    <div class="section-note">
-        <strong>Questions?</strong> Contact us to discuss your specific needs and budget.
+    <div class="section-note" style="background-color: #f4f4f4; border-color: #999;">
+        <strong>Source:</strong> Google Maps Platform global pricing list, June 2026. See <a href="https://developers.google.com/maps/billing-and-pricing/pricing" target="_blank">developers.google.com/maps/billing-and-pricing/pricing</a>.
     </div>
 
     <div class="footer">
-        <p><strong>Document:</strong> Google Maps Billing Summary | <strong>Date:</strong> June 7, 2026</p>
-        <p>This document is intended for client distribution. For questions, please contact your account manager.</p>
+        <p><strong>Document:</strong> Google Maps Billing Summary | <strong>Date:</strong> June 22, 2026</p>
+        <p>This document is intended for client distribution. For questions, please contact Us.</p>
     </div>
 
 </body>
