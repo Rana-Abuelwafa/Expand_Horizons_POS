@@ -11,19 +11,20 @@ const CarCategoriesPage = () => {
   const carCategories = [
     {
       id: 1,
-      nameKey: "limousine",  // Use key instead of display name
+      nameKey: "limousine", // Use key instead of display name
       image: "/images/standard-car.jpg",
-      tripType: 2
+      tripType: 2,
     },
     {
       id: 2,
-      nameKey: "shuttle_bus",  // Use key instead of display name
+      nameKey: "shuttle_bus", // Use key instead of display name
       image: "/images/luxury-car.jpg",
-      tripType: 2
+      tripType: 2,
     },
   ];
 
   const handleCategorySelect = (tripType, vehicle_id) => {
+    console.log("vehicle_id ", vehicle_id);
     localStorage.setItem("horizon_pos_vehicle_id", vehicle_id);
     navigate("/Destinations", {
       state: {
