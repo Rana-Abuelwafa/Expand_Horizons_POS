@@ -52,7 +52,7 @@ api.interceptors.request.use(
         }).then(() => {
           localStorage.removeItem("user");
           showingLoginAlert = false;
-          window.location.href = "/login";
+          window.location.href = "/pos/login";
         });
       }
 

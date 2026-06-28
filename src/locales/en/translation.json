@@ -4,6 +4,15 @@
     "transfers": "Transfer",
     "diving": "Diving"
   },
+  "auth": {
+    "sessionExpired": "Your session has expired. Please log in again.",
+    "loginRequired": "Please log in first.",
+    "loginNow": "Log in now",
+    "ok": "OK",
+    "loginRequiredTitle": "Login Required",
+    "loginRequiredMessage": "You need to log in to continue.",
+    "goToLogin": "Go to Login"
+  },
   "general": {
     "more": "More",
     "top_offers": "Top Offers",
