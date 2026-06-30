@@ -216,6 +216,7 @@ const ContactStep = ({ childAges, MapData }) => {
       const bookingData = {
         id: bookingId,
         trip_id: 0,
+        // trip_id: localStorage.getItem("horizon_pos_vehicle_id"),
         client_id: clientId,
         client_email: contactInfo.email,
         client_phone: contactInfo.phone,
@@ -245,6 +246,7 @@ const ContactStep = ({ childAges, MapData }) => {
         drop_long: MapData?.drop_long,
         route_distance: MapData?.distance,
         route_price: MapData?.totalPrice,
+        trip_name: localStorage.getItem("horizon_pos_vehicle_name"),
         vehicle_id: localStorage.getItem("horizon_pos_vehicle_id"),
       };
 
@@ -288,6 +290,7 @@ const ContactStep = ({ childAges, MapData }) => {
           payment_method: `Payment on site in cash EUR ${MapData?.totalPrice}`,
           booking_notes: notes,
           vehicle_id: localStorage.getItem("horizon_pos_vehicle_id"),
+          trip_name: localStorage.getItem("horizon_pos_vehicle_name"),
           lang_code: currentLang,
         };
 

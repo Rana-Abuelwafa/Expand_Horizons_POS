@@ -11,17 +11,20 @@ const CarCategoriesPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { items: carCategories, loading, error } = useSelector(
-    (state) => state.transferCategories,
-  );
+  const {
+    items: carCategories,
+    loading,
+    error,
+  } = useSelector((state) => state.transferCategories);
 
   useEffect(() => {
     dispatch(fetchTransferCategories());
   }, [dispatch]);
 
-  const handleCategorySelect = (tripType, vehicle_id) => {
-    console.log("vehicle_id ", vehicle_id);
-    localStorage.setItem("horizon_pos_vehicle_id", vehicle_id);
+  const handleCategorySelect = (tripType, category) => {
+    console.log("vehicle_id ", category);
+    localStorage.setItem("horizon_pos_vehicle_id", category?.id);
+    localStorage.setItem("horizon_pos_vehicle_name", category?.category_name);
     navigate("/Destinations", {
       state: {
         tripType: tripType,
@@ -51,7 +54,7 @@ const CarCategoriesPage = () => {
                 <button
                   key={category.id}
                   className="category-card"
-                  onClick={() => handleCategorySelect(2, category.id)}
+                  onClick={() => handleCategorySelect(2, category)}
                 >
                   <div className="card-image-wrapper">
                     <img
@@ -61,7 +64,9 @@ const CarCategoriesPage = () => {
                       loading="lazy"
                     />
                     <div className="card-overlay">
-                      <span className="card-badge">{category.category_name}</span>
+                      <span className="card-badge">
+                        {category.category_name}
+                      </span>
                     </div>
                   </div>
                 </button>

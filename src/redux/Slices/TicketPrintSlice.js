@@ -29,17 +29,10 @@ export const PrintTicketAPI = createAsyncThunk(
     // Check authentication with proper scenario detection
 
     try {
-      const response = await api.post(
-        `${BOOKING_URL}/PrintTicket`,
-        TicketData,
-        //getAuthHeaders(),
-      );
+      const response = await api.post(`${BOOKING_URL}/PrintTicket`, TicketData);
 
       return response.data;
     } catch (error) {
-      // if (error.response?.status === 401) {
-      //   return rejectWithValue(createAuthError("expired"));
-      // }
       return rejectWithValue(error.response?.data || error.message);
     }
   },
