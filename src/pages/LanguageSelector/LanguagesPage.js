@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import "./LanguagesPage.scss";
 import Header from "../../components/Header/Header";
 import { isTokenExpired, getUserData } from "../../utils/auth";
+import { fetchLanguages, setLanguages } from "../../redux/Slices/languageSlice";
 
 const LanguagesPage = () => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const { items: languages, loading } = useSelector((state) => state.language);
 
-  const languages = [
-    { name: "English", flag: "/images/gb.png", code: "en" },
-    { name: "Deutsch", flag: "/images/de.png", code: "de" },
-    { name: "Русский", flag: "/images/ru.png", code: "ru" },
-  ];
+  useEffect(() => {
+    dispatch(fetchLanguages());
+  }, [dispatch]);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     localStorage.setItem("i18nextLng", lng); // persist language
     localStorage.setItem("lang", lng);
+    dispatch(setLanguages(lng));
+
     const user = getUserData();
-    //navigate("/car-categories");
     if (user && !isTokenExpired(user.refreshTokenExpiryTime)) {
       navigate("/car-categories");
     } else {
@@ -33,16 +36,22 @@ const LanguagesPage = () => {
       <Header />
       <div className="language-card">
         <div className="language-list">
-          {languages.map((lang, index) => (
+          {loading && <span>Loading...</span>}
+
+          {!loading &&
+            languages.map((lang) => (
             <button
-              key={index}
+              key={lang.id}
               className="language-button"
-              onClick={() => changeLanguage(lang.code)}
+              onClick={() => changeLanguage(lang.lang_code)}
             >
               <div className="flag-wrapper">
-                <img src={process.env.PUBLIC_URL + lang.flag} alt={lang.name} />
+                <img
+                  src={lang.lang_flag}
+                  alt={lang.lang_name}
+                />
               </div>
-              <span>{lang.name}</span>
+              <span>{lang.lang_name}</span>
             </button>
           ))}
         </div>

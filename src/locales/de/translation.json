@@ -4,6 +4,15 @@
     "transfers": "Transfer",
     "diving": "Tauchen"
   },
+  "auth": {
+    "sessionExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+    "loginRequired": "Bitte melden Sie sich zuerst an.",
+    "loginNow": "Jetzt anmelden",
+    "ok": "OK",
+    "loginRequiredTitle": "Anmeldung erforderlich",
+    "loginRequiredMessage": "Sie müssen sich anmelden, um fortzufahren.",
+    "goToLogin": "Zur Anmeldung"
+  },
   "general": {
     "more": "Mehr",
     "top_offers": "Top Angebote",
