@@ -1,4 +1,6 @@
 import { FaStar, FaStarHalf, FaRegStar } from "react-icons/fa6";
+
+// Converts numeric rating into 5-star icon sequence.
 export const Rating = (rate) => {
   const stars = [];
 

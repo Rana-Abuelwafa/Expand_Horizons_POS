@@ -1,5 +1,6 @@
 import i18n from '../i18n';
 
+// Creates standardized auth error payload for middleware/popup handling.
 export const createAuthError = (scenario = 'expired') => {
   let message = 'auth.sessionExpired';
   
@@ -10,6 +11,6 @@ export const createAuthError = (scenario = 'expired') => {
   return {
     message: i18n.t(message),
     isAuthError: true,
-    scenario: scenario // Add scenario to distinguish
+    scenario: scenario
   };
 };

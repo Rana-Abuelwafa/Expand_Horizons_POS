@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Button, Container } from "react-bootstrap";
-import { FiPrinter, FiDownload, FiSend } from "react-icons/fi";
+import { FiPrinter, FiDownload } from "react-icons/fi";
 import {
   FaFacebookF,
   FaInstagram,
@@ -12,8 +12,8 @@ import html2canvas from "html2canvas";
 import { useDispatch } from "react-redux";
 import { PrintTicketAPI } from "../../redux/Slices/TicketPrintSlice";
 import jsPDF from "jspdf";
-import "./PrintTicket.scss";
 
+// Renders confirmation ticket and supports print/download actions.
 const PrintTicket = ({ bookingData }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ const PrintTicket = ({ bookingData }) => {
   const nationality =
     bookingData?.nationality || bookingData?.client_nationality || "egyptian";
   const greetingName = bookingData?.client_name || bookingData?.email || "";
-  const whatsappLabel = t("common.sendViaWhatsApp") || "Send via WhatsApp";
   const bookingConfirmedText =
     t("common.tripConfirmed") || "Your trip is confirmed!";
   const bookingConfirmationLabel =
@@ -45,16 +44,14 @@ const PrintTicket = ({ bookingData }) => {
   const needHelpText = t("common.needHelp") || "Need help? Contact us at";
   const orCallText = t("common.orCall") || "or call";
 
+  // Sends printable ticket payload to backend print endpoint.
   const handlePrint = () => {
-    // window.print();
 
-    //call api print
     const TicketData = {
       BookingNo: bookingData?.BookingNo,
       client_name: bookingData?.client_name,
       pickup_address: bookingData?.pickup_location,
       drop_address: bookingData?.dropoff_location,
-      //trip_name: bookingData?.vehicle_id == 1 ? "Limousine" : "Shuttle Bus",
       trip_name: bookingData?.trip_name,
       trip_date: bookingData?.trip_date,
       Amount: bookingData?.total_price,
@@ -73,6 +70,7 @@ const PrintTicket = ({ bookingData }) => {
 
   const handleDownload = async () => {
     try {
+      // Captures ticket DOM and exports it as a multi-page PDF when needed.
       const element = ticketRef.current;
       const canvas = await html2canvas(element, {
         backgroundColor: "#ffffff",
@@ -107,32 +105,9 @@ const PrintTicket = ({ bookingData }) => {
     }
   };
 
-  /* Temporarily disabled WhatsApp send handler.
-    const handleShareWhatsApp = async () => {
-        if (!bookingData) return;
+  
 
-        try {
-            const element = ticketRef.current;
-            const canvas = await html2canvas(element, {
-                backgroundColor: "#ffffff",
-                scale: 2,
-            });
-
-            const blob = await new Promise((resolve) => {
-                canvas.toBlob(resolve, "image/png");
-            });
-
-            if (!blob) {
-                throw new Error("Unable to create ticket image.");
-            }
-
-            // implementation intentionally removed while disabled
-        } catch (error) {
-            console.error("Error sharing ticket via WhatsApp:", error);
-        }
-    };
-    */
-
+  // Formats booking date in current UI locale for ticket display.
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString(
       localStorage.getItem("lang") || "en",
@@ -165,17 +140,8 @@ const PrintTicket = ({ bookingData }) => {
         >
           <FiDownload /> {t("common.download") || "Download"}
         </Button>
-        {/* Temporarily disabled WhatsApp send button */}
-        {/*
-                <Button
-                    variant="success"
-                    className="action-btn"
-                    onClick={handleShareWhatsApp}
-                    disabled={!bookingData}
-                >
-                    <FiSend /> {whatsappLabel}
-                </Button>
-                */}
+        
+        
       </div>
 
       <div className="ticket-wrapper" ref={ticketRef}>

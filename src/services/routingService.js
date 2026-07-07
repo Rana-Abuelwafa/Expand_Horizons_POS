@@ -1,43 +1,14 @@
 import axios from "axios";
 
-const API_KEY =
-  "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjEyNmQ3ZTY2MDc3NDRkMjY5NDhlYWJmODU0MzMwNDIyIiwiaCI6Im11cm11cjY0In0=";
+const API_KEY = process.env.REACT_APP_ORS_API_KEY;
 
-// export const getRouteData = async (start, end) => {
-//   //console.log("end", end);
-//   const res = await axios.get(
-//     "https://api.openrouteservice.org/v2/directions/driving-car",
-//     {
-//       params: {
-//         api_key: API_KEY,
-//         start: `${start[1]},${start[0]}`,
-//         end: `${end[1]},${end[0]}`,
-//       },
-//     },
-//   );
-
-//   const data = res.data.features[0];
-//   //console.log("data ", data);
-//   return {
-//     coordinates: data.geometry.coordinates.map((c) => [c[1], c[0]]),
-//     distance: data.properties.summary.distance / 1000,
-//     duration: data.properties.summary.duration / 60,
-//   };
-// };
-
+// Fetches car route geometry, distance (km), and duration (minutes) between two points.
 export const getRouteData = async (start, end) => {
+  if (!API_KEY) {
+    throw new Error("Missing REACT_APP_ORS_API_KEY");
+  }
+
   try {
-    // const res = await axios.get(
-    //   "https://api.openrouteservice.org/v2/directions/driving-car",
-    //   {
-    //     params: {
-    //       api_key: API_KEY,
-    //       start: `${start[1]},${start[0]}`,
-    //       end: `${end[1]},${end[0]}`,
-    //       radiuses: [1000, 1000],
-    //     },
-    //   },
-    // );
     const res = await axios.post(
       "https://api.openrouteservice.org/v2/directions/driving-car/geojson",
       {
@@ -57,16 +28,15 @@ export const getRouteData = async (start, end) => {
     const data = res.data.features[0];
 
     return {
+      // Leaflet expects [lat, lon], API returns [lon, lat].
       coordinates: data.geometry.coordinates.map((c) => [c[1], c[0]]),
       distance: data.properties.summary.distance / 1000,
       duration: data.properties.summary.duration / 60,
     };
   } catch (error) {
-    // console.error("Route API Error:", error);
 
     if (axios.isAxiosError(error)) {
       if (error.response) {
-        // Server responded with error status
         console.log("Status:", error.response.status);
         console.log("Data:", error.response.data);
 
@@ -81,7 +51,6 @@ export const getRouteData = async (start, end) => {
             throw new Error("Failed to fetch route");
         }
       } else if (error.request) {
-        // No response received
         throw new Error("Network error. Please check internet connection.");
       }
     }

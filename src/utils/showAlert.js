@@ -8,13 +8,13 @@ let root = null;
 let isMounted = false;
 let authModalFunction = null;
 
-// Set this function from your component that has access to useAuthModal
+// Injects login modal opener from app-level component context.
 export const setAuthModalFunction = (func) => {
   authModalFunction = func;
 };
 
+// Renders a singleton auth popup and safely cleans previous popup instances.
 export const showAuthPopup = (message, callback, scenario = 'expired') => {
-  // Clean up any existing popup first
   if (root) {
     try {
       root.unmount();
@@ -28,7 +28,6 @@ export const showAuthPopup = (message, callback, scenario = 'expired') => {
     root = null;
   }
 
-  // Create new popup root
   popupRoot = document.createElement('div');
   popupRoot.id = 'auth-popup-root';
   document.body.appendChild(popupRoot);
@@ -45,13 +44,11 @@ export const showAuthPopup = (message, callback, scenario = 'expired') => {
       
       setShow(false);
       
-      // Only call currentCallback if it's a function
        if (typeof currentCallback === 'function') {
         currentCallback();
       }
       currentCallback = null;
       
-      // Always open login modal in both scenarios
       if (typeof authModalFunction === 'function') {
         setTimeout(() => {
           authModalFunction("login");
@@ -65,7 +62,6 @@ export const showAuthPopup = (message, callback, scenario = 'expired') => {
       }, 100);
     };
 
-    // Add cleanup on component unmount
     React.useEffect(() => {
       return () => {
         isMounted = false;
@@ -86,7 +82,7 @@ export const showAuthPopup = (message, callback, scenario = 'expired') => {
   root.render(<PopupWrapper />);
 };
 
-// Separate cleanup function
+// Fully unmounts popup root and clears callback references.
 const cleanupPopup = () => {
   if (isMounted) {
     isMounted = false;

@@ -1,0 +1,109 @@
+# README.de
+
+## Project Overview
+Expand Horizons POS is a React-based point-of-sale web application (Create React App) using Redux Toolkit, i18n, and Axios-based API integration.
+
+- Framework: React (CRA)
+- State management: Redux Toolkit
+- Routing: react-router-dom
+- Styling: SCSS + Bootstrap
+- Internationalization: i18next + react-i18next
+- Maps and routing: Leaflet + OpenRouteService
+
+## Run and Start
+Requirements:
+- Node.js LTS
+- npm
+
+Important scripts:
+- `npm start`: local development
+- `npm run build`: production build
+
+Note:
+- In `package.json`, `homepage` is set to `/pos`.
+
+## Architecture
+
+### Directory Structure (main areas)
+- `src/components`: UI building blocks (booking, maps, shared components)
+- `src/pages`: route-level page components
+- `src/redux/Slices`: Redux slices (business logic and async thunks)
+- `src/redux/store/store.js`: store configuration and slice registration
+- `src/api/axios.js`: Axios instance with auth/refresh interceptors
+- `src/utils/axiosInterceptor.js`: additional API instances and token refresh handling
+- `src/services`: external service calls (geocoding, routing)
+- `src/locales`: translation files (de/en/ru)
+
+### Active Redux Slices in Store
+Currently registered in `src/redux/store/store.js`:
+- `auth`
+- `language`
+- `destinations`
+- `trips`
+- `booking`
+- `bookingSummary`
+- `confirmBooking`
+- `priceCalculation`
+- `ticket`
+- `transferCategories`
+
+## Environment Variables
+These variables are used in code and should be set in your `.env` file:
+
+- `REACT_APP_API_URL`
+- `REACT_APP_AUTH_API_URL`
+- `REACT_APP_CLIENT_API_URL`
+- `REACT_APP_BOOKING_API_URL`
+- `REACT_APP_CONTACT_API_URL`
+- `REACT_APP_ADMIN_API_URL`
+- `REACT_APP_ORS_API_KEY` (OpenRouteService key for geocoding and routing)
+
+Example (`.env`):
+
+```env
+REACT_APP_API_URL=https://expand-horizons.de/api/api
+REACT_APP_AUTH_API_URL=https://expand-horizons.de/Auth/api/Authentication
+REACT_APP_CLIENT_API_URL=https://expand-horizons.de/api/api/TravelClient
+REACT_APP_ADMIN_API_URL=https://expand-horizons.de/api/api/TravelAdmin
+REACT_APP_BOOKING_API_URL=https://expand-horizons.de/api/api/Booking
+REACT_APP_CONTACT_API_URL=https://expand-horizons.de/api/api/TravelContact
+REACT_APP_ORS_API_KEY="eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjEyNmQ3ZTY2MDc3NDRkMjY5NDhlYWJmODU0MzMwNDIyIiwiaCI6Im11cm11cjY0In0="
+```
+
+## Cleanup Rules
+Use these rules to keep the codebase clean and maintainable:
+
+1. Remove unused files
+- Delete a file only if it is not imported anywhere.
+- Always check imports across the full `src` folder before deleting.
+
+2. Remove unused slices
+- Delete a slice only when:
+  - it has no imports in the project, and
+  - it is not registered in `src/redux/store/store.js`.
+
+3. Remove commented legacy code
+- Do not keep commented-out code blocks (old functions/imports).
+- Keep explanatory comments short and purposeful.
+
+4. Avoid duplication
+- Do not duplicate API header/language logic across many files.
+- Prefer shared helper functions.
+
+5. Safe changes
+- After large cleanups, always run checks (lint/build/IDE problems).
+- Do not delete files that may be dynamically loaded unless verified.
+
+## Recommended Cleanup Workflow
+1. Find unused imports/functions.
+2. Find unreferenced files.
+3. Remove commented legacy code.
+4. Run build/tests.
+5. Document important changes in this file.
+
+## Important Note
+When changing API or auth flows, always review both interceptor files:
+- `src/api/axios.js`
+- `src/utils/axiosInterceptor.js`
+
+This helps avoid login/refresh side effects.

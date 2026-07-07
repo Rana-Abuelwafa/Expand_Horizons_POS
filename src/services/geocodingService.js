@@ -17,9 +17,14 @@ const popularHotels = [
     lng: 33.826,
   },
 ];
-const API_KEY =
-  "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjEyNmQ3ZTY2MDc3NDRkMjY5NDhlYWJmODU0MzMwNDIyIiwiaCI6Im11cm11cjY0In0=";
+const API_KEY = process.env.REACT_APP_ORS_API_KEY;
+
+// Returns merged place results from predefined hotels and ORS geocoding.
 export const searchPlaces = async (query) => {
+  if (!API_KEY) {
+    throw new Error("Missing REACT_APP_ORS_API_KEY");
+  }
+
   if (!query) return [];
 
   const hurghadaBounds = {
@@ -43,6 +48,7 @@ export const searchPlaces = async (query) => {
 
   const apiResults = (response.data.features || []).filter((feature) => {
     const [lon, lat] = feature.geometry.coordinates;
+    // Limit geocoding suggestions to configured service area.
     return (
       lon >= hurghadaBounds.minLon &&
       lon <= hurghadaBounds.maxLon &&
@@ -59,23 +65,13 @@ export const searchPlaces = async (query) => {
 
   return [...hotelResults, ...apiResults];
 };
-// 📍 NEW: reverse geocoding
-//to get address of current location
-// export const reverseGeocode = async (lat, lon) => {
-//   const res = await axios.get("https://nominatim.openstreetmap.org/reverse", {
-//     params: {
-//       lat,
-//       lon,
-//       format: "json",
-//       // optional: better results
-//       addressdetails: 1,
-//     },
-//   });
 
-//   return res.data;
-// };
+// Converts map coordinates to a readable address feature.
 export const reverseGeocode = async (lat, lng) => {
-  // console.log("lat  ", lat);
+  if (!API_KEY) {
+    throw new Error("Missing REACT_APP_ORS_API_KEY");
+  }
+
   const response = await axios.get(
     "https://api.openrouteservice.org/geocode/reverse",
     {

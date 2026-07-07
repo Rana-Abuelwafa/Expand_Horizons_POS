@@ -3,6 +3,7 @@ import axios from "axios";
 
 const Admin_Url = process.env.REACT_APP_ADMIN_API_URL;
 
+// Returns language-aware headers for public admin language endpoint.
 const getNonAuthHeaders = () => {
   let lang = localStorage.getItem("lang") || "en";
   return {
@@ -13,6 +14,7 @@ const getNonAuthHeaders = () => {
   };
 };
 
+// Loads available UI languages shown in language selection screens.
 export const fetchLanguages = createAsyncThunk(
   "language/fetchLanguages",
   async (_, { rejectWithValue }) => {
@@ -41,6 +43,7 @@ const languageSlice = createSlice({
     error: null,
   },
   reducers: {
+    // Updates currently selected language in Redux state.
     setLanguages: (state, action) => {
       state.currentLang = action.payload;
     },

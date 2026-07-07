@@ -1,24 +1,22 @@
-// Check if token exists and is valid
+// Basic token existence guard used before protected actions.
 export const isTokenValid = () => {
   const token = localStorage.getItem('token');
   if (!token) return false;
   
   try {
-    // Simple check - if token exists, consider it valid
-    // You can add expiration check later if needed
     return true;
   } catch {
     return false;
   }
 };
 
-// Clear tokens from storage
+// Clears persisted auth state on logout or hard auth failure.
 export const clearAuthData = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
 };
 
-// Get token from storage
+// Centralized token accessor for API helpers.
 export const getToken = () => {
   return localStorage.getItem('token');
 };

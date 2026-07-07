@@ -1,6 +1,6 @@
 import React from "react";
-import "./LogoSection.scss";
 
+// Reusable brand logo block used in headers and auth screens.
 const LogoSection = () => {
   return (
     <div className="logo-section">
@@ -8,7 +8,6 @@ const LogoSection = () => {
         src={process.env.PUBLIC_URL + '/logo1.png'}
         alt="Expand Horizons Logo"
         className="logo"
-        // loading="lazy"
       />
     </div>
   );

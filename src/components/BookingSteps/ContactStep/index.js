@@ -11,52 +11,23 @@ import DatePicker from "react-datepicker";
 import LoadingPage from "../../Loader/LoadingPage";
 import {
   FaCalendarAlt,
-  FaUsers,
-  FaMinus,
-  FaPlus,
   FaChevronDown,
-  FaExchangeAlt,
 } from "react-icons/fa";
-import {
-  getBookingSummary,
-  clearRefresh,
-} from "../../../redux/Slices/bookingSummarySlice";
+
 const ContactStep = ({ childAges, MapData }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
 
-  // const { profileData, loading: profileLoading } = useSelector(
-  //   (state) => state.profile,
-  // );
-
-  // const currentLang = useSelector((state) => state.language.currentLang) || "en";
   const currentLang = localStorage.getItem("lang") || "de";
-  const { summaryData, shouldRefresh } = useSelector(
-    (state) => state.bookingSummary,
-  );
-  const { loading: bookingLoading, error: bookingError } = useSelector(
-    (state) => state.booking,
-  );
-  const { loading: extrasLoading, error: extrasError } = useSelector(
-    (state) => state.extras,
-  );
+  const { loading: bookingLoading } = useSelector((state) => state.booking);
   const {
     loading: confirmLoading,
     error: confirmError,
-    success: confirmSuccess,
-    confirmed,
   } = useSelector((state) => state.confirmBooking);
 
-  // const fullName = user?.firstName + " " + user?.lastName;
-  // const userEmail = user?.email;
-  // const userPhone = user?.phoneNumber;
-
   const [contactInfo, setContactInfo] = useState({
-    // fullName: fullName || "",
-    // email: userEmail || "",
-    // phone: userPhone || "",
     fullName: "",
     email: "",
     phone: "",
@@ -70,46 +41,7 @@ const ContactStep = ({ childAges, MapData }) => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("alert");
 
-  // Fetch profile data on component mount
-  // useEffect(() => {
-  //   dispatch(fetchProfile()).unwrap();
-  // }, [dispatch]);
-
-  // Update nationality when profile data is loaded
-  // useEffect(() => {
-  //   if (profileData?.nation) {
-  //     setContactInfo((prev) => ({
-  //       ...prev,
-  //       nationality: profileData.nation,
-  //     }));
-  //   }
-  // }, [profileData]);
-  // useEffect(() => {
-  //   fetchBookingSummary();
-  // }, [dispatch, availabilityData]);
-
-  // useEffect(() => {
-  //   if (shouldRefresh) {
-  //     fetchBookingSummary();
-  //     dispatch(clearRefresh()); // Clear the refresh flag after fetching
-  //   }
-  // }, [shouldRefresh, dispatch]);
-
-  // const fetchBookingSummary = () => {
-  //   var bookingId = availabilityData?.idOut;
-  //   console.log("bookingId", bookingId);
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   const clientId = user?.id;
-  //   if (bookingId) {
-  //     dispatch(
-  //       getBookingSummary({
-  //         booking_id: bookingId,
-  //         client_id: clientId,
-  //         lang_code: currentLang,
-  //       }),
-  //     );
-  //   }
-  // };
+  // Updates contact form fields while preserving other values.
   const handleInputChange = (field, value) => {
     setContactInfo((prev) => ({
       ...prev,
@@ -128,6 +60,7 @@ const ContactStep = ({ childAges, MapData }) => {
     }));
   };
 
+  // Validates required contact, pax, and datetime fields before API calls.
   const validateForm = () => {
     const newErrors = {};
 
@@ -157,16 +90,16 @@ const ContactStep = ({ childAges, MapData }) => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  // Calculate the minimum selectable datetime (today + release_days at 00:00:00)
   const minDate = new Date();
   minDate.setDate(minDate.getDate() + 1);
 
   minDate.setHours(0, 0, 0, 0);
 
-  // Filter dates that are before the minimum allowed date
   const filterDate = (date) => {
     return date >= minDate;
   };
+
+  // Converts Date object to API datetime string.
   const formatDateTimeForAPI = (dateTime) => {
     if (!dateTime) return "";
 
@@ -193,30 +126,21 @@ const ContactStep = ({ childAges, MapData }) => {
       <FaChevronDown className="booking-selection__chevron" />
     </Button>
   ));
+
+  // Creates booking, confirms it, then prepares data for confirmation screen.
   const handleNext = async () => {
     if (!validateForm()) {
       return;
     }
 
     try {
-      // const bookingId = availabilityData?.idOut;
       const bookingId = 0;
-      //console.log("bookingId ", bookingId);
-      // if (!bookingId) {
-      //   // setPopupMessage(t('bookings.noBookingId'));
-      //   // setPopupType('alert');
-      //   // setShowPopup(true);
-      //   return;
-      // }
 
       const clientId = user?.id;
-      // Format datetime as YYYY-MM-DD HH:MM:SS
       const formattedDateTime = formatDateTimeForAPI(selectedDateTime);
-      // Prepare booking data with contact information
       const bookingData = {
         id: bookingId,
         trip_id: 0,
-        // trip_id: localStorage.getItem("horizon_pos_vehicle_id"),
         client_id: clientId,
         client_email: contactInfo.email,
         client_phone: contactInfo.phone,
@@ -256,7 +180,6 @@ const ContactStep = ({ childAges, MapData }) => {
 
       console.log("availabilityResult ", availabilityResult);
       if (availabilityResult != null && availabilityResult.success) {
-        //Now confirm the booking
         const confirmData = {
           booking_id: availabilityResult?.idOut,
           client_id: clientId,
@@ -266,7 +189,6 @@ const ContactStep = ({ childAges, MapData }) => {
         const result = await dispatch(confirmBooking(confirmData)).unwrap();
         console.log("result ", result);
 
-        // Prepare booking data to display on confirmation page
         const bookingDisplayData = {
           BookingNo: availabilityResult?.refOut,
           booking_id: availabilityResult?.idOut,
@@ -294,33 +216,22 @@ const ContactStep = ({ childAges, MapData }) => {
           lang_code: currentLang,
         };
 
-        // Store in localStorage as backup
         localStorage.setItem(
           "lastBookingData",
           JSON.stringify(bookingDisplayData),
         );
 
-        //if (result != null && result === true) {
-        //if (result != null && result.success) {
         navigate("/bookingConfirmation", {
           state: { bookingData: bookingDisplayData },
         });
-        // } else {
-        //   setPopupMessage(t("bookings.contact.bookingConfirmationFailed"));
-        //   setPopupType("alert");
-        //   setShowPopup(true);
-        // }
       }
-      // }
     } catch (error) {
-      // console.log("error ", error);
       setPopupMessage("Error , Please Contact Admin");
       setPopupType("alert");
       setShowPopup(true);
     }
   };
 
-  // Show error popup if there's a confirmation error
   useEffect(() => {
     if (confirmError) {
       setPopupMessage(
@@ -336,7 +247,6 @@ const ContactStep = ({ childAges, MapData }) => {
   if (isLoading) {
     return <LoadingPage />;
   }
-  // console.log("totalPax ", selectedDateTime);
 
   return (
     <>
@@ -413,7 +323,6 @@ const ContactStep = ({ childAges, MapData }) => {
               timeIntervals={30}
               timeCaption={t("booking.date.time")}
               dateFormat="EEE, MMM d, yyyy HH:mm"
-              // monthsShown={2}
               showPopperArrow={false}
               popperClassName="custom-datepicker-popper"
               inline={false}
@@ -425,7 +334,7 @@ const ContactStep = ({ childAges, MapData }) => {
           </Form.Group>
 
           <Form.Group className="form-group">
-            {/* <Form.Label>PAX Count</Form.Label> */}
+            
 
             <Form.Control
               type="number"
@@ -463,12 +372,12 @@ const ContactStep = ({ childAges, MapData }) => {
             disabled={isLoading}
           >
             {t("bookings.contact.confirmButton")}
-            {/* {t('bookings.contact.nextButton')} */}
+            
           </button>
         </Form>
       </div>
 
-      {/* Popup for errors */}
+      
       {showPopup && (
         <PopUp
           show={showPopup}

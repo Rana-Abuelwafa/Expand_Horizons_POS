@@ -36,21 +36,18 @@ const BookingSelection = ({ tripData }) => {
     const [selectedDateTime, setSelectedDateTime] = useState(null);
     const [selectedReturnDateTime, setSelectedReturnDateTime] = useState(null);
     const [isTwoWay, setIsTwoWay] = useState(false); // Checkbox state for two-way transfer
-    //  const [selectedLanguage, setSelectedLanguage] = useState(t('booking.language.english'));
     const [showParticipants, setShowParticipants] = useState(false);
     const [ageValidationErrors, setAgeValidationErrors] = useState([]);
 
-    // Calculate the minimum selectable datetime (today + release_days at 00:00:00)
+    // Enforces release-days booking rule from API configuration.
     const minDate = new Date();
     if (tripData?.release_days) {
         minDate.setDate(minDate.getDate() + parseInt(tripData.release_days));
     }
     minDate.setHours(0, 0, 0, 0);
 
-    // Calculate total participants
     const totalParticipants = participants.adults + participants.children;
 
-    // Check if participants exceed max capacity
     const exceedsMaxCapacity = tripData?.trip_max_capacity && totalParticipants > parseInt(tripData.trip_max_capacity);
 
     useEffect(() => {
@@ -58,22 +55,18 @@ const BookingSelection = ({ tripData }) => {
         dispatch(resetCalculation());
     }, [dispatch]);
 
-    // Update childAges array when number of children changes
     useEffect(() => {
         if (participants.children > childAges.length) {
-            // Add new empty age fields
             const newAges = [...childAges];
             while (newAges.length < participants.children) {
                 newAges.push('');
             }
             setChildAges(newAges);
         } else if (participants.children < childAges.length) {
-            // Remove extra age fields
             setChildAges(childAges.slice(0, participants.children));
         }
     }, [participants.children]);
 
-    // Reset price breakdown when participants or datetime change
     useEffect(() => {
         if (showPriceBreakdown) {
             setShowPriceBreakdown(false);
@@ -81,7 +74,6 @@ const BookingSelection = ({ tripData }) => {
         }
     }, [participants, selectedDateTime, isTwoWay, childAges]);
 
-    // Handle API errors and success
     useEffect(() => {
         if (error) {
             setPopupMessage(error || t("booking.availabilityError"));
@@ -99,14 +91,12 @@ const BookingSelection = ({ tripData }) => {
     }, [error, calculationError, calculationSuccess, calculationData, t, dispatch]);
 
     const handleParticipantChange = (type, action) => {
-        // Calculate what the new total would be
         const newValue = action === 'increment'
             ? participants[type] + 1
             : Math.max(type === 'adults' ? 1 : 0, participants[type] - 1);
 
         const newTotal = totalParticipants - participants[type] + newValue;
 
-        // Check if this would exceed max capacity
         if (tripData?.trip_max_capacity && newTotal > parseInt(tripData.trip_max_capacity)) {
             setPopupMessage(t('booking.maxCapacityExceeded', { maxCapacity: tripData.trip_max_capacity }));
             setPopupType('alert');
@@ -125,14 +115,13 @@ const BookingSelection = ({ tripData }) => {
         newAges[index] = value;
         setChildAges(newAges);
 
-        // Clear validation error for this field
         const newErrors = [...ageValidationErrors];
         newErrors[index] = false;
         setAgeValidationErrors(newErrors);
     };
 
+    // Validates dynamic child age fields against configured max age.
     const validateChildAges = () => {
-        // If children are not allowed, always return true
         if (!hasChildOption) return true;
 
         const errors = [];
@@ -201,10 +190,6 @@ const BookingSelection = ({ tripData }) => {
         </Button>
     ));
 
-    // const handleLanguageSelect = (language) => {
-    //     setSelectedLanguage(language);
-    // };
-
     const validateInputs = () => {
         if (!selectedDateTime) {
             setPopupMessage(t('booking.dateTimeRequired'));
@@ -213,7 +198,6 @@ const BookingSelection = ({ tripData }) => {
             return false;
         }
 
-        // Check if selected datetime is before the minimum allowed datetime
         if (selectedDateTime < minDate) {
             setPopupMessage(t('booking.invalidDateTime', { releaseDays: tripData?.release_days || 0 }));
             setPopupType('alert');
@@ -228,14 +212,12 @@ const BookingSelection = ({ tripData }) => {
             return false;
         }
 
-        // NEW: Validate that return date is after departure date
         if (isTwoWayTransferType && isTwoWay && selectedReturnDateTime && selectedReturnDateTime <= selectedDateTime) {
             setPopupMessage(t('booking.returnDateAfterDeparture'));
             setPopupType('alert');
             setShowPopup(true);
             return false;
         }
-        // Check if participants exceed max capacity
         if (exceedsMaxCapacity) {
             setPopupMessage(t('booking.maxCapacityExceeded', { maxCapacity: tripData.trip_max_capacity }));
             setPopupType('alert');
@@ -243,7 +225,6 @@ const BookingSelection = ({ tripData }) => {
             return false;
         }
 
-        // Validate child ages only if children are allowed
         if (hasChildOption && participants.children > 0 && !validateChildAges()) {
             setPopupMessage(t('booking.invalidChildAges', { maxAge: tripData?.max_child_age || 12 }));
             setPopupType('alert');
@@ -254,6 +235,7 @@ const BookingSelection = ({ tripData }) => {
         return true;
     };
 
+    // Converts Date object into backend datetime format.
     const formatDateTimeForAPI = (dateTime) => {
         if (!dateTime) return '';
         
@@ -271,10 +253,9 @@ const BookingSelection = ({ tripData }) => {
         if (!validateInputs()) return;
 
         try {
-            // Convert child ages to numbers only if children are allowed
+            // Price calculation is separated from booking creation for UX preview.
             const numericChildAges = hasChildOption ? childAges.map(age => parseInt(age)) : [];
 
-            // Calculate price without creating a booking
             const calculationData = {
                 booking_id: 0,
                 trip_id: tripData?.trip_id,
@@ -290,26 +271,21 @@ const BookingSelection = ({ tripData }) => {
             await dispatch(calculateBookingPrice(calculationData)).unwrap();
 
         } catch (err) {
-            // Error is handled in useEffect
         }
     };
 
     const handleContinueBooking = async () => {
         if (!validateInputs()) return;
 
-        // Format datetime as YYYY-MM-DD HH:MM:SS
        const formattedDateTime = formatDateTimeForAPI(selectedDateTime);
        const formattedReturnDateTime = isTwoWayTransferType && isTwoWay ? formatDateTimeForAPI(selectedReturnDateTime) : null;
 
-        // Get client ID from localStorage or use a fallback
         const user = JSON.parse(localStorage.getItem("user"));
         const clientId = user?.id;
         const clientEmail = user?.email || "";
        
-        // Convert child ages to numbers only if children are allowed
         const numericChildAges = hasChildOption ? childAges.map(age => parseInt(age)) : [];
 
-        // Prepare booking data according to API specification
         const bookingData = {
             id: 0,
             trip_id: tripData?.trip_id,
@@ -345,13 +321,9 @@ const BookingSelection = ({ tripData }) => {
         };
 
         try {
-
-            //console.log('NNNNNNNN',bookingData)
-            // First save the booking
+            // Save booking first, then navigate to checkout with API response data.
             const result = await dispatch(checkAvailability(bookingData)).unwrap();
 
-           // console.log(result)
-            // If both operations succeeded, navigate to checkout
             navigate("/checkout", {
                 state: {
                     availabilityData: result, // Use the result from checkAvailability
@@ -360,16 +332,10 @@ const BookingSelection = ({ tripData }) => {
                 }
             });
 
-            // Reset states
-            // dispatch(resetBookingOperation());
-            // dispatch(resetCalculation());
-
         } catch (err) {
-            // Error is handled in useEffect
         }
     };
 
-    // Custom Toggle for Participants Dropdown
     const ParticipantsToggle = React.forwardRef(({ children, onClick }, ref) => (
         <Button
             ref={ref}
@@ -403,7 +369,6 @@ const BookingSelection = ({ tripData }) => {
             </Button>
         ));
 
-    // Filter dates that are before the minimum allowed date
     const filterDate = (date) => {
         return date >= minDate;
     };
@@ -426,7 +391,7 @@ const BookingSelection = ({ tripData }) => {
                         </h3>
 
                         <Row className="g-3 mb-4">
-                            {/* Participants Dropdown */}
+                            
                             <Col lg={12} md={12} sm={12}>
                                 <Dropdown
                                     show={showParticipants}
@@ -438,14 +403,14 @@ const BookingSelection = ({ tripData }) => {
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu className="booking-selection__dropdown w-100">
-                                        {/* Show warning if max capacity is exceeded */}
+                                        
                                         {exceedsMaxCapacity ? (
                                             <div className="text-danger small p-2">
                                                 {t('booking.maxCapacityExceeded', { maxCapacity: tripData.trip_max_capacity })}
                                             </div>
                                         ) : null}
 
-                                        {/* Adult Counter */}
+                                        
                                         <div className="booking-selection__counter">
                                             <div className="booking-selection__counter-info">
                                                 <div className="booking-selection__counter-title">{t('booking.participants.adult')}</div>
@@ -476,7 +441,7 @@ const BookingSelection = ({ tripData }) => {
                                             </div>
                                         </div>
 
-                                        {/* Child Counter - Only show if children are allowed */}
+                                        
                                         {hasChildOption && (
                                             <>
                                                 <hr className="my-3" />
@@ -513,7 +478,7 @@ const BookingSelection = ({ tripData }) => {
                                                     </div>
                                                 </div>
 
-                                                {/* Child Age Inputs */}
+                                                
                                                 {participants.children > 0 && (
                                                     <>
                                                         <hr className="my-3" />
@@ -535,7 +500,6 @@ const BookingSelection = ({ tripData }) => {
                                                                         onInput={(e) => {
                                                                             let value = e.target.value;
 
-                                                                            // If value exceeds max age, set it to max age
                                                                             if (value && parseInt(value) > maxAge) {
                                                                                 e.target.value = maxAge;
                                                                                 handleAgeChange(index, maxAge.toString());
@@ -560,7 +524,7 @@ const BookingSelection = ({ tripData }) => {
                                 </Dropdown>
                             </Col>
 
-                            {/* DateTime Picker */}
+                            
                             <Col lg={12} md={12} sm={12}>
                                 <DatePicker
                                     selected={selectedDateTime}
@@ -573,7 +537,6 @@ const BookingSelection = ({ tripData }) => {
                                     timeIntervals={30}
                                     timeCaption={t('booking.date.time')}
                                     dateFormat="EEE, MMM d, yyyy HH:mm"
-                                    // monthsShown={2}
                                     showPopperArrow={false}
                                     popperClassName="custom-datepicker-popper"
                                     inline={false}
@@ -581,7 +544,7 @@ const BookingSelection = ({ tripData }) => {
                                 />
                             </Col>
 
-                            {/* Two-way Transfer Checkbox - Only show for two-way transfer types */}
+                            
                             {isTwoWayTransferType && (
                                 <Col lg={6} md={6} sm={6}>
                                     <Form.Check
@@ -600,7 +563,7 @@ const BookingSelection = ({ tripData }) => {
                                 </Col>
                             )}
 
-                             {/* Return Date Picker - Only show when two-way is selected */}
+                             
                                                         {isTwoWayTransferType && isTwoWay && (
                                                             
                                                                         <Col lg={12} md={12} sm={12}>
@@ -626,36 +589,11 @@ const BookingSelection = ({ tripData }) => {
                                                         )}
                                                 
 
-                            {/* Language Selector */}
-                            {/* <Col lg={4} md={12} sm={12}>
-                            <Dropdown>
-                                <Dropdown.Toggle
-                                    variant="light"
-                                    className="booking-selection__button w-100"
-                                >
-                                    <div className="d-flex align-items-center">
-                                        <FaGlobe className="booking-selection__icon me-2" />
-                                        {selectedLanguage}
-                                    </div>
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu className="w-100">
-                                    {languages.map((language) => (
-                                        <Dropdown.Item
-                                            key={language}
-                                            onClick={() => handleLanguageSelect(language)}
-                                            active={selectedLanguage === language}
-                                            className="booking-selection__dropdown-item"
-                                        >
-                                            {language}
-                                        </Dropdown.Item>
-                                    ))}
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </Col> */}
+                            
+                            
                         </Row>
 
-                        {/* Price Breakdown Section */}
+                        
                         {showPriceBreakdown && calculationData && (
                             <Row className="mb-4">
                                 <Col>
@@ -674,7 +612,7 @@ const BookingSelection = ({ tripData }) => {
                                                 <div className="booking-selection__price-line d-flex justify-content-between">
                                                     <span>
                                                         {participants.adults} {t('booking.participants.adult')}
-                                                        {/* {participants.adults} {t('booking.participants.adult')} × {calculationData.total_adult_price / participants.adults} € */}
+                                                        
                                                     </span>
                                                     <span>{calculationData.total_adult_price} €</span>
                                                 </div>
@@ -684,13 +622,13 @@ const BookingSelection = ({ tripData }) => {
                                                 <div className="booking-selection__price-line d-flex justify-content-between">
                                                     <span>
                                                         {participants.children} {t('booking.participants.child')}
-                                                        {/* {participants.children} {t('booking.participants.child')} × {calculationData.total_child_price / participants.children} € */}
+                                                        
                                                     </span>
                                                     <span>{calculationData.total_child_price} €</span>
                                                 </div>
                                             )}
 
-                                            {/* Show two-way transfer if selected */}
+                                            
                                             {isTwoWayTransferType && isTwoWay && (
                                                 <div className="booking-selection__price-line d-flex justify-content-between">
                                                     <span>{t('booking.twoWayTransfer')}</span>
@@ -703,7 +641,7 @@ const BookingSelection = ({ tripData }) => {
                             </Row>
                         )}
 
-                        {/* Check Availability / Continue Button */}
+                        
                         <Row>
                             <Col>
                                 <Button
@@ -719,7 +657,7 @@ const BookingSelection = ({ tripData }) => {
                 </Container>
             </div>
 
-            {/* Show popup for messages */}
+            
             {showPopup && (
                 <PopUp
                     show={showPopup}

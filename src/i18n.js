@@ -11,8 +11,9 @@ const resources = {
   ru: { translation: translationRU },
 };
 const Locallang = localStorage.getItem("i18nextLng")?.toLocaleLowerCase();
+
+// Initializes i18n with persisted language and English fallback.
 i18n
-  //.use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,

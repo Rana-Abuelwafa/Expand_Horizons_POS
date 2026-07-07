@@ -1,32 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// import {
-//   checkAUTH,
-//   isUserNotLoggedIn,
-//   isTokenExpiredOnly,
-// } from "../../helper/helperFN";
 import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 
+// Public auth endpoints only require language header, not bearer token.
 const NonAuthHeaders = () => {
   let lang = localStorage.getItem("lang");
   return {
     "Accept-Language": lang,
   };
 };
-// const getAuthHeaders = () => {
-//   const user = JSON.parse(localStorage.getItem("user"));
-//   const accessToken = user?.accessToken;
-//   let lang = localStorage.getItem("lang") || "en";
-//   return {
-//     headers: {
-//       Authorization: `Bearer ${accessToken}`,
-//       "Content-Type": "application/json",
-//       "Accept-Language": lang,
-//     },
-//   };
-// };
 const token = localStorage.getItem("token");
 
 const initialState = {
@@ -38,9 +22,8 @@ const initialState = {
   message: null,
 };
 
-// Helper to extract error message from different response formats
+// Normalizes API/network error shapes into one readable message.
 const getErrorMessage = (error) => {
-  /// console.log("error.response?.data ", error.response?.data);
   if (error.response?.data?.success === false) {
     return error.response.data.errors || "Operation failed";
   }
@@ -55,6 +38,8 @@ const getErrorMessage = (error) => {
   }
   return "An error occurred";
 };
+
+// Updates password for the currently authenticated user.
 export const changePassword = createAsyncThunk(
   "auth/changePassword",
   async (
@@ -70,59 +55,18 @@ export const changePassword = createAsyncThunk(
           newPassword,
           confirmNewPassword,
         }
-        //getAuthHeaders()
       );
       return response.data;
     } catch (err) {
       if (err.response && err.response.data) {
-        // ✅ controlled reject
         return rejectWithValue(err.response.data);
       }
-      // fallback
       return rejectWithValue(err.message);
     }
   }
 );
-// Async thunk for changing password
-// export const changePassword = createAsyncThunk(
-//   "auth/changePassword", // action type prefix
-//   async (
-//     { userId, oldPassword, newPassword, confirmNewPassword },
-//     { rejectWithValue }
-//   ) => {
-//     // Check if user is authenticated
-//     if (isUserNotLoggedIn()) {
-//       return rejectWithValue(createAuthError("notLoggedIn"));
-//     }
 
-//     if (isTokenExpiredOnly()) {
-//       return rejectWithValue(createAuthError("expired"));
-//     }
-
-//     if (!checkAUTH()) {
-//       return rejectWithValue(createAuthError("expired"));
-//     }
-
-//     try {
-//       // Make POST request to change password endpoint
-//       const response = await axios.post(
-//         BASE_URL_AUTH + "/changePassword",
-//         {
-//           userId,
-//           oldPassword,
-//           newPassword,
-//           confirmNewPassword,
-//         },
-//         getAuthHeaders()
-//       );
-//       return response.data; // Return response data on success
-//     } catch (error) {
-//       return rejectWithValue(getErrorMessage(error));
-//     }
-//   }
-// );
-
-//verify email
+// Confirms OTP during registration/login verification flow.
 export const ConfirmOTP = createAsyncThunk(
   "ConfirmOTP",
   async (payload, thunkAPI) => {
@@ -135,7 +79,7 @@ export const ConfirmOTP = createAsyncThunk(
   }
 );
 
-///normal register && gmail Register (different on API path & payload)
+// Handles both normal and external registration paths.
 export const RegisterUser = createAsyncThunk(
   "auth/register",
   async (data, thunkAPI) => {
@@ -152,7 +96,7 @@ export const RegisterUser = createAsyncThunk(
   }
 );
 
-//normal login & gmail Login (different on API path & payload)
+// Handles both normal and external login paths.
 export const LoginUser = createAsyncThunk(
   "auth/login",
   async (data, thunkAPI) => {
@@ -173,6 +117,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // Clears auth state and local session cache.
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -191,7 +136,6 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Handle pending state for all async actions
     builder
       .addCase(RegisterUser.pending, (state) => {
         state.loading = true;
@@ -212,7 +156,6 @@ const authSlice = createSlice({
         state.message = null;
       });
 
-    // Handle fulfilled state for each action
     builder
       .addCase(RegisterUser.fulfilled, (state, action) => {
         state.loading = false;
@@ -257,7 +200,6 @@ const authSlice = createSlice({
         }
       });
 
-    // Handle rejected state for all async actions
     builder
       .addCase(RegisterUser.rejected, (state, action) => {
         state.loading = false;
@@ -283,7 +225,6 @@ const authSlice = createSlice({
         state.success = null;
         state.message = null;
       })
-      // Password change successful
       .addCase(changePassword.fulfilled, (state, action) => {
         state.loading = false;
         state.success = action.payload?.isSuccessed;
@@ -295,7 +236,6 @@ const authSlice = createSlice({
           state.error = action.payload?.message || "OTP verification failed";
         }
       })
-      // Password change failed
       .addCase(changePassword.rejected, (state, action) => {
 
         state.loading = false;

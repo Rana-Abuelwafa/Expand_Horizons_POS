@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import Alert from "react-popup-alert";
 
+// Shared alert wrapper used for auth and validation popup messaging.
 const PopupMsg = ({ text, show, closeAlert, onConfirm, openAuthModal }) => {
   const { t } = useTranslation();
   const isMounted = useRef(true);

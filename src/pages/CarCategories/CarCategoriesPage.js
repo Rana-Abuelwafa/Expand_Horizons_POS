@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header/Header";
 import { fetchTransferCategories } from "../../redux/Slices/transferCategoriesSlice";
-import "./CarCategoriesPage.scss";
+
 
 const CarCategoriesPage = () => {
   const navigate = useNavigate();
@@ -18,9 +18,11 @@ const CarCategoriesPage = () => {
   } = useSelector((state) => state.transferCategories);
 
   useEffect(() => {
+    // Loads transfer vehicle categories used as the first step in POS flow.
     dispatch(fetchTransferCategories());
   }, [dispatch]);
 
+  // Persists selected vehicle and continues to destination selection.
   const handleCategorySelect = (tripType, category) => {
     console.log("vehicle_id ", category);
     localStorage.setItem("horizon_pos_vehicle_id", category?.id);

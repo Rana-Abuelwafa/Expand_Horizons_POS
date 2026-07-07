@@ -20,7 +20,6 @@ const ToursSection = () => {
   } = useSelector((state) => state.trips);
   const { user: stateUser } = useSelector((state) => state.auth); // Get user from auth state
 
-  // Get user from localStorage as fallback
   const localStorageUser = JSON.parse(localStorage.getItem("user") || "null");
   const user = stateUser || localStorageUser;
   const currentLang = localStorage.getItem("i18nextLng") || "en";
@@ -30,6 +29,7 @@ const ToursSection = () => {
   const [popupType, setPopupType] = useState("error");
   const { t } = useTranslation();
 
+  // Fetches section trips on first load and manual refresh trigger.
   useEffect(() => {
     const params = {
       lang_code: currentLang,
@@ -45,6 +45,7 @@ const ToursSection = () => {
     return <LoadingPage />;
   }
 
+  // Shows an empty-state card when no trips are returned.
   if (trips.length === 0 && !loading) {
     return (
       <section className="container-wrapper">
@@ -70,7 +71,7 @@ const ToursSection = () => {
         </div>
       </section>
 
-      {/* Single popup in the parent component */}
+      
       {showPopup && (
         <PopUp
           show={showPopup}

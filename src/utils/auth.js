@@ -1,4 +1,4 @@
-// utils/auth.js
+// Checks token expiry timestamp against current time.
 export const isTokenExpired = (expiryTime) => {
   if (!expiryTime) return true;
   
@@ -8,6 +8,7 @@ export const isTokenExpired = (expiryTime) => {
   return currentDate >= expiryDate;
 };
 
+// Safely reads persisted user object from local storage.
 export const getUserData = () => {
   const userStr = localStorage.getItem('user');
   if (!userStr) return null;

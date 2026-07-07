@@ -3,6 +3,7 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
 
+// Shared non-auth headers for client-side trip discovery endpoints.
 const getNonAuthHeaders = () => {
   let lang = localStorage.getItem("lang");
   return {
@@ -13,7 +14,7 @@ const getNonAuthHeaders = () => {
   };
 };
 
-// ---------- Thunks ----------
+// Loads slider items shown on landing pages.
 export const fetchSliderTrips = createAsyncThunk(
   "trips/fetchSliderTrips",
   async (params, { rejectWithValue }) => {
@@ -35,6 +36,7 @@ export const fetchSliderTrips = createAsyncThunk(
   }
 );
 
+// Loads carousel items using the same endpoint with slider flags.
 export const fetchCarouselTrips = createAsyncThunk(
   "trips/fetchCarouselTrips",
   async (params, { rejectWithValue }) => {
@@ -56,6 +58,7 @@ export const fetchCarouselTrips = createAsyncThunk(
   }
 );
 
+// Loads trips for section lists with optional personalization.
 export const fetchToursSectionTrips = createAsyncThunk(
   "trips/fetchToursSectionTrips",
   async (params, { rejectWithValue }) => {
@@ -66,7 +69,6 @@ export const fetchToursSectionTrips = createAsyncThunk(
           ...params,
           show_in_slider: true,
           destination_id: 0, // Always 0 for tours section
-          // client_id is passed from params for personalized results
         },
         getNonAuthHeaders()
       );
@@ -77,6 +79,7 @@ export const fetchToursSectionTrips = createAsyncThunk(
   }
 );
 
+// Loads destination-specific trips for selected destination/category.
 export const fetchDestinationTrips = createAsyncThunk(
   "trips/fetchDestinationTrips",
   async (params, { rejectWithValue }) => {
@@ -86,7 +89,6 @@ export const fetchDestinationTrips = createAsyncThunk(
         {
           ...params,
           show_in_slider: false, // Always false for destination trips
-          // client_id is passed from params for personalized results
         },
         getNonAuthHeaders()
       );
@@ -97,6 +99,7 @@ export const fetchDestinationTrips = createAsyncThunk(
   }
 );
 
+// Loads pickup points available for a specific trip.
 export const fetchPickupsForTrip = createAsyncThunk(
   "trips/fetchPickupsForTrip",
   async (params, { rejectWithValue }) => {
@@ -113,7 +116,6 @@ export const fetchPickupsForTrip = createAsyncThunk(
   }
 );
 
-// ---------- Slice ----------
 const tripsSlice = createSlice({
   name: "trips",
   initialState: {
@@ -126,6 +128,7 @@ const tripsSlice = createSlice({
     error: null,
   },
   reducers: {
+    // Clears destination list when switching destinations.
     clearDestinationTrips: (state) => {
       state.destinationTrips = [];
     },
@@ -135,7 +138,6 @@ const tripsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Slider Trips
       .addCase(fetchSliderTrips.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -149,7 +151,6 @@ const tripsSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Carousel Trips
       .addCase(fetchCarouselTrips.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -163,7 +164,6 @@ const tripsSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Tours Section Trips
       .addCase(fetchToursSectionTrips.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -177,7 +177,6 @@ const tripsSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Destination Trips
       .addCase(fetchDestinationTrips.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -191,7 +190,6 @@ const tripsSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Pickups
       .addCase(fetchPickupsForTrip.pending, (state) => {
         state.loading = true;
         state.error = null;

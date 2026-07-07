@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "../../components/Header/Header";
 import Login from "../../components/Login/Login";
-import "./LoginPage.scss";
 
+// Route wrapper that combines shared header with login form component.
 const LoginPage = () => {
   return (
     <div className="login-page-wrapper">

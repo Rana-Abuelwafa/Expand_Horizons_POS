@@ -1,9 +1,7 @@
-import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { BiSolidCard } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { fetchDestinationTrips } from "../../redux/Slices/tripsSlice";
 import TourCard from "../TourCard";
@@ -12,6 +10,7 @@ import PopUp from "../Shared/popup/PopUp";
 import Header from "../Header/Header";
 
 const DestinationExcursions = () => {
+  // Reads destination context from navigation state and loads its trips.
   const { state } = useLocation(); // Get tripData passed from navigation
   const destinationId = state?.DestinationId;
   const tripType = state?.tripType || 1;
@@ -22,10 +21,10 @@ const DestinationExcursions = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("error");
-  // Get user from localStorage as fallback
   const localStorageUser = JSON.parse(localStorage.getItem("user") || "null");
   const user = stateUser || localStorageUser;
 
+  // Loads trips for selected destination and trip type.
   useEffect(() => {
     const params = {
       lang_code: currentLang,
@@ -45,6 +44,7 @@ const DestinationExcursions = () => {
   } = useSelector((state) => state.trips);
 
   useEffect(() => {
+    // Converts API errors to a reusable popup message.
     if (error) {
       setPopupMessage(error);
       setPopupType("error");
@@ -54,22 +54,22 @@ const DestinationExcursions = () => {
 
   return (
     <>
-      {/* Show loading page during data fetching */}
+      
       {loading && <LoadingPage />}
 
-      {/* Show empty state only when not loading and no trips */}
+      
       {!loading && trips.length === 0 && (
         <section className="container-wrapper">
           <div className="center-container">
             <Header />
             <BiSolidCard className="empty-icon" />
             <h3 className="empty-title">{t("tours.empty_title")}</h3>
-            {/* <p className="empty-text">{t('tours.empty_text')}</p> */}
+            
           </div>
         </section>
       )}
 
-      {/* Show tours when available */}
+      
       {!loading && trips.length > 0 && (
         <section className="container-wrapper">
           <div className="center-container">
@@ -83,7 +83,7 @@ const DestinationExcursions = () => {
         </section>
       )}
 
-      {/* Show popup for error messages */}
+      
       {showPopup && (
         <PopUp
           show={showPopup}

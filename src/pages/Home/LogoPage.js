@@ -1,7 +1,7 @@
 import React from "react";
-import "./LogoPage.scss";
 import { useNavigate } from "react-router-dom";
 
+// Landing splash page that routes user into language selection.
 const LogoPage = () => {
   const navigate = useNavigate();
   return (

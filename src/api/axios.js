@@ -5,20 +5,15 @@ import i18n from "../i18n"; // or your actual path
 const BASE_URL = process.env.REACT_APP_API_URL;
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 
-// Axios instance
 const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// To stop multiple alerts
 let showingLoginAlert = false;
 
-// =========================
-//   REQUEST INTERCEPTOR
-// =========================
+// Adds language/auth headers and blocks protected requests when no session exists.
 api.interceptors.request.use(
   (config) => {
-    //console.log("config ", config);
     const user = JSON.parse(localStorage.getItem("user"));
     const token = user?.accessToken;
     let lang = localStorage.getItem("i18nextLng");
@@ -31,19 +26,14 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    // Allow non-auth requests
     if (config.skipAuth === true) return config;
 
-    // No token → cancel request + show login popup
     if (!token) {
       if (!showingLoginAlert) {
         showingLoginAlert = true;
         localStorage.setItem("redirect_after_login", window.location.pathname);
         Swal.fire({
           icon: "warning",
-          //   title: "Login Required",
-          //   text: "Please login to continue.",
-          //   confirmButtonText: "Go to Login",
           title: i18n.t("auth.loginRequiredTitle"),
           text: i18n.t("auth.loginRequiredMessage"),
           confirmButtonText: i18n.t("auth.goToLogin"),
@@ -56,7 +46,6 @@ api.interceptors.request.use(
         });
       }
 
-      // CANCEL REQUEST WITHOUT REJECTING IN REDUX
       const controller = new AbortController();
       config.signal = controller.signal;
       controller.abort();
@@ -64,7 +53,6 @@ api.interceptors.request.use(
       return config;
     }
 
-    // Attach token
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
@@ -72,12 +60,10 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// =========================
-//   REFRESH TOKEN SETUP
-// =========================
 let isRefreshing = false;
 let failedQueue = [];
 
+// Resolves or rejects all queued requests after token refresh completes.
 const processQueue = (err, token = null) => {
   failedQueue.forEach((p) => {
     if (err) p.reject(err);
@@ -86,21 +72,16 @@ const processQueue = (err, token = null) => {
   failedQueue = [];
 };
 
-// =========================
-//   RESPONSE INTERCEPTOR
-// =========================
+// Retries one-time failed requests after refresh and redirects on refresh failure.
 api.interceptors.response.use(
   (response) => response,
 
   async (error) => {
     const originalRequest = error.config;
-    //console.log("error ", error);
-    // Handle aborted request → DO NOT reject in thunk
     if (error.name === "CanceledError" || error.code === "ERR_CANCELED") {
       return new Promise(() => {}); // silent ignore
     }
 
-    // Skip refresh on auth endpoints
     if (
       originalRequest.url.includes("/api/login") ||
       originalRequest.url.includes("/api/LoginUser") ||
@@ -112,11 +93,9 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // 401 => token expired => refresh
     if (error.response?.status === 401 && !originalRequest._retry) {
       localStorage.setItem("redirect_after_login", window.location.pathname);
       if (isRefreshing) {
-        // Queue the requests until refresh done
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
@@ -149,14 +128,13 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         localStorage.removeItem("user");
-        window.location.href = "/login";
+        window.location.href = "/pos/login";
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
       }
     }
 
-    // Other errors
     return Promise.reject(error);
   },
 );

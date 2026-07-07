@@ -9,6 +9,7 @@ import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
+// Builds auth headers for booking confirmation requests.
 const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
@@ -22,35 +23,19 @@ const getAuthHeaders = () => {
   };
 };
 
-// Async thunk to confirm booking
+// Finalizes the booking after validation and summary steps succeed.
 export const confirmBooking = createAsyncThunk(
   "confirm/confirmBooking",
   async (confirmData, { rejectWithValue }) => {
-    // Check authentication with proper scenario detection
-    // if (isUserNotLoggedIn()) {
-    //   return rejectWithValue(createAuthError("notLoggedIn"));
-    // }
-
-    // if (isTokenExpiredOnly()) {
-    //   return rejectWithValue(createAuthError("expired"));
-    // }
-
-    // if (!checkAUTH()) {
-    //   return rejectWithValue(createAuthError("expired"));
-    // }
 
     try {
       const response = await api.post(
         `${BOOKING_URL}/ConfirmBookingPos`,
         confirmData,
-        //getAuthHeaders(),
       );
 
       return response.data;
     } catch (error) {
-      // if (error.response?.status === 401) {
-      //   return rejectWithValue(createAuthError("expired"));
-      // }
       return rejectWithValue(error.response?.data || error.message);
     }
   },
@@ -65,6 +50,7 @@ const confirmSlice = createSlice({
     confirmed: false,
   },
   reducers: {
+    // Resets confirmation state before a new confirmation attempt.
     resetConfirmState: (state) => {
       state.loading = false;
       state.error = null;
@@ -77,7 +63,6 @@ const confirmSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Confirm Booking
       .addCase(confirmBooking.pending, (state) => {
         state.loading = true;
         state.error = null;

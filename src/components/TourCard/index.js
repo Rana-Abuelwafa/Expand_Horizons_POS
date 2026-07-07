@@ -1,57 +1,35 @@
 import { useState, useEffect } from "react";
 import { Card, Button, Carousel } from "react-bootstrap";
-import { FaCheck, FaHeart } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const TourCard = ({ trip }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const currentLang = localStorage.getItem("i18nextLng") || "en";
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [needsTruncation, setNeedsTruncation] = useState(false);
 
-  // Check if description needs truncation
   useEffect(() => {
     if (trip?.trip_description && trip.trip_description.length > 70) {
       setNeedsTruncation(true);
     }
   }, [trip?.trip_description]);
 
-  // Get truncated text
   const truncatedText = needsTruncation
     ? trip?.trip_description?.slice(0, 70) + "..."
     : trip?.trip_description;
 
+  // Navigates to the trip-specific flow using route metadata from API.
   const handleCardClick = () => {
-   // console.log("click");
-
 
     navigate(`/trip/${trip.route}`, {
         state: {
           trip: trip
         }
       });
-    // if (!trip.is_comm_soon) {
-    //   navigate(`/trip/${trip.route}`, {
-    //     state: {
-    //       tripId: trip?.trip_id,
-    //       trip_type: trip?.trip_type,
-    //     },
-    //   });
-    // } else {
-    //   navigate("/trip/ComingSoon", {
-    //     state: {
-    //       tripId: trip.trip_id,
-    //       trip_type: trip.trip_type,
-    //     },
-    //   });
-    // }
   };
 
-  // Function to format price display based on trip type
+  // Renders localized price label and currency symbol fallback.
   const renderPrice = () => {
     const currencySymbol =
       trip?.currency_code.toUpperCase() === "EUR" ? "€" : trip?.currency_code;
@@ -67,18 +45,14 @@ const TourCard = ({ trip }) => {
             </span>{" "}
           </span>
         </div>
-        {/* <div className="price-range">
-          <span className="price-label">{t("general.to")}  <span className="price"> {trip?.trip_max_price} {currencySymbol}</span> </span>
-        </div> */}
+        
       </div>
     );
   };
 
   return (
     <Card className="tour-card h-100">
-      {/* <div className="card-img-container">
-        <Card.Img variant="top" src={trip?.default_img} alt={trip?.trip_name} />
-      </div> */}
+      
       <div className="card-img-container">
         {trip?.imgs?.length > 1 ? (
           <Carousel
@@ -111,7 +85,7 @@ const TourCard = ({ trip }) => {
       <Card.Body className="card-content">
         <Card.Title className="tour-title">{trip?.trip_name}</Card.Title>
 
-        {/* Description with truncation */}
+        
         <Card.Text className="tour-description">
           {showFullDescription ? trip?.trip_description : truncatedText}
           {needsTruncation && (

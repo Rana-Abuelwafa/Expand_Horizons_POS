@@ -4,16 +4,15 @@ import MapView from "../../components/MapComponents/MapView";
 import LocationInput from "../../components/MapComponents/LocationInput";
 import RouteInfo from "../../components/MapComponents/RouteInfo";
 import { getRouteData } from "../../services/routingService";
-import "./MapPage.scss";
 import Header from "../../components/Header/Header";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Alert, Form } from "react-bootstrap";
 
+// Handles transfer map booking flow from location selection to checkout handoff.
 const BookingMapPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { state } = useLocation();
 
   const defaultPickup = [26.845, 33.99];
   const defaultPickupAddress = "Jaz Soma Beach, Soma Bay, Red Sea, Egypt";
@@ -32,23 +31,9 @@ const BookingMapPage = () => {
   const price = distance ? (distance * RATE_PER_KM).toFixed(2) : null;
 
   const totalPrice = isTwoWay ? (price * 2).toFixed(2) : price;
-  // Set default pickup to current location when available
-  // useEffect(() => {
-  //   if (currentLocation && currentAddress && !pickup) {
-  //     setPickup(currentLocation);
-  //     setPickupAddress(currentAddress);
-  //   }
-  // }, [currentLocation, currentAddress]);
 
+  // Recomputes route summary whenever pickup/drop locations change.
   useEffect(() => {
-    // const fetchRoute = async () => {
-    //   if (pickup && dropCord) {
-    //     const data = await getRouteData(pickup, dropCord);
-    //     setRoute(data.coordinates);
-    //     setDistance(data.distance);
-    //     setDuration(data.duration);
-    //   }
-    // };
     const fetchRoute = async () => {
       try {
         if (pickup && dropCord) {
@@ -60,16 +45,14 @@ const BookingMapPage = () => {
           setDuration(data.duration);
         }
       } catch (err) {
-        //console.log(err.message);
 
-        // optional
         setRouteErr(err.message);
-        // alert(err.message);
       }
     };
     fetchRoute();
   }, [pickup, dropCord]);
 
+  // Stores map booking draft and forwards it to checkout page.
   const handleBooking = () => {
     const bookingData = {
       pickup_address: pickupAddress,
@@ -89,6 +72,7 @@ const BookingMapPage = () => {
     });
   };
 
+  // Receives selected dropoff coordinates/address from search input.
   const handleDropLocation = (cord, addr) => {
     setDrop(addr);
     setDropCord(cord);
@@ -117,7 +101,7 @@ const BookingMapPage = () => {
 
             <div className="drop-section">
               <h3>
-                {/* <FaMapMarkerAlt className="drop_marker" /> */}
+                
                 {t("bookingMap.dropTitle")}
               </h3>
               <LocationInput

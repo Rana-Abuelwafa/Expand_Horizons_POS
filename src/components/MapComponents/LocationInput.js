@@ -10,14 +10,15 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
 
   const debouncedQuery = useDebounce(query);
 
+  // Pre-fills the input when parent provides an initial location.
   useEffect(() => {
     if (defaultValue && !query) {
       setQuery(defaultValue);
     }
   }, [defaultValue]);
 
+  // Searches places only after debounce and minimum input length.
   useEffect(() => {
-    // prevent search after selecting item
     if (selected) {
       setSelected(false);
       return;
@@ -61,6 +62,7 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
               <li
                 key={isHotel ? r.id : index}
                 onClick={() => {
+                  // Normalizes both custom hotel items and API items to [lat, lon] + label.
                   if (isHotel) {
                     onSelect([r.lat, r.lng], r.name);
 
@@ -89,64 +91,15 @@ const LocationInput = ({ label, onSelect, defaultValue, placeholder }) => {
                   {isHotel ? r.address : r.properties.label}
                 </span>
 
-                {/* {isHotel && (
-                  <span className="popular-badge">Popular Hotel</span>
-                )} */}
+                
               </li>
             );
           })}
         </ul>
       )}
-      {/* {results.length > 0 && (
-        <ul className="dropdown">
-          {results.map((r, index) => 
-          
-          (
-            <li
-              key={index}
-              onClick={() => {
-               // console.log("rrrr ", r);
-                //  const [lng, lat] = r.geometry.coordinates;
-                const lng = r.geometry.coordinates[0];
-                const lat = r.geometry.coordinates[1];
-                onSelect(
-                  [parseFloat(lat), parseFloat(lng)],
-                  r.properties.label,
-                  // coords: [lat, lng],
-                  //address: r.properties.label,
-                );
-                setSelected(true);
-                setQuery(r.properties.label);
-                setResults([]);
-              }}
-            >
-              <span className="title">{r.properties.label}</span>
-
-              <span className="subtitle">{r.properties.label}</span>
-            </li>
-          ))}
-          {/* {results.map((r, i) => (
-            <li
-              key={i}
-              onClick={() => {
-                console.log(JSON.stringify(r));
-                onSelect(
-                  [parseFloat(r.lat), parseFloat(r.lon)],
-                  r.display_name,
-                );
-
-                setSelected(true);
-                setQuery(r.display_name);
-                setResults([]);
-              }}
-            >
-              <span className="title">{r.display_name.split(",")[0]}</span>
-
-              <span className="subtitle">{r.display_name}</span>
-            </li>
-      //     ))} */}
-      {/* //   </ul> */}
-      {/* // )} */}
+      
+      
+      
     </div>
   );
 };

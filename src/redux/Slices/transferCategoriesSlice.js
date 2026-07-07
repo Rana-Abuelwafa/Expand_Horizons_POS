@@ -3,6 +3,7 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
 
+// Builds language-aware headers for public transfer category endpoints.
 const getNonAuthHeaders = () => {
   const lang = localStorage.getItem("lang") || "en";
   return {
@@ -13,6 +14,7 @@ const getNonAuthHeaders = () => {
   };
 };
 
+// Loads transfer category list used by category selection screens.
 export const fetchTransferCategories = createAsyncThunk(
   "transferCategories/fetchTransferCategories",
   async (_, { rejectWithValue }) => {

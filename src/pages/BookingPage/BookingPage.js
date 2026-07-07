@@ -18,32 +18,21 @@ const BookingPage = () => {
   const [childAges, setchildAges] = useState(null);
 
   const [MapData, setMapData] = useState(null);
-  // const {
-  //   pickup_address,
-  //   pickup_lat,
-  //   pickup_long,
-  //   drop_address,
-  //   drop_lat,
-  //   drop_long,
-  //   distance,
-  //   duration,
-  //   price,
-  // } = state;
+
+  // Restores booking map data from route state or localStorage fallback.
   useEffect(() => {
     if (state) {
-      // ✅ case 1: came from navigation
       setMapData(state);
     } else {
-      // ✅ case 2: page refresh → load from localStorage
       const stored = localStorage.getItem("booking_data");
 
       if (stored) {
-        // setMapData(stored?.booking_data);
         setMapData(JSON.parse(stored));
       }
     }
   }, [state]);
 
+  // Hydrates booking context (trip, availability, ages) and clears summary on leave.
   useEffect(() => {
     if (state?.trip) {
       setTripData(state.trip);
@@ -60,13 +49,11 @@ const BookingPage = () => {
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-    // Clean up when component unmounts
     return () => {
       dispatch(clearBookingSummary());
     };
   }, [state, dispatch]);
 
-  //console.log("MapData ", MapData);
   return (
     <div className="dest-wrapper">
       <div className="dest-container">

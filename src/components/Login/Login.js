@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { LoginUser } from "../../redux/Slices/AuthSlice";
 import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../Shared/popup/PopUp";
-import "./Login.scss";
+
 function Login() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -25,7 +25,8 @@ function Login() {
   });
 
   const { loading, success, message } = useSelector((state) => state.auth);
-  //validate form inputs
+
+  // Validates minimal credentials before dispatching login thunk.
   const validate = () => {
     if (!/^\S+@\S+\.\S+$/.test(formData.email) || formData.email.trim() == "") {
       seterrorsLst({
@@ -45,9 +46,10 @@ function Login() {
 
     return true;
   };
+
+  // Submits login payload and routes to transfer flow on success.
   const signin = (event) => {
     event.preventDefault();
-    // validation
     if (validate()) {
       let lang = localStorage.getItem("i18nextLng") || "en";
       let data = {
@@ -60,24 +62,20 @@ function Login() {
       };
       dispatch(LoginUser(data)).then((result) => {
         if (result.payload && result.payload.isSuccessed) {
-          //if user register successfully so navigate to  verify email first
           setShowPopup(false);
           navigate("/car-categories", {
             state: {
               tripType: 2,
             },
           });
-          // navigate('/Transfers', {
-          //   state: {
-          //     tripType: 2
-          //   }
-          // });
         } else {
           setShowPopup(true);
         }
       });
     }
   };
+
+  // Updates controlled input state and clears previous validation errors.
   const fillFormData = (e) => {
     setvalidated(false);
     seterrorsLst({});
@@ -89,23 +87,10 @@ function Login() {
   return (
     <section className="centerSection">
       <div className="login_page">
-        {/* <div className="d-flex justify-content-center align-items-center logo-div">
-                    <img 
-          src={process.env.PUBLIC_URL + '/logo1.png'}
-          alt="expand horizons"
-          className="logo-img" 
-          loading="lazy" 
-          decoding="async" 
-          />
-          </div> */}
-        {/* <div className="form_title">
-          <h4 className="title">{t("Login.loginTitle")}</h4>
-        </div> */}
+        
+        
 
-        {/* <p className="SubTitle" dangerouslySetInnerHTML={{
-              __html: t("Login.LoginSubTitle"),
-            }}>
-        </p> */}
+        
         <Form onSubmit={signin} noValidate>
           <Row>
             <Col xs={12}>
@@ -113,7 +98,6 @@ function Login() {
               <FloatingLabel label={t("Login.email")} className="mb-3">
                 <Form.Control
                   type="email"
-                  // placeholder={t("Login.email")}
                   required
                   name="email"
                   className="formInput"
@@ -132,7 +116,6 @@ function Login() {
               <FloatingLabel label={t("Login.password")} className="mb-3">
                 <Form.Control
                   type="password"
-                  // placeholder={t("Login.password")}
                   required
                   name="password"
                   className="formInput"

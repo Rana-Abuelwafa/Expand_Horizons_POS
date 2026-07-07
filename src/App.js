@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/Login/LoginPage";
 import Home from "./pages/Home/LogoPage";
 import LangSelector from "./pages/LanguageSelector/LanguagesPage";
@@ -20,7 +20,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
 import "./styles/main.scss";
 
-
+// Defines POS route map and page composition.
 function App() {
   return (
     <div className="App">

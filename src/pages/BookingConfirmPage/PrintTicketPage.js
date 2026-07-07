@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "react-bootstrap";
 import PrintTicket from "../../components/PrintTicket/PrintTicket";
-import "./PrintTicketPage.scss";
 
+// Restores latest booking data and renders printable ticket screen.
 const PrintTicketPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ const PrintTicketPage = () => {
     }
   }, [state]);
 
+  // Returns user to home flow after print/download step.
   const handleBack = () => {
     navigate("/");
   };

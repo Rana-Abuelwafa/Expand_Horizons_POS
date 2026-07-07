@@ -4,7 +4,7 @@ import { FaRegCalendarCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom"; 
 import { useTranslation } from "react-i18next";
 
-
+// Simple confirmation modal shown after successful booking completion.
 const BookingModal = () => {
   const [show, setShow] = useState(true);
   const { t } = useTranslation();

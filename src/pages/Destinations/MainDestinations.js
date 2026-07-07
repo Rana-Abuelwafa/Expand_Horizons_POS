@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import { BiSolidCard } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +9,6 @@ import {
 } from "../../redux/Slices/destinationsSlice";
 import LoadingPage from "../../components/Loader/LoadingPage";
 import { useTranslation } from "react-i18next";
-import "./MainDestinations.scss";
 import Header from "../../components/Header/Header";
 
 const MainDestinations = () => {
@@ -20,10 +19,10 @@ const MainDestinations = () => {
 
   const {
     items: parentDestinations,
-    childrenItems: childDestinations,
     loading,
   } = useSelector((state) => state.destinations);
 
+  // Loads top-level destination cards for the selected language.
   useEffect(() => {
     const params = {
       lang_code: currentLang,
@@ -33,10 +32,7 @@ const MainDestinations = () => {
     dispatch(fetchDestinations(params));
   }, [dispatch, currentLang]);
 
-  const nextPage = (route) => {
-    navigate(route);
-  };
-
+  // Opens child destination list, or falls back to booking map when leaf node has no children.
   const handleParentClick = async (parentDestination) => {
     try {
       const params = {
@@ -95,15 +91,15 @@ const MainDestinations = () => {
                 >
                   <Card className="dest-card">
                     <Row className="g-0 h-100">
-                      {/* Icon + Text Column */}
+                      
                       <Col xs={6} className="content-col">
                         <div className="content-wrapper">
-                          {/* <div className="icon">{cat.icon}</div> */}
+                          
                           <div className="title">{dest.dest_name}</div>
                         </div>
                       </Col>
 
-                      {/* Image Column */}
+                      
                       <Col xs={6} className="image-col">
                         <div
                           className="image-bg"

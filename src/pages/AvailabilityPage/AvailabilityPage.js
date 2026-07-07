@@ -13,6 +13,7 @@ const AvailabilityPage = () => {
   const [tripData, setTripData] = useState(null);
   const [tripType, setTripType] = useState(1);
 
+  // Hydrates selected trip from navigation state and scrolls to top on entry.
   useEffect(() => {
     if (state?.trip) {
       setTripData(state.trip);

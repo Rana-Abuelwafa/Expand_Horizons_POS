@@ -1,4 +1,3 @@
-// src/redux/Slices/bookingSlice.js (updated)
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
@@ -11,6 +10,7 @@ import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
 
+// Builds authenticated JSON headers for booking endpoints.
 const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
@@ -24,41 +24,17 @@ const getAuthHeaders = () => {
   };
 };
 
-// const getNoTokenAuthHeaders = () => {
-//   let lang = localStorage.getItem("lang") || "en";
-//   return {
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Accept-Language": lang,
-//     },
-//   };
-// };
-
-// Async thunk for checking availability
+// Creates/updates a booking draft and returns availability + booking IDs.
 export const checkAvailability = createAsyncThunk(
   "booking/checkAvailability",
   async (bookingData, { rejectWithValue }) => {
-    // Check authentication with proper scenario detection
-    // if (isUserNotLoggedIn()) {
-    //   return rejectWithValue(createAuthError("notLoggedIn"));
-    // }
-
-    // if (isTokenExpiredOnly()) {
-    //   return rejectWithValue(createAuthError("expired"));
-    // }
-
-    // if (!checkAUTH()) {
-    //   return rejectWithValue(createAuthError("expired"));
-    // }
 
     try {
       const response = await api.post(
         `${BOOKING_URL}/SaveClientBooking`,
         bookingData,
-        //getAuthHeaders(),
       );
 
-      // Handle API response with success: false
       if (response.data.success === false) {
         return rejectWithValue(
           response.data.errors || "Failed to check availability",
@@ -67,11 +43,7 @@ export const checkAvailability = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      // if (error.response?.status === 401) {
-      //   return rejectWithValue(createAuthError("expired"));
-      // }
 
-      // Handle API error response format
       if (error.response?.data?.success === false) {
         return rejectWithValue(error.response.data.errors || error.message);
       }
@@ -90,6 +62,7 @@ const bookingSlice = createSlice({
     availabilityData: null,
   },
   reducers: {
+    // Resets booking request state after completion or cancellation.
     resetBookingOperation: (state) => {
       state.loading = false;
       state.error = null;
@@ -105,7 +78,6 @@ const bookingSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Check availability
       .addCase(checkAvailability.pending, (state) => {
         state.loading = true;
         state.error = null;

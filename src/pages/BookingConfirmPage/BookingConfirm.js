@@ -4,6 +4,7 @@ import { FaRegCalendarCheck } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+// Shows booking success state and routes to printable confirmation.
 const BookingConfirm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const BookingConfirm = () => {
     }
   }, [state]);
 
+  // Opens print ticket page with persisted booking payload.
   const handleViewPrint = () => {
     if (!bookingData) {
       navigate("/");

@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Header.scss";
 import LogoSection from "../logoSection/LogoSection";
-import { FaArrowLeft } from "react-icons/fa";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
+
+// Shared top bar with back navigation and logo.
 function Header() {
   const navigate = useNavigate();
   return (

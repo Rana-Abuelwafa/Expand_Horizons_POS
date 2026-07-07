@@ -1,9 +1,8 @@
-// features/destinations/destinationsSlice.js
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// import api from "../../api/axios";
 const BASE_URL = process.env.REACT_APP_CLIENT_API_URL;
 
+// Non-auth headers for destination discovery APIs.
 const getNonAuthHeaders = () => {
   let lang = localStorage.getItem("lang");
   return {
@@ -14,6 +13,7 @@ const getNonAuthHeaders = () => {
   };
 };
 
+// Loads top-level destinations or filtered destination lists.
 export const fetchDestinations = createAsyncThunk(
   "destinations/fetchDestinations",
   async (params, { rejectWithValue }) => {
@@ -37,6 +37,7 @@ export const fetchDestinations = createAsyncThunk(
   }
 );
 
+// Loads children for a selected destination node.
 export const fetchDestChildren = createAsyncThunk(
   "destinations/fetchDestChildren",
   async (params, { rejectWithValue }) => {
@@ -60,6 +61,7 @@ export const fetchDestChildren = createAsyncThunk(
   }
 );
 
+// Loads destination trees by trip type (excursions/transfers/diving).
 export const fetchDestinationTree = createAsyncThunk(
   "destinations/fetchDestinationTree",
   async (params, { rejectWithValue }) => {

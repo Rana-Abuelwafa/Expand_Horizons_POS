@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+// Displays calculated route metrics under the transfer map.
 const RouteInfo = ({ distance, duration, price }) => {
   const { t } = useTranslation();
 

@@ -1,13 +1,12 @@
 import React from "react";
-import "./LoadingPage.scss";
 
+// Full-page loading state used during async page transitions.
 const LoadingPage = () => {
   return (
-    // Main wrapper div with a class for styling the entire loading page
     <div className="loading-page">
-      {/* Container for the loading content (GIF + text) */}
+      
       <div className="loading-content">
-        {/* Loading GIF to indicate loading progress */}
+        
         <img
           src={process.env.PUBLIC_URL + '/images/loading.gif'}
           alt="Loading..."
@@ -15,7 +14,7 @@ const LoadingPage = () => {
           loading="lazy" 
           decoding="async" 
         />
-        {/* Optional text shown under the loading animation */}
+        
         <p className="loading-text">Loading...</p>
       </div>
     </div>

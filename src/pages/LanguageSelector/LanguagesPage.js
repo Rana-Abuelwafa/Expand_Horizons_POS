@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import "./LanguagesPage.scss";
 import Header from "../../components/Header/Header";
 import { isTokenExpired, getUserData } from "../../utils/auth";
 import { fetchLanguages, setLanguages } from "../../redux/Slices/languageSlice";
 
+// Language selector entry page that routes by current auth state.
 const LanguagesPage = () => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
@@ -17,6 +17,7 @@ const LanguagesPage = () => {
     dispatch(fetchLanguages());
   }, [dispatch]);
 
+  // Persists language and routes users to next step based on token validity.
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     localStorage.setItem("i18nextLng", lng); // persist language

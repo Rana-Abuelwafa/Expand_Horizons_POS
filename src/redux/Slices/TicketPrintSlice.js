@@ -1,32 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import {
-  checkAUTH,
-  isUserNotLoggedIn,
-  isTokenExpiredOnly,
-} from "../../helper/helperFN";
-import { createAuthError } from "../../utils/authError";
 import api from "../../api/axios";
 const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
 
-const getAuthHeaders = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = user?.accessToken;
-  let lang = localStorage.getItem("lang") || "en";
-  return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "Accept-Language": lang,
-    },
-  };
-};
-
-// Async thunk to confirm booking
+// Calls backend print endpoint and returns print confirmation payload.
 export const PrintTicketAPI = createAsyncThunk(
   "ticket/PrintTicket",
   async (TicketData, { rejectWithValue }) => {
-    // Check authentication with proper scenario detection
 
     try {
       const response = await api.post(`${BOOKING_URL}/PrintTicket`, TicketData);
@@ -49,7 +28,6 @@ const TicketPrintSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Confirm Booking
       .addCase(PrintTicketAPI.pending, (state) => {
         state.loading = true;
         state.error = null;

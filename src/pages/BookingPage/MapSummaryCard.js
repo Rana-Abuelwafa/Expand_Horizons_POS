@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import "./MapSummaryCard.scss";
+
+// Displays pickup/drop route summary before contact and confirmation steps.
 function MapSummaryCard({
   pickupAddress,
   dropAddress,
@@ -13,7 +14,7 @@ function MapSummaryCard({
     <div className="booking-summary-card">
       <div className="summary-header">
         <h3>{t("bookingMap.BookingDetails")}</h3>
-        {/* <span className="status">Estimated</span> */}
+        
       </div>
 
       <div className="location-section">
@@ -26,7 +27,7 @@ function MapSummaryCard({
           </div>
         </div>
 
-        {/* <div className="route-line"></div> */}
+        
 
         <div className="location-item drop">
           <div className="marker"></div>

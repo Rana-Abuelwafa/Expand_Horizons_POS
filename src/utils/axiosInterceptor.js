@@ -9,7 +9,6 @@ const API_BASE_URLS = {
   contact: process.env.REACT_APP_CONTACT_API_URL,
 };
 
-// Create API instances
 export const authApi = axios.create({ baseURL: API_BASE_URLS.auth });
 export const clientApi = axios.create({ baseURL: API_BASE_URLS.client });
 export const bookingApi = axios.create({ baseURL: API_BASE_URLS.booking });
@@ -17,11 +16,10 @@ export const contactApi = axios.create({ baseURL: API_BASE_URLS.contact });
 
 const apiInstances = [authApi, clientApi, bookingApi, contactApi];
 
-// --- REQUEST INTERCEPTOR ---
+// Adds common headers and auth token to outgoing requests.
 const requestInterceptor = (config) => {
   const lang = localStorage.getItem("lang") || "en";
 
-  // Skip token for login and refresh
   if (config.url.includes("/login") || config.url.includes("/refresh")) {
     return config;
   }
@@ -41,10 +39,10 @@ const requestInterceptor = (config) => {
   return config;
 };
 
-// --- REFRESH TOKEN QUEUE ---
 let isRefreshing = false;
 let failedQueue = [];
 
+// Resolves or rejects all queued requests after refresh completes.
 const processQueue = (error, token = null) => {
   failedQueue.forEach((prom) => {
     error ? prom.reject(error) : prom.resolve(token);
@@ -52,12 +50,10 @@ const processQueue = (error, token = null) => {
   failedQueue = [];
 };
 
-// --- RESPONSE INTERCEPTOR ---
-// In axiosInterceptor.js - update the response interceptor
+// Retries failed requests once after token refresh and handles auth fallback.
 const responseInterceptor = async (error) => {
   const originalRequest = error.config;
 
-  // Handle 401 Unauthorized
   if (error.response?.status === 401 && !originalRequest._retry) {
     console.log("Token expired, attempting refresh...");
     originalRequest._retry = true;
@@ -111,26 +107,21 @@ const responseInterceptor = async (error) => {
 
       console.log("New token received, updating storage...");
 
-      // Update localStorage with new tokens
       localStorage.setItem("user", JSON.stringify(newUser));
       localStorage.setItem("token", newToken);
 
-      // Update all axios instances with new token
       apiInstances.forEach((instance) => {
         instance.defaults.headers.common.Authorization = `Bearer ${newToken}`;
       });
 
-      // Process queued requests with new token
       processQueue(null, newToken);
 
-      // Update and retry the original request
       originalRequest.headers.Authorization = `Bearer ${newToken}`;
       console.log("Retrying original request with new token");
       return originalRequest.instance(originalRequest);
     } catch (err) {
       console.error("Token refresh failed:", err);
 
-      // Process queued requests with error
       processQueue(err, null);
       localStorage.removeItem("user");
       localStorage.removeItem("token");
@@ -151,7 +142,6 @@ const responseInterceptor = async (error) => {
     }
   }
 
-  // Handle 403 Forbidden
   if (error.response?.status === 403) {
     console.log("Access forbidden, redirecting to login");
     window.dispatchEvent(
@@ -164,7 +154,6 @@ const responseInterceptor = async (error) => {
   return Promise.reject(error);
 };
 
-// Apply interceptors to all API instances
 apiInstances.forEach((instance) => {
   instance.interceptors.request.use(requestInterceptor);
   instance.interceptors.response.use(
@@ -176,10 +165,9 @@ apiInstances.forEach((instance) => {
   );
 });
 
-// Helper function to check if token refresh is in progress
 export const isRefreshingToken = () => isRefreshing;
 
-// Helper function to manually trigger token refresh
+// Allows explicit refresh calls from UI flows that need a fresh token immediately.
 export const manualTokenRefresh = async () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const refreshToken = user?.refreshToken;
@@ -205,7 +193,6 @@ export const manualTokenRefresh = async () => {
       localStorage.setItem("user", JSON.stringify(newUserData));
       localStorage.setItem("token", newUserData.accessToken);
 
-      // Update all instances
       const newToken = newUserData.accessToken;
       apiInstances.forEach((instance) => {
         instance.defaults.headers.common.Authorization = `Bearer ${newToken}`;
