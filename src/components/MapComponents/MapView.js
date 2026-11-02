@@ -23,14 +23,16 @@ const MapView = ({ pickup, drop, route }) => {
       style={{ height: "100%", width: "100%" }}
       ref={mapRef}
     >
-      
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         attribution="&copy; OpenStreetMap contributors &copy; CARTO"
       />
-      
-      
-      
+
+      {/* <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution="&copy; OpenStreetMap contributors"
+      /> */}
+
       {pickup && <Marker position={pickup} icon={customIcon} />}
       {drop && <Marker position={drop} icon={customIcon} />}
       {route?.length > 0 && <Polyline positions={route} />}

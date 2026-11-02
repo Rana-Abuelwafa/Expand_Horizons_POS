@@ -27,6 +27,7 @@
     "BookNow": "Buchen Sie jetzt"
   },
   "common": {
+    "Payment": "betaling",
     "print": "Drucken",
     "download": "Herunterladen",
     "bookingTicket": "Buchungsbeleg",
@@ -211,6 +212,7 @@
       }
     },
     "payment": {
+      "PriceNotFound": "Preis nicht gefunden",
       "title": "Wählen Sie Ihre Zahlungsmethode",
       "countryOfBank": "Bankland",
       "iban": "IBAN",

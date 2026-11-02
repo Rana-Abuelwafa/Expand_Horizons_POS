@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import { FiPrinter, FiDownload } from "react-icons/fi";
+import { FiPrinter, FiDownload, FiCreditCard } from "react-icons/fi";
+import Swal from "sweetalert2";
 import {
   FaFacebookF,
   FaInstagram,
@@ -9,16 +10,23 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import html2canvas from "html2canvas";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PrintTicketAPI } from "../../redux/Slices/TicketPrintSlice";
+import { PaymentAPI } from "../../redux/Slices/PaymentSlice";
+import { ConvertCurrency, PayBooking } from "../../redux/Slices/confirmSlice";
 import jsPDF from "jspdf";
+import LoadingPage from "../Loader/LoadingPage";
 
 // Renders confirmation ticket and supports print/download actions.
 const PrintTicket = ({ bookingData }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const ticketRef = useRef();
+  const [Payed, setPayed] = useState(false);
+  const { PayedPrice } = useSelector((state) => state.confirmBooking);
+  const { loading: paymentLoading } = useSelector((state) => state.payment);
 
+  const { loading: ticketLoading } = useSelector((state) => state.ticket);
   const tripTitle =
     bookingData?.pickup_location && bookingData?.dropoff_location
       ? `${bookingData.pickup_location} - ${bookingData.dropoff_location}`
@@ -44,9 +52,62 @@ const PrintTicket = ({ bookingData }) => {
   const needHelpText = t("common.needHelp") || "Need help? Contact us at";
   const orCallText = t("common.orCall") || "or call";
 
+  console.log("bookingData ", bookingData);
+  //handle payment
+  const handlePayment = () => {
+    const data = {
+      TrxType: "00",
+      Amount: PayedPrice,
+      RefNum: "",
+      ReceiptNum: "",
+    };
+    if (PayedPrice > 0) {
+      dispatch(PaymentAPI(data)).then((result) => {
+        // console.log("ssssssssss ", result);
+        if (result?.payload?.success) {
+          Swal.fire({
+            icon: "success",
+            title: "congrats...",
+            text: result.payload.message,
+          });
+          dispatch(
+            PayBooking({
+              booking_id: bookingData?.booking_id,
+              clientId: bookingData?.clientId,
+            }),
+          ).then((result) => {
+            if (result?.payload?.success) {
+              setPayed(true);
+            } else {
+              setPayed(false);
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: result.payload.message,
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: t("bookings.payment.PriceNotFound"),
+      });
+    }
+  };
+  useEffect(() => {
+    dispatch(
+      ConvertCurrency({ amount: bookingData?.total_price, toCurr: "EGP" }),
+    );
+
+    return () => {};
+  }, [dispatch, bookingData]);
+
   // Sends printable ticket payload to backend print endpoint.
   const handlePrint = () => {
-
     const TicketData = {
       BookingNo: bookingData?.BookingNo,
       client_name: bookingData?.client_name,
@@ -64,7 +125,7 @@ const PrintTicket = ({ bookingData }) => {
       lang_code: bookingData?.lang_code,
     };
     dispatch(PrintTicketAPI(TicketData)).then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   };
 
@@ -105,8 +166,6 @@ const PrintTicket = ({ bookingData }) => {
     }
   };
 
-  
-
   // Formats booking date in current UI locale for ticket display.
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString(
@@ -132,16 +191,22 @@ const PrintTicket = ({ bookingData }) => {
         >
           <FiPrinter /> {t("common.print") || "Print"}
         </Button>
-        <Button
+        {/* <Button
           variant="outline-primary"
           className="action-btn"
           onClick={handleDownload}
           disabled={!bookingData}
         >
           <FiDownload /> {t("common.download") || "Download"}
+        </Button> */}
+        <Button
+          variant="outline-primary"
+          className="action-btn"
+          onClick={handlePayment}
+          disabled={!bookingData || Payed == true}
+        >
+          <FiCreditCard /> {t("common.Payment") || "Payment"}
         </Button>
-        
-        
       </div>
 
       <div className="ticket-wrapper" ref={ticketRef}>
@@ -167,20 +232,18 @@ const PrintTicket = ({ bookingData }) => {
             </p>
             <p className="greeting-text">
               {thankYouMessage} {bookingRouteMessage}{" "}
-              <strong>{bookingData?.booking_id}</strong> {forRouteConfirmed}{" "}
+              <strong>{bookingData?.BookingNo}</strong> {forRouteConfirmed}{" "}
               <strong>{tripTitle}</strong> {isConfirmed}
             </p>
           </div>
 
           <div className="ticket-card">
+            <div className="ticket-card-item" style={{ marginBottom: "20px" }}>
+              <span className="item-label">{t("common.trip") || "Trip"}</span>
+              <span className="item-value">{tripTitle || "-"}</span>
+            </div>
             <div className="ticket-card-row">
               <div className="ticket-card-column">
-                <div className="ticket-card-item">
-                  <span className="item-label">
-                    {t("common.trip") || "Trip"}
-                  </span>
-                  <span className="item-value">{tripTitle || "-"}</span>
-                </div>
                 <div className="ticket-card-item">
                   <span className="item-label">
                     {t("common.date") || "Date"}
@@ -193,7 +256,7 @@ const PrintTicket = ({ bookingData }) => {
                 </div>
                 <div className="ticket-card-item">
                   <span className="item-label">
-                    {t("common.pickup") || "Pickup"}
+                    {t("bookings.steps.pickup") || "Pickup"}
                   </span>
                   <span className="item-value">
                     {bookingData?.pickup_location || "-"}
@@ -213,7 +276,7 @@ const PrintTicket = ({ bookingData }) => {
                     {t("common.bookingRef") || "Booking Ref"}
                   </span>
                   <span className="item-value">
-                    {bookingData?.booking_id || "-"}
+                    {bookingData?.BookingNo || "-"}
                   </span>
                 </div>
                 <div className="ticket-card-item">
@@ -291,6 +354,8 @@ const PrintTicket = ({ bookingData }) => {
           </div>
         </div>
       </div>
+      {paymentLoading && <LoadingPage />}
+      {ticketLoading && <LoadingPage />}
     </Container>
   );
 };

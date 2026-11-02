@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axios";
-const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
+// const BOOKING_URL = process.env.REACT_APP_BOOKING_API_URL;
+const BOOKING_URL = "http://localhost:5005/api/Printer";
 
 // Calls backend print endpoint and returns print confirmation payload.
 export const PrintTicketAPI = createAsyncThunk(
   "ticket/PrintTicket",
   async (TicketData, { rejectWithValue }) => {
-
     try {
       const response = await api.post(`${BOOKING_URL}/PrintTicket`, TicketData);
 

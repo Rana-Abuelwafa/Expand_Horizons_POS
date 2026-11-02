@@ -14,7 +14,10 @@ const BookingConfirm = () => {
   useEffect(() => {
     if (state?.bookingData) {
       setBookingData(state.bookingData);
-      localStorage.setItem("lastBookingData", JSON.stringify(state.bookingData));
+      localStorage.setItem(
+        "lastBookingData",
+        JSON.stringify(state.bookingData),
+      );
     } else if (state?.booking_id) {
       setBookingData(state);
       localStorage.setItem("lastBookingData", JSON.stringify(state));
@@ -40,24 +43,16 @@ const BookingConfirm = () => {
   };
 
   return (
-        <div className="booking-page">
-          <div className="booking-card">
-            <FaRegCalendarCheck className="booking-icon" />
-            <p className="booking-message">
-              {t("bookings.confirmation.title")}
-            </p>
-            <p className="booking-subtext">
-              {t("bookings.confirmation.subtitle")}
-            </p>
-            <Button
-              variant="primary"
-              className="okBtn"
-              onClick={handleViewPrint}
-            >
-              {t("common.viewPrint") || "View Print"}
-            </Button>
-          </div>
-        </div>
+    <div className="booking-page">
+      <div className="booking-card">
+        <FaRegCalendarCheck className="booking-icon" />
+        <p className="booking-message">{t("bookings.confirmation.title")}</p>
+        <p className="booking-subtext">{t("bookings.confirmation.subtitle")}</p>
+        <Button variant="primary" className="okBtn" onClick={handleViewPrint}>
+          {t("common.viewPrint") || "View Print"}
+        </Button>
+      </div>
+    </div>
   );
 };
 

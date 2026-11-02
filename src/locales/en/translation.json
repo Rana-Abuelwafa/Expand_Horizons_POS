@@ -27,6 +27,7 @@
     "BookNow": "Book Now"
   },
   "common": {
+    "Payment": "Payment",
     "print": "Print",
     "download": "Download",
     "bookingTicket": "Booking Ticket",
@@ -211,6 +212,7 @@
       }
     },
     "payment": {
+      "PriceNotFound": "Price Not Detected",
       "title": "Choose your payment method",
       "countryOfBank": "Country of bank",
       "iban": "IBAN",

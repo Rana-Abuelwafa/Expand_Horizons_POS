@@ -27,7 +27,6 @@ const getAuthHeaders = () => {
 export const confirmBooking = createAsyncThunk(
   "confirm/confirmBooking",
   async (confirmData, { rejectWithValue }) => {
-
     try {
       const response = await api.post(
         `${BOOKING_URL}/ConfirmBookingPos`,
@@ -41,6 +40,37 @@ export const confirmBooking = createAsyncThunk(
   },
 );
 
+//Update booking status to be payed after payment process
+export const PayBooking = createAsyncThunk(
+  "confirm/PayBooking",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await api.post(
+        `${BOOKING_URL}/PayBooking?booking_id=${data.booking_id}&clientId=${data.clientId}`,
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  },
+);
+
+//convert currency
+export const ConvertCurrency = createAsyncThunk(
+  "confirm/ConvertCurrency",
+  async (data, { rejectWithValue }) => {
+    // console.log("data ", data);
+    try {
+      const response = await api.post(
+        `${BOOKING_URL}/ConvertCurrency?amount=${data.amount}&toCurr=${data.toCurr}`,
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  },
+);
 const confirmSlice = createSlice({
   name: "confirm",
   initialState: {
@@ -48,6 +78,8 @@ const confirmSlice = createSlice({
     error: null,
     success: false,
     confirmed: false,
+    PayedPrice: 0,
+    Payed: false,
   },
   reducers: {
     // Resets confirmation state before a new confirmation attempt.
@@ -78,6 +110,38 @@ const confirmSlice = createSlice({
         state.error = action.payload;
         state.success = false;
         state.confirmed = false;
+      })
+      .addCase(ConvertCurrency.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(ConvertCurrency.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.PayedPrice = action.payload;
+      })
+      .addCase(ConvertCurrency.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.success = false;
+        state.PayedPrice = 0;
+      })
+      .addCase(PayBooking.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.Payed = false;
+      })
+      .addCase(PayBooking.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.Payed = action.payload?.success;
+      })
+      .addCase(PayBooking.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.success = false;
+        state.Payed = false;
       });
   },
 });

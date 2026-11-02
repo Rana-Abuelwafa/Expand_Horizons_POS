@@ -10,7 +10,7 @@ import priceCalculationReducer from "../Slices/priceCalculationSlice";
 import TicketPrintReducer from "../Slices/TicketPrintSlice";
 import transferCategoriesReducer from "../Slices/transferCategoriesSlice";
 import { authMiddleware } from "../../middleware/authMiddleware";
-
+import PaymentReducer from "../Slices/PaymentSlice";
 // Central Redux store: registers feature reducers and auth-aware middleware.
 export const store = configureStore({
   reducer: {
@@ -24,6 +24,7 @@ export const store = configureStore({
     priceCalculation: priceCalculationReducer,
     ticket: TicketPrintReducer,
     transferCategories: transferCategoriesReducer,
+    payment: PaymentReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),

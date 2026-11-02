@@ -9,10 +9,7 @@ import { confirmBooking } from "../../../redux/Slices/confirmSlice";
 import PopUp from "../../Shared/popup/PopUp";
 import DatePicker from "react-datepicker";
 import LoadingPage from "../../Loader/LoadingPage";
-import {
-  FaCalendarAlt,
-  FaChevronDown,
-} from "react-icons/fa";
+import { FaCalendarAlt, FaChevronDown } from "react-icons/fa";
 
 const ContactStep = ({ childAges, MapData }) => {
   const { t } = useTranslation();
@@ -22,10 +19,9 @@ const ContactStep = ({ childAges, MapData }) => {
 
   const currentLang = localStorage.getItem("lang") || "de";
   const { loading: bookingLoading } = useSelector((state) => state.booking);
-  const {
-    loading: confirmLoading,
-    error: confirmError,
-  } = useSelector((state) => state.confirmBooking);
+  const { loading: confirmLoading, error: confirmError } = useSelector(
+    (state) => state.confirmBooking,
+  );
 
   const [contactInfo, setContactInfo] = useState({
     fullName: "",
@@ -91,10 +87,31 @@ const ContactStep = ({ childAges, MapData }) => {
     return Object.keys(newErrors).length === 0;
   };
   const minDate = new Date();
-  minDate.setDate(minDate.getDate() + 1);
+  //minDate.setDate(minDate.getDate() + 1);
 
-  minDate.setHours(0, 0, 0, 0);
+  //minDate.setHours(0, 0, 0, 0);
+  // Restricts time selection to at least 5 minutes from now when the chosen day is today.
+  const isSelectedDateToday = () => {
+    const referenceDate = selectedDateTime || new Date();
+    return referenceDate.toDateString() === new Date().toDateString();
+  };
 
+  const getMinTime = () => {
+    if (isSelectedDateToday()) {
+      const min = new Date();
+      min.setMinutes(min.getMinutes() + 5);
+      return min;
+    }
+    const min = new Date();
+    min.setHours(0, 0, 0, 0);
+    return min;
+  };
+
+  const getMaxTime = () => {
+    const max = new Date();
+    max.setHours(23, 59, 0, 0);
+    return max;
+  };
   const filterDate = (date) => {
     return date >= minDate;
   };
@@ -214,6 +231,7 @@ const ContactStep = ({ childAges, MapData }) => {
           vehicle_id: localStorage.getItem("horizon_pos_vehicle_id"),
           trip_name: localStorage.getItem("horizon_pos_vehicle_name"),
           lang_code: currentLang,
+          clientId: clientId,
         };
 
         localStorage.setItem(
@@ -312,7 +330,7 @@ const ContactStep = ({ childAges, MapData }) => {
             )}
           </Form.Group>
           <Form.Group className="form-group">
-            <DatePicker
+            {/* <DatePicker
               selected={selectedDateTime}
               onChange={(date) => setSelectedDateTime(date)}
               customInput={<CustomInput />}
@@ -327,6 +345,24 @@ const ContactStep = ({ childAges, MapData }) => {
               popperClassName="custom-datepicker-popper"
               inline={false}
               shouldCloseOnSelect={true}
+            /> */}
+            <DatePicker
+              selected={selectedDateTime}
+              onChange={(date) => setSelectedDateTime(date)}
+              customInput={<CustomInput />}
+              minDate={minDate}
+              filterDate={filterDate}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={30}
+              minTime={getMinTime()}
+              maxTime={getMaxTime()}
+              timeCaption={t("booking.date.time")}
+              dateFormat="EEE, MMM d, yyyy HH:mm"
+              showPopperArrow={false}
+              popperClassName="custom-datepicker-popper"
+              inline={false}
+              shouldCloseOnSelect={true}
             />
             {errors.selectedDateTime && (
               <div className="error-message">{errors.selectedDateTime}</div>
@@ -334,8 +370,6 @@ const ContactStep = ({ childAges, MapData }) => {
           </Form.Group>
 
           <Form.Group className="form-group">
-            
-
             <Form.Control
               type="number"
               min={1}
@@ -372,12 +406,10 @@ const ContactStep = ({ childAges, MapData }) => {
             disabled={isLoading}
           >
             {t("bookings.contact.confirmButton")}
-            
           </button>
         </Form>
       </div>
 
-      
       {showPopup && (
         <PopUp
           show={showPopup}
